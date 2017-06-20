@@ -16,6 +16,8 @@ Vue.config.productionTip = false
 import '../static/mui/css/mui.min.css'
 import '../static/mui/js/mui.min.js'
 
+// 引入自己编写的全局样式，用于覆盖mint-ui和mui中的样式
+
 Vue.use(VueRouter)
 Vue.use(mint)
 

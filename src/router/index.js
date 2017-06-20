@@ -1,7 +1,11 @@
 import App from '../App'
-const home = r => require.ensure([], () => r(require('../pages/home/home')), 'home')
-const login = r => require.ensure([], () => r(require('../pages/login/login')), 'login')
-const register = r => require.ensure([], () => r(require('../pages/register/register')), 'register')
+const home = r => require.ensure([], () => r(require('../pages/home/home')), 'home')// 首页
+const login = r => require.ensure([], () => r(require('../pages/login/login')), 'login')// 登录
+const register = r => require.ensure([], () => r(require('../pages/register/register')), 'register')// 注册
+const eventsList = r => require.ensure([], () => r(require('../pages/activity/eventsList')), 'eventsList')// 活动列表
+const initiateActivities = r => require.ensure([], () => r(require('../pages/activity/initiateActivities')), 'initiateActivities')// 发布活动
+const editActivities = r => require.ensure([], () => r(require('../pages/activity/editActivities')), 'editActivities')// 编辑活动
+const eventDetails = r => require.ensure([], () => r(require('../pages/activity/eventDetails')), 'eventDetails')// 活动详情
 const nopage = r => require.ensure([], () => r(require('../pages/nopage')), 'nopage')
 export default [{
   path: '/',
@@ -15,6 +19,22 @@ export default [{
     {
       path: '/home',
       component: home
+    },
+    {
+      path: '/eventsList',
+      component: eventsList
+    },
+    {
+      path: '/initiateActivities',
+      component: initiateActivities
+    },
+    {
+      path: '/editActivities',
+      component: editActivities
+    },
+    {
+      path: '/eventDetails',
+      component: eventDetails
     },
     {
       path: '/login',
