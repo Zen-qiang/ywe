@@ -6,6 +6,7 @@ const eventsList = r => require.ensure([], () => r(require('../pages/activity/ev
 const initiateActivities = r => require.ensure([], () => r(require('../pages/activity/initiateActivities')), 'initiateActivities')// 发布活动
 const editActivities = r => require.ensure([], () => r(require('../pages/activity/editActivities')), 'editActivities')// 编辑活动
 const eventDetails = r => require.ensure([], () => r(require('../pages/activity/eventDetails')), 'eventDetails')// 活动详情
+const signActivities = r => require.ensure([], () => r(require('../pages/activity/signActivities')), 'signActivities')// 活动报名
 const nopage = r => require.ensure([], () => r(require('../pages/nopage')), 'nopage')
 export default [{
   path: '/',
@@ -35,6 +36,10 @@ export default [{
     {
       path: '/eventDetails',
       component: eventDetails
+    },
+    {
+      path: '/signActivities',
+      component: signActivities
     },
     {
       path: '/login',

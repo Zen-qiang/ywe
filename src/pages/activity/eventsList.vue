@@ -1,72 +1,105 @@
 <template>
   <div>
-    <h2>活动列表</h2>
-    <div>
-      <mt-search v-model="value" cancel-text="取s消" placeholder="搜s索"></mt-search>
-    </div>
+    <!--<h2>活动列表</h2>-->
 
-    <div class="mui-content">
-      <div class="mui-card">
-        <ul class="mui-table-view">
-          <li class="mui-table-view-cell mui-collapse">
-            <a class="mui-navigate-right" href="#">表单</a>
-            <div class="mui-collapse-content">
-              <form class="mui-input-group">
-                <div class="mui-input-row">
-                  <label>Input</label>
-                  <input type="text" placeholder="普通输入框">
-                </div>
-                <div class="mui-button-row">
-                  <button class="mui-btn mui-btn-primary" type="button" onclick="return false;">确认</button>&nbsp;&nbsp;
-                  <button class="mui-btn mui-btn-primary" type="button" onclick="return false;">取消</button>
-                </div>
-              </form>
-            </div>
-          </li>
-        </ul>
+      <mt-search v-model="value" cancel-text="取消" placeholder="请输入附近关键字" class="dinglian-eventsList-search"></mt-search>
+
+    <!--筛选条件 start-->
+      <div>
+        <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">智能排序</a>
+          <ul class="mui-table-view mui-table-view-chevron">
+            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">iOS</a>
+            </li>
+            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">Android</a>
+            </li>
+            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">HTML5</a>
+            </li>
+          </ul>
+        </li>
+        <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">全部分类</a>
+          <ul class="mui-table-view mui-table-view-chevron">
+            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">PC方案</a>
+            </li>
+            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">手机方案</a>
+            </li>
+            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">TV方案</a>
+            </li>
+          </ul>
+        </li>
+        <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">活动状态</a>
+          <ul class="mui-table-view mui-table-view-chevron">
+            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">公司新闻</a>
+            </li>
+            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">行业新闻</a>
+            </li>
+          </ul>
+        </li>
       </div>
-    </div>
+    <!--筛选条件 end-->
 
-    <!-- 底部-->
-    <mt-tab-container>
-      <mt-tabbar v-model="selected" fixed>
+    <!--list start-->
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media clearfix">
+          <a href="javascript:;">
+            <img class="mui-media-object mui-pull-left" src="#">
+            <div class="mui-media-body">
+              幸福<span>状态</span>
+              <p>个人组织 2017／4／20发布</p>
+              <p class='mui-ellipsis'>
+                 <span>桌游icon</span>
+                <i>报名人数</i>
+                <em>money</em>
+                <p>时间</p>
+                <p>地址</p>
+              </p>
+            </div>
+          </a>
+        </li>
+      </ul>
+    <!--<ul class="mui-table-view">
+      <li v-for="item in list" class="mui-table-view-cell mui-media clearfix">
+        <a href="javascript:;">
+          <img class="mui-media-object mui-pull-left" :src="item.picture">
+          <div class="mui-media-body">
+            {{item.shortname}}<span>状态</span>
+            <p>个人组织 2017／4／20发布</p>
+            <p class='mui-ellipsis'>
+              <span>桌游icon</span>
+              <i>报名人数</i>
+              <em>money</em>
+            <p>时间</p>
+            <p>地址</p>
+            </p>
+          </div>
+        </a>
+      </li>
+    </ul>-->
 
-        <mt-tab-item id="home">
-          <img slot="icon" src="">
-          首页
-        </mt-tab-item>
-
-        <mt-tab-item id="circle">
-          <img slot="icon" src="">
-          圈子
-        </mt-tab-item>
-
-
-        <router-link to="/initiateActivities">
-          <mt-tab-item id="activity">
-            <img slot="icon" src="">
-            活动
-          </mt-tab-item>
-        </router-link>
-
-
-        <mt-tab-item id="message">
-          <img slot="icon" src="">
-          消息
-        </mt-tab-item>
-        <mt-tab-item id="self">
-          <img slot="icon" src="">
-          我的
-        </mt-tab-item>
-      </mt-tabbar>
-    </mt-tab-container>
-
+    <!--list end-->
 
   </div>
 </template>
 <script>
-
+  export default {
+    data () {
+      return {
+      }
+    }
+  }
 </script>
-<style>
+<style scoped>
+  .dinglian-eventsList-search{
+    height: 20%;
+  }
+  ul li a img {
+    width: 100px;
+    height: 100px;
+
+  }
+  ul li a div {
+    width: 300px;
+    height: 100px;
+
+  }
 
 </style>
