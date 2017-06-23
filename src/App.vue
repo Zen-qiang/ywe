@@ -6,8 +6,22 @@
   </div>
 </template>
 <script>
-  export default{
+import * as types from './store/mutation-types'
+import {mapState} from 'vuex'
+export default {
+  name: 'app',
+  computed: mapState({
+    token: state => state.token
+  }),
+  methods: {
+    logout () {
+      this.$store.commit(types.LOGOUT)
+      this.$router.push({
+        path: '/'
+      })
+    }
   }
+}
 </script>
 
 <style>
