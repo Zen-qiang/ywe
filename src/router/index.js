@@ -1,5 +1,9 @@
 import App from '../App'
 const home = r => require.ensure([], () => r(require('../pages/home/home')), 'home')// 首页
+const circle = r => require.ensure([], () => r(require('../pages/circle/circle')), 'circle')// 圈子
+const activity = r => require.ensure([], () => r(require('../pages/activity/eventsList')), 'activity')// 活动
+const message = r => require.ensure([], () => r(require('../pages/message/message')), 'message')// 消息
+const account = r => require.ensure([], () => r(require('../pages/account/account')), 'account')// 我的
 const login = r => require.ensure([], () => r(require('../pages/login/login')), 'login')// 登录
 const register = r => require.ensure([], () => r(require('../pages/register/register')), 'register')// 注册
 const eventsList = r => require.ensure([], () => r(require('../pages/activity/eventsList')), 'eventsList')// 活动列表
@@ -20,6 +24,22 @@ export default [{
     {
       path: '/home',
       component: home
+    },
+    {
+      path: '/circle',
+      component: circle
+    },
+    {
+      path: '/activity',
+      component: activity
+    },
+    {
+      path: '/message',
+      component: message
+    },
+    {
+      path: '/account',
+      component: account
     },
     {
       path: '/eventsList',
