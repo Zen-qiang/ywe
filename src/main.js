@@ -17,6 +17,7 @@ import '../static/mui/css/mui.min.css'
 import '../static/mui/js/mui.min.js'
 
 // 引入自己编写的全局样式，用于覆盖mint-ui和mui中的样式
+import '../static/mui/css/global.css'
 
 Vue.use(VueRouter)
 Vue.use(mint)

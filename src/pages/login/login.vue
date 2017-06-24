@@ -1,10 +1,18 @@
 <template>
 <div>
   <div class="dinglian-login-logo"></div>
-  <mt-field class="dinglian-login-tel" label="手机号" placeholder="请输入手机号" type="tel" v-model="phone"></mt-field>
-
-  <mt-field class="dinglian-login-code" label="验证码" v-model="captcha">
-
+  <div class="mui-input-row">
+    <label>手机号</label>
+    <input type="text" placeholder="请输入手机号">
+  </div>
+  <div class="mui-input-row">
+    <label>验证码</label>
+    <input type="text" placeholder="请输入验证码">
+  </div>
+    <div class="mui-input-row mui-password">
+      <label>密码</label>
+      <input type="password" class="mui-input-password">
+    </div>
   </mt-field><mt-button type="primary" size="large">确认</mt-button>
   <div class="dinglian-login-third">
     <ul class="clearfix">
@@ -14,10 +22,10 @@
     <li><router-link to="#">微博</router-link></li>
     </ul>
   </div>
-  <mt-footer>
+  <div>
     <router-link to="#">忘记密码</router-link>
     <router-link to="#">新用户</router-link>
-  </mt-footer>
+  </div>
 
 </div>
 
