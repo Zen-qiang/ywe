@@ -36,7 +36,6 @@ export default {
   },
   created () {
     let currentRouter = this.$route.path
-    console.log(currentRouter)
     // 默认切换成热门页面
     if (currentRouter === '/home') {
       currentRouter = '/home/hot'
