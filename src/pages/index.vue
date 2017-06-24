@@ -35,18 +35,14 @@
 export default {
   data () {
     return {
-      selected: 'home'
+      selected: ''
     }
   },
   watch: {
     selected: function (val, oldVal) {
-      console.log(val)
       // 这里就可以通过 val 的值变更来确定当前选中的tab
       this.$router.push({'path': val})
     }
-  },
-  created () {
-    this.$router.push({'path': this.selected})
   }
 }
 </script>

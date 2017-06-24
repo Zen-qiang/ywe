@@ -28,42 +28,52 @@ export default [{
       children: [
         {
           path: '/home',
+          name: 'home',
           component: home
         },
         {
           path: '/circle',
+          name: 'circle',
           component: circle
         },
         {
           path: '/activity',
+          name: 'activity',
           component: activity
         },
         {
           path: '/message',
+          name: 'message',
           component: message
         },
         {
           path: '/account',
+          name: 'account',
           component: account
         },
         {
           path: '/eventsList',
+          name: 'eventsList',
           component: eventsList
         },
         {
           path: '/initiateActivities',
+          name: 'initiateActivities',
           component: initiateActivities
         },
         {
           path: '/editActivities',
+          name: 'editActivities',
           component: editActivities
         },
         {
           path: '/eventDetails',
+          name: 'eventDetails',
           component: eventDetails
         },
         {
           path: '/signActivities',
+          name: 'signActivities',
           component: signActivities
         }
       ]
