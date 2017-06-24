@@ -1,4 +1,5 @@
 import App from '../App'
+const index = r => require.ensure([], () => r(require('../pages/index')), 'index')// 主页面
 const home = r => require.ensure([], () => r(require('../pages/home/home')), 'home')// 首页
 const circle = r => require.ensure([], () => r(require('../pages/circle/circle')), 'circle')// 圈子
 const activity = r => require.ensure([], () => r(require('../pages/activity/eventsList')), 'activity')// 活动
@@ -19,47 +20,53 @@ export default [{
     // 地址为空时跳转home页面
     {
       path: '',
-      redirect: '/home'
+      redirect: '/index'
     },
     {
-      path: '/home',
-      component: home
-    },
-    {
-      path: '/circle',
-      component: circle
-    },
-    {
-      path: '/activity',
-      component: activity
-    },
-    {
-      path: '/message',
-      component: message
-    },
-    {
-      path: '/account',
-      component: account
-    },
-    {
-      path: '/eventsList',
-      component: eventsList
-    },
-    {
-      path: '/initiateActivities',
-      component: initiateActivities
-    },
-    {
-      path: '/editActivities',
-      component: editActivities
-    },
-    {
-      path: '/eventDetails',
-      component: eventDetails
-    },
-    {
-      path: '/signActivities',
-      component: signActivities
+      path: '/index',
+      component: index,
+      children: [
+        {
+          path: '/home',
+          component: home
+        },
+        {
+          path: '/circle',
+          component: circle
+        },
+        {
+          path: '/activity',
+          component: activity
+        },
+        {
+          path: '/message',
+          component: message
+        },
+        {
+          path: '/account',
+          component: account
+        },
+        {
+          path: '/eventsList',
+          component: eventsList
+        },
+        {
+          path: '/initiateActivities',
+          component: initiateActivities
+        },
+        {
+          path: '/editActivities',
+          component: editActivities
+        },
+        {
+          path: '/eventDetails',
+          component: eventDetails
+        },
+        {
+          path: '/signActivities',
+          component: signActivities
+        }
+      ]
     },
     {
       path: '/login',
