@@ -1,6 +1,6 @@
 <template>
   <div>
-    home
+    account
   </div>
 </template>
 <script>
