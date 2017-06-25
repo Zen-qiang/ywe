@@ -4,27 +4,32 @@
       <router-view></router-view>
       <mt-tabbar v-model="selected" fixed>
 
-        <mt-tab-item id="/home" >
-          <img slot="icon" src="">
+        <mt-tab-item id="/home" :class="{'tabbar-active': selected.includes('/home')}">
+          <img slot="icon" src="../static/images/home.png" v-show="!selected.includes('/home')">
+          <img slot="icon" src="../static/images/home-active.png" v-show="selected.includes('/home')">
           首页
         </mt-tab-item>
 
         <mt-tab-item id="/circle">
-          <img slot="icon" src="">
+          <img slot="icon" src="../static/images/circle.png" v-show="!selected.includes('/circle')">
+          <img slot="icon" src="../static/images/circle-active.png" v-show="selected.includes('/circle')">
           圈子
         </mt-tab-item>
 
         <mt-tab-item id="/activity">
-          <img slot="icon" src="">
+          <img slot="icon" src="../static/images/activity.png" v-show="!selected.includes('/activity')">
+          <img slot="icon" src="../static/images/activity-active.png" v-show="selected.includes('/activity')">
           活动
         </mt-tab-item>
 
         <mt-tab-item id="/message">
-          <img slot="icon" src="">
+          <img slot="icon" src="../static/images/message.png" v-show="!selected.includes('/message')">
+          <img slot="icon" src="../static/images/message-active.png" v-show="selected.includes('/message')">
           消息
         </mt-tab-item>
         <mt-tab-item id="/account">
-          <img slot="icon" src="">
+          <img slot="icon" src="../static/images/account.png" v-show="!selected.includes('/account')">
+          <img slot="icon" src="../static/images/account-active.png" v-show="selected.includes('/account')">
           我的
         </mt-tab-item>
       </mt-tabbar>
@@ -54,3 +59,15 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped="" type="text/css">
+$mainColor: #ffd300;
+.mint-tab-item {
+  color: #999999;
+}
+.mint-tab-item.is-selected{
+  color: $mainColor;
+}
+.tabbar-active {
+  color: $mainColor;
+}
+</style>

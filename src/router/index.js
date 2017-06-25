@@ -1,6 +1,8 @@
 import App from '../App'
 const index = r => require.ensure([], () => r(require('../pages/index')), 'index')// 主页面
 const home = r => require.ensure([], () => r(require('../pages/home/home')), 'home')// 首页
+const hot = r => require.ensure([], () => r(require('../pages/home/hot')), 'hot')// 首页热门
+const interest = r => require.ensure([], () => r(require('../pages/home/interest')), 'interest')// 首页兴趣
 const circle = r => require.ensure([], () => r(require('../pages/circle/circle')), 'circle')// 圈子
 const activity = r => require.ensure([], () => r(require('../pages/activity/eventsList')), 'activity')// 活动
 const message = r => require.ensure([], () => r(require('../pages/message/message')), 'message')// 消息
@@ -30,7 +32,19 @@ export default [{
         {
           path: '/home',
           name: 'home',
-          component: home
+          component: home,
+          children: [
+            {
+              path: '/home/hot',
+              name: 'hot',
+              component: hot
+            },
+            {
+              path: '/home/interest',
+              name: 'interest',
+              component: interest
+            }
+          ]
         },
         {
           path: '/circle',
