@@ -95,7 +95,7 @@ export default {
 .dinglian-home-recommend-tip {
   color: #ffffff;
   position: absolute;
-  z-index: 88;
+  z-index: 0.9;
   text-align: center;
 }
 .dinglian-home-recommend-tip-title {
