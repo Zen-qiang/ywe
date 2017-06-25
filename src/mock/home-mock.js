@@ -34,6 +34,43 @@ const intersetList = [
     tip: '乒乓'
   }
 ]
+const intersetList1 = [
+  {
+    imageUrl: require('../../static/table.png'),
+    targetUrl: '',
+    tip: '桌游'
+  },
+  {
+    imageUrl: require('../../static/dancing.png'),
+    targetUrl: '',
+    tip: '街舞'
+  },
+  {
+    imageUrl: require('../../static/basketball.png'),
+    targetUrl: '',
+    tip: '篮球'
+  },
+  {
+    imageUrl: require('../../static/pingpang.png'),
+    targetUrl: '',
+    tip: '乒乓'
+  },
+  {
+    imageUrl: require('../../static/table.png'),
+    targetUrl: '',
+    tip: '桌游'
+  },
+  {
+    imageUrl: require('../../static/dancing.png'),
+    targetUrl: '',
+    tip: '街舞'
+  },
+  {
+    imageUrl: require('../../static/basketball.png'),
+    targetUrl: '',
+    tip: '篮球'
+  }
+]
 const friendstList = [
   {
     imageUrl: require('../../static/1.jpg'),
@@ -56,8 +93,36 @@ const friendstList = [
     tip: '邀你玩'
   }
 ]
+const recommendList = [
+  {
+    imageUrl: require('../../static/1.jpg'),
+    targetUrl: '',
+    title: 'basketball gaming',
+    desc: 'Your talent amazes! This is awesome.Execited to see the final product.'
+  },
+  {
+    imageUrl: require('../../static/2.jpg'),
+    targetUrl: '',
+    title: 'basketball gaming',
+    desc: 'Your talent amazes! This is awesome.Execited to see the final product.'
+  },
+  {
+    imageUrl: require('../../static/3.jpg'),
+    targetUrl: '',
+    title: 'basketball gaming',
+    desc: 'Your talent amazes! This is awesome.Execited to see the final product.'
+  },
+  {
+    imageUrl: require('../../static/carousel1.jpg'),
+    targetUrl: '',
+    title: 'basketball gaming',
+    desc: 'Your talent amazes! This is awesome.Execited to see the final product.'
+  }
+]
 export default {
   carouselList,
   intersetList,
-  friendstList
+  intersetList1,
+  friendstList,
+  recommendList
 }
