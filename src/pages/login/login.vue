@@ -1,30 +1,33 @@
 <template>
-<div>
-  <div class="dinglian-login-logo"></div>
-  <div class="mui-input-row">
-    <label>手机号</label>
+<div class="dinglian-login-height">
+  <mt-header title="登录" class="dinglian-login-head">
+    <router-link to="/" slot="left">
+      <mt-button icon="back"></mt-button>
+    </router-link>
+  </mt-header>
+    <div class="dinglian-login-logo"></div>
+    <p class="dinglian-login-title">还迎加入出趣浪</p>
+  <div class="mui-input-row dinglian-login-tel">
     <input type="text" placeholder="请输入手机号">
   </div>
-  <div class="mui-input-row">
-    <label>验证码</label>
-    <input type="text" placeholder="请输入验证码">
-  </div>
-    <div class="mui-input-row mui-password">
-      <label>密码</label>
-      <input type="password" class="mui-input-password">
+    <div class="mui-input-row mui-password dinglian-login-psw">
+      <input type="password" class="mui-input-password" placeholder="请输入密码">
     </div>
-  </mt-field><mt-button type="primary" size="large">确认</mt-button>
-  <div class="dinglian-login-third">
-    <ul class="clearfix">
-    <li><router-link to="#">QQ</router-link></li>
-    <li><router-link to="#">微信</router-link></li>
-    <li><router-link to="#">支付宝</router-link></li>
-    <li><router-link to="#">微博</router-link></li>
-    </ul>
+  <mt-button type="primary" size="large" class="dinglian-login-btn dinglian-login-head">登录</mt-button>
+
+  <div class="clearfix dinglian-login-bottom">
+    <router-link to="#" class="dinglian-login-bottom-left">忘记密码</router-link>
+    <router-link to="#" class="dinglian-login-bottom-right">新用户</router-link>
   </div>
-  <div>
-    <router-link to="#">忘记密码</router-link>
-    <router-link to="#">新用户</router-link>
+    <ul class="dinglian-login-line clearfix">
+      <li class="dinglian-login-line-left"></li>
+      <li class="dinglian-login-line-middle">其他登录方式</li>
+      <li class="dinglian-login-line-right"></li>
+    </ul>
+
+  <div class="dinglian-login-loginWay clearfix">
+    <router-link to="#" class="dinglian-login-loginWay-left"><img src="../../assets/images/weixin.png" alt="微信" /></router-link>
+    <router-link to="#" class="dinglian-login-loginWay-right"><img src="../../assets/images/qq.png" alt="QQ"></router-link>
   </div>
 
 </div>
@@ -32,33 +35,101 @@
 </template>
 <script>
 export default {
-
+  data () {
+    return {
+      selected: ''
+    }
+  }
 }
+
 </script>
 <style>
-  .clearfix:after {
-    content: " ";
-    border:0;
-    display: block;
-    clear: both;
-    visibility: hidden;
+  .dinglian-login-height {
+    background-color: #ffffff;
+    height: 735px;
+  }
+  .dinglian-login-head {
+    background-color: #ffd200 ;
+    color: #333333;
+    margin:0 auto;
+    height: 45px;
   }
   .dinglian-login-logo {
-    width: 100px;
-    height: 100px;
-    background: #ffffff;
-    margin:0 auto;
+    background: url("../../assets/images/logo.png") no-repeat center center;
+    width: 70px;
+    height: 70px;
+    margin: 30px auto 10px;
   }
   .dinglian-login-tel{
-    background: #ffffff;
+    margin-top: 30px;
+    border-top:1px solid #f3f5f6;
+    border-bottom:1px solid #f3f5f6;
   }
-  .dinglian-login-code {
-    background: #ffffff;
+  .dinglian-login-tel input,.dinglian-login-psw input{
+    border:0;
+    height: 45px;
+    line-height: 45px;
+    margin-bottom: 0;
   }
-  .dinglian-login-third li {
+  .dinglian-login-psw {
+    border-bottom:1px solid #f3f5f6;
+  }
+  .dinglian-login-btn{
+    width: 92%;
+    margin-top: 22px;
+  }
+  .dinglian-login-bottom{
+    font-size: 16px;
+    padding-top: 16px;
+
+  }
+  .dinglian-login-bottom-left {
     float: left;
-    list-style: none;
-    margin-left: 10px;
+    padding-left: 4%;
+    color: #d4d8dc;
   }
+  .dinglian-login-bottom-right {
+    float: right;
+    padding-right: 4%;
+    color: #d4d8dc;
+  }
+  .dinglian-login-line{
+
+  }
+  .dinglian-login-line li{
+    list-style: none;
+    float: left;
+  }
+   .dinglian-login-line-left{
+    padding-top: 140px;
+     width: 95px;
+     border-bottom: 1px solid #f9f9f9;
+  }
+  .dinglian-login-line-middle{
+    color: #838383;
+    font-size: 16px;
+    padding-top: 130px;
+    margin:0 20px;
+  }
+  .dinglian-login-line-right{
+    padding-top: 140px;
+    width: 95px;
+    border-bottom: 1px solid #f9f9f9;
+  }
+  .dinglian-login-loginWay{
+    height: 100px;
+    line-height: 100px;
+  }
+  .dinglian-login-loginWay-left{
+    float: left;
+    margin-left: 35px;
+    padding-top: 20px;
+  }
+  .dinglian-login-loginWay-right{
+    float: right;
+    margin-right: 35px;
+    padding-top: 20px;
+  }
+
 </style>
 

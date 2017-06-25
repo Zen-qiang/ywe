@@ -12,6 +12,7 @@ const initiateActivities = r => require.ensure([], () => r(require('../pages/act
 const editActivities = r => require.ensure([], () => r(require('../pages/activity/editActivities')), 'editActivities')// 编辑活动
 const eventDetails = r => require.ensure([], () => r(require('../pages/activity/eventDetails')), 'eventDetails')// 活动详情
 const signActivities = r => require.ensure([], () => r(require('../pages/activity/signActivities')), 'signActivities')// 活动报名
+const forgetPassword = r => require.ensure([], () => r(require('../pages/login/forgetPassword')), 'forgetPassword')// 忘记密码
 const nopage = r => require.ensure([], () => r(require('../pages/nopage')), 'nopage')
 export default [{
   path: '/',
@@ -81,6 +82,10 @@ export default [{
     {
       path: '/login',
       component: login
+    },
+    {
+      path: '/forgetPassword',
+      component: forgetPassword
     },
     {
       path: '/register',

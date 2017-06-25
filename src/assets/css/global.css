@@ -1,0 +1,16 @@
+.clearfix:after {
+  content: " ";
+  border:0;
+  display: block;
+  clear: both;
+  visibility: hidden;
+}
+body {
+  background-color: #f2f2f2;
+}
+p{
+  margin: 0;
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+}

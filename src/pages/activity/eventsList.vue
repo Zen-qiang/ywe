@@ -1,43 +1,46 @@
 <template>
   <div>
     <!--<h2>活动列表</h2>-->
-
-      <mt-search v-model="value" cancel-text="取消" placeholder="请输入附近关键字" class="dinglian-eventsList-search"></mt-search>
-
+      <div class="mui-input-row mui-search dinglian-eventsList-search">
+        <input type="search" class="mui-input-clear" placeholder="请输入附近关键字">
+      </div>
     <!--筛选条件 start-->
-      <div>
-        <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">智能排序</a>
-          <ul class="mui-table-view mui-table-view-chevron">
-            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">iOS</a>
-            </li>
-            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">Android</a>
-            </li>
-            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">HTML5</a>
-            </li>
-          </ul>
-        </li>
-        <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">全部分类</a>
-          <ul class="mui-table-view mui-table-view-chevron">
-            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">PC方案</a>
-            </li>
-            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">手机方案</a>
-            </li>
-            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">TV方案</a>
-            </li>
-          </ul>
-        </li>
-        <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">活动状态</a>
-          <ul class="mui-table-view mui-table-view-chevron">
-            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">公司新闻</a>
-            </li>
-            <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">行业新闻</a>
-            </li>
-          </ul>
-        </li>
+      <div class="dinglian-eventsList-filter clearfix">
+        <ul class="mui-table-view mui-table-view-chevron">
+          <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">智能排序</a>
+            <ul class="mui-table-view mui-table-view-chevron">
+              <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">iOS</a>
+              </li>
+              <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">Android</a>
+              </li>
+              <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">HTML5</a>
+              </li>
+            </ul>
+          </li>
+          <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">全部分类</a>
+            <ul class="mui-table-view mui-table-view-chevron">
+              <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">PC方案</a>
+              </li>
+              <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">手机方案</a>
+              </li>
+              <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">TV方案</a>
+              </li>
+            </ul>
+          </li>
+          <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">活动状态</a>
+            <ul class="mui-table-view mui-table-view-chevron">
+              <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">公司新闻</a>
+              </li>
+              <li class="mui-table-view-cell"><a class="mui-navigate-right" href="#">行业新闻</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
     <!--筛选条件 end-->
 
     <!--list start-->
+    <div>
       <ul class="mui-table-view">
         <li class="mui-table-view-cell mui-media clearfix">
           <a href="javascript:;">
@@ -56,6 +59,7 @@
           </a>
         </li>
       </ul>
+    </div>
     <!--<ul class="mui-table-view">
       <li v-for="item in list" class="mui-table-view-cell mui-media clearfix">
         <a href="javascript:;">
@@ -88,18 +92,27 @@
   }
 </script>
 <style scoped>
-  .dinglian-eventsList-search{
-    height: 20%;
+  div {
+    width:100%;
   }
-  ul li a img {
+  .dinglian-eventsList-search {
+
+    background-color: #ffd300;
+    width: 100%;
+  }
+  .dinglian-eventsList-search input{
+    margin:20px 30px 20px 25px;
+    width: 90%;
+    background-color: #ffffff;
+  }
+  .dinglian-eventsList-filter{
+    border:1px solid red;
     width: 100px;
-    height: 100px;
-
   }
-  ul li a div {
-    width: 300px;
-    height: 100px;
-
+  .dinglian-eventsList-filter .mui-collapse {
+    font-size: small;
+    width: 30%;
+    float: left;
   }
 
 </style>
