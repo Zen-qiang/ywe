@@ -54,6 +54,7 @@ export default {
     if (currentRouter === '/index') {
       currentRouter = '/home'
     }
+
     this.selected = currentRouter
     this.$router.push({'path': currentRouter})
   }

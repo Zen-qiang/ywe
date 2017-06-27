@@ -6,7 +6,7 @@
     </router-link>
   </mt-header>
     <div class="dinglian-login-logo"></div>
-    <p class="dinglian-login-title">还迎加入出趣浪</p>
+    <p class="dinglian-login-title">欢迎加入出趣浪</p>
   <div class="mui-input-row dinglian-login-tel">
     <input type="text" placeholder="请输入手机号">
   </div>
@@ -16,8 +16,8 @@
   <mt-button type="primary" size="large" class="dinglian-login-btn dinglian-login-head">登录</mt-button>
 
   <div class="clearfix dinglian-login-bottom">
-    <router-link to="#" class="dinglian-login-bottom-left">忘记密码</router-link>
-    <router-link to="#" class="dinglian-login-bottom-right">新用户</router-link>
+    <router-link to="/forgetPassword" class="dinglian-login-bottom-left">忘记密码</router-link>
+    <router-link to="/register" class="dinglian-login-bottom-right">新用户</router-link>
   </div>
     <ul class="dinglian-login-line clearfix">
       <li class="dinglian-login-line-left"></li>
@@ -43,7 +43,7 @@ export default {
 }
 
 </script>
-<style>
+<style scoped=''>
   .dinglian-login-height {
     background-color: #ffffff;
     height: 735px;

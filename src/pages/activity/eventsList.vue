@@ -40,45 +40,28 @@
     <!--筛选条件 end-->
 
     <!--list start-->
-    <div>
+    <div class="dinglian-eventsList-list">
       <ul class="mui-table-view">
         <li class="mui-table-view-cell mui-media clearfix">
-          <a href="javascript:;">
-            <img class="mui-media-object mui-pull-left" src="#">
-            <div class="mui-media-body">
-              幸福<span>状态</span>
-              <p>个人组织 2017／4／20发布</p>
+          <a href="javascript:;" class="clearfix">
+            <img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" src="../../assets/images/list.png">
+            <div class="mui-media-body dinglian-eventsList-rightInfo">
+              <h4>赵丽颖邀请你嘿嘿嘿</h4>
+              <p class="dinglian-eventsList-status clearfix"><span>个人组织 2017／4／23发布</span><em>进行中</em></p>
               <p class='mui-ellipsis'>
-                 <span>桌游icon</span>
-                <i>报名人数</i>
-                <em>money</em>
-                <p>时间</p>
-                <p>地址</p>
+                <div class="dinglian-eventsList-tag">
+                  <i>桌游</i>
+                  <strong>报名中3／6人</strong>
+                  <em>25元起</em>
+                </div>
+                <i>今天 16:00-18:00 星期二</i><br>
+                <em>体育馆 2.5KM</em>
               </p>
             </div>
           </a>
         </li>
       </ul>
     </div>
-    <!--<ul class="mui-table-view">
-      <li v-for="item in list" class="mui-table-view-cell mui-media clearfix">
-        <a href="javascript:;">
-          <img class="mui-media-object mui-pull-left" :src="item.picture">
-          <div class="mui-media-body">
-            {{item.shortname}}<span>状态</span>
-            <p>个人组织 2017／4／20发布</p>
-            <p class='mui-ellipsis'>
-              <span>桌游icon</span>
-              <i>报名人数</i>
-              <em>money</em>
-            <p>时间</p>
-            <p>地址</p>
-            </p>
-          </div>
-        </a>
-      </li>
-    </ul>-->
-
     <!--list end-->
 
   </div>
@@ -91,12 +74,12 @@
     }
   }
 </script>
-<style scoped>
+<style lang="scss" scoped="" type="text/css">
+  @import '../../assets/css/global.css';
   div {
     width:100%;
   }
   .dinglian-eventsList-search {
-
     background-color: #ffd300;
     width: 100%;
   }
@@ -106,13 +89,70 @@
     background-color: #ffffff;
   }
   .dinglian-eventsList-filter{
-    border:1px solid red;
-    width: 100px;
+    background-color: #ffffff;
   }
-  .dinglian-eventsList-filter .mui-collapse {
+  .mui-collapse {
     font-size: small;
-    width: 30%;
+    width: 130px;
     float: left;
   }
+  .mui-navigate-right{
+    width: 10px;
+  }
+  .dinglian-eventsList-list{
+    margin: 20px auto;
 
+  }
+  .dinglian-eventsList-list a{
+    height: 140px;
+  }
+  .dinglian-eventsList-leftImg{
+    height: 120px;
+    min-width: 120px;
+
+  }
+  .dinglian-eventsList-rightInfo{
+    width: 220px;
+  }
+  .dinglian-eventsList-rightInfo h4{
+    font-weight: 400;
+  }
+  .dinglian-eventsList-status span{
+    float: left;
+  }
+  .dinglian-eventsList-status em{
+    float: right;
+  }
+  .dinglian-eventsList-tag{
+    margin:5px;
+  }
+  .dinglian-eventsList-tag i {
+    background-color: #999999;
+    color: #ffffff;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    font-style: normal;
+    padding: 1px;
+  }
+  .dinglian-eventsList-tag strong {
+    border: 1px solid red;
+    border-radius: 5px;
+    color: red;
+    padding: 1px;
+    font-weight: 100;
+  }
+  .dinglian-eventsList-tag em{
+    color: red;
+    font-weight: 100;
+  }
+  .dinglian-eventsList-rightInfo > i{
+    font-weight: 100;
+    font-style: normal;
+    color: #333333;
+  }
+  .dinglian-eventsList-rightInfo > em{
+    font-weight: 100;
+    font-style: normal;
+    color: #b0b0b0;
+  }
 </style>

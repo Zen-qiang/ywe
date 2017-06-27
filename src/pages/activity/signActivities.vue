@@ -1,52 +1,67 @@
 <template>
 <!--活动报名-->
-  <div>
+  <div class="dinglian-signActivities-body">
+    <mt-header title="活动报名" class="dinglian-signActivities-head">
+      <router-link to="/" slot="left">
+        <mt-button icon="back"></mt-button>
+      </router-link>
+    </mt-header>
 
-    <ul class="mui-table-view">
-      <li class="mui-table-view-cell mui-media clearfix">
-        <a href="javascript:;">
-          <img class="mui-media-object mui-pull-left" src="#">
-          <div class="mui-media-body">
-            幸福<span>状态</span>
-            <p>个人组织 2017／4／20发布</p>
-            <p class='mui-ellipsis'>
-              <span>桌游icon</span>
-              <i>报名人数</i>
-              <em>money</em>
-            <p>时间</p>
-            <p>地址</p>
-            </p>
-          </div>
-        </a>
-      </li>
-    </ul>
+    <div class="dinglian-signActivities-list">
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media clearfix">
+          <a href="javascript:;" class="clearfix">
+            <img class="mui-media-object mui-pull-left dinglian-signActivities-leftImg" src="../../assets/images/list.png">
+            <div class="mui-media-body dinglian-signActivities-rightInfo">
+              <h4>赵丽颖邀请你嘿嘿嘿</h4>
+              <p class="dinglian-signActivities-status clearfix"><span>个人组织 2017／4／23发布</span><em>进行中</em></p>
+              <p class='mui-ellipsis'>
+              <div class="dinglian-signActivities-tag">
+                <i>桌游</i>
+                <strong>报名中3／6人</strong>
+                <em>25元起</em>
+              </div>
+              <i>今天 16:00-18:00 星期二</i><br>
+              <em>体育馆 2.5KM</em>
+              </p>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
 
-    <p>本活动还有3个名额可报名</p>
+    <p class="dinglian-signActivities-signUser">本活动还有3个名额可报名</p>
 
-    <div>
-      <span>报名信息</span>
-      <button type="button" class="mui-btn mui-btn-success mui-icon mui-icon-plus">添加好友</button>
+    <div class="dinglian-signActivities-signInfo">
+      <div class="mui-input-row">
+        <label>报名信息</label>
+        <button type="button" class="mui-btn mui-btn-success mui-icon mui-icon-plus dinglian-signActivities-addUser">添加好友</button>
+      </div>
       <div class="mui-input-row">
         <label>姓名</label>
-        <input type="text" placeholder="普通输入框">
+        <input type="text" disabled="disabled">
       </div>
       <div class="mui-input-row">
         <label>手机</label>
-        <input type="text" placeholder="普通输入框">
+        <input type="text" disabled="disabled">
       </div>
-      <li class="mui-table-view-cell">
+      <div class="mui-table-view-cell">
         <a class="mui-navigate-right">
           <span class="mui-badge mui-badge-danger">女</span>
           性别
         </a>
-      </li>
-
+      </div>
     </div>
 
-    <div>
-      <span>订单金额</span><i>¥10</i>
-      <p>支付方式</p>
-
+    <div class="dinglian-signActivities-signbfo">
+      <div class="mui-input-row">
+        <label>订单金额</label>
+        <input type="text" disabled="disabled" value="¥10">
+      </div>
+      <div class="mui-input-row">
+        <label>支付方式</label>
+        <input type="text" disabled="disabled">
+      </div>
       <ul class="mui-table-view mui-table-view-radio">
         <li class="mui-table-view-cell">
           <a class="mui-navigate-right">
@@ -54,18 +69,114 @@
           </a>
         </li>
       </ul>
-
     </div>
-      <p>我已同意协议</p>
-    <p>¥10 请在10分钟内完成操作</p>
-    <button type="button" class="mui-btn mui-btn-primary">去结算<span class="mui-badge mui-badge-primary">2</span></button>
-
-
+      <p class="dinglian-signActivities-signUser">我已同意协议</p>
+    <div class="mui-input-row dinglian-signActivities-checkout">
+      <div>¥10 请在10分钟内完成操作</div>
+      <button type="button" class="mui-btn mui-btn-primary">去结算<span class="mui-badge mui-badge-primary">2</span></button>
+    </div>
   </div>
 </template>
 <script>
 
 </script>
 <style>
+  .dinglian-signActivities-head {
+    background-color: #ffd200 ;
+    color: #333333;
+    margin:0 auto;
+    width: 100%;
+    height: 45px;
+    position: fixed;
+    top: 0;
+    z-index: 8
+  }
+  .dinglian-signActivities-list{
+    margin-top: 45px;
+
+  }
+  .dinglian-signActivities-list a{
+    height: 140px;
+  }
+  .dinglian-signActivities-leftImg{
+    min-height: 120px;
+    min-width: 120px;
+
+  }
+  .dinglian-signActivities-rightInfo{
+    width: 220px;
+  }
+  .dinglian-signActivities-rightInfo h4{
+    font-weight: 400;
+  }
+  .dinglian-signActivities-status span{
+    float: left;
+  }
+  .dinglian-signActivities-status em{
+    float: right;
+  }
+  .dinglian-signActivities-tag{
+    margin:5px;
+  }
+  .dinglian-signActivities-tag i {
+    background-color: #999999;
+    color: #ffffff;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    font-style: normal;
+    padding: 1px;
+  }
+  .dinglian-signActivities-tag strong {
+    border: 1px solid red;
+    border-radius: 5px;
+    color: red;
+    padding: 1px;
+    font-weight: 100;
+  }
+  .dinglian-signActivities-tag em{
+    color: red;
+    font-weight: 100;
+  }
+  .dinglian-signActivities-rightInfo > i{
+    font-weight: 100;
+    font-style: normal;
+    color: #333333;
+  }
+  .dinglian-signActivities-rightInfo > em{
+    font-weight: 100;
+    font-style: normal;
+    color: #b0b0b0;
+  }
+  .dinglian-signActivities-signUser{
+    height: 30px;
+    line-height: 30px;
+  }
+  .dinglian-signActivities-signInfo{
+    background-color: #ffffff;
+  }
+  .dinglian-signActivities-signInfo div,.dinglian-signActivities-signbfo div{
+    border-bottom: 1px solid #dddddd;
+  }
+  .dinglian-signActivities-signInfo .dinglian-signActivities-addUser{
+    width: 24%;
+  }
+  .dinglian-signActivities-signbfo{
+    background-color: #ffffff;
+    margin-top: 20px;
+  }
+  .dinglian-signActivities-body .dinglian-signActivities-checkout{
+    background-color: #ffffff ;
+    color: red;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    position: fixed;
+    bottom: 0;
+    z-index: 8
+  }
+  .dinglian-signActivities-checkout>div{
+    float: left;
+    width: 50px;
+  }
 
 </style>

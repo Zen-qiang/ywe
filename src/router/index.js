@@ -70,26 +70,6 @@ export default [{
           path: '/eventsList',
           name: 'eventsList',
           component: eventsList
-        },
-        {
-          path: '/initiateActivities',
-          name: 'initiateActivities',
-          component: initiateActivities
-        },
-        {
-          path: '/editActivities',
-          name: 'editActivities',
-          component: editActivities
-        },
-        {
-          path: '/eventDetails',
-          name: 'eventDetails',
-          component: eventDetails
-        },
-        {
-          path: '/signActivities',
-          name: 'signActivities',
-          component: signActivities
         }
       ]
     },
@@ -104,6 +84,22 @@ export default [{
     {
       path: '/register',
       component: register
+    },
+    {
+      path: '/initiateActivities',
+      component: initiateActivities
+    },
+    {
+      path: '/editActivities',
+      component: editActivities
+    },
+    {
+      path: '/eventDetails',
+      component: eventDetails
+    },
+    {
+      path: '/signActivities',
+      component: signActivities
     }
   ]
 },
