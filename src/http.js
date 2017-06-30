@@ -4,19 +4,25 @@
  */
 
 import axios from 'axios'
+import qs from 'qs'
 import store from './store/index'
 import * as types from './store/mutation-types'
 import router from './router/index'
 
 // axios 配置
 axios.defaults.timeout = 5000
-axios.defaults.baseURL = ''
+axios.defaults.baseURL = 'http://106.14.2.158/dinglian/'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
     if (store.state.token) {
       config.headers.Authorization = `token ${store.state.token}`
+    }
+    // 修改了axios的post调用方法，将post参数转化成键值对
+    if (config.method === 'post') {
+      config.data = qs.stringify(config.data)
     }
     return config
   },
