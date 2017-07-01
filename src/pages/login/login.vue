@@ -34,6 +34,7 @@
 </template>
 <script>
 import { Toast } from 'mint-ui'
+import * as types from '../../store/mutation-types'
 export default {
   data () {
     return {
@@ -46,20 +47,22 @@ export default {
       if (!this.phoneno || !this.password) {
         Toast('请检查账号和密码是否正确！')
       }
+      let data = {
+        phoneno: this.phoneno,
+        password: this.password,
+        type: 'username'
+      }
       this.axios({
         method: 'post',
         url: '/user/login',
-        data: {
-          phoneno: this.phoneno,
-          password: this.password,
-          type: 'username'
-        },
+        data: data,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       }).then(res => {
         if (res.data.status === 'ERROR') {
           Toast(res.data.message)
         } else {
           Toast('登录成功！')
+          this.$store.commit(types.LOGIN, JSON.stringify(data))
           this.$router.push({'path': '/index'})
         }
       }
@@ -159,4 +162,3 @@ export default {
   }
 
 </style>
-

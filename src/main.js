@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import routes from './router'
 import axios from './http'
 import store from './store/'
+import * as types from './store/mutation-types'
 import {routerMode} from './config/env'
 import App from './App'
 // 引入mint-ui 和 css
@@ -26,10 +27,28 @@ Vue.use(mint)
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.axios = axios
 
+// 页面刷新时，重新赋值token
+if (window.localStorage.getItem('token')) {
+  store.commit(types.LOGIN, window.localStorage.getItem('token'))
+}
 const router = new VueRouter({
   routes,
   mode: routerMode,
   strict: process.env.NODE_ENV !== 'production'
+})
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(r => r.meta.requireAuth)) {
+    if (store.state.token) {
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath}
+      })
+    }
+  } else {
+    next()
+  }
 })
 
 /* eslint-disable no-new */

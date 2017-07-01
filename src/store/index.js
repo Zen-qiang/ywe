@@ -3,13 +3,9 @@ import Vuex from 'vuex'
 import mutations from './mutations'
 import actions from './action'
 import getters from './getters'
+import state from './store'
 
 Vue.use(Vuex)
-
-const state = {
-  user: {},
-  token: null
-}
 
 export default new Vuex.Store({
   state,

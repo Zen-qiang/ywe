@@ -28,6 +28,9 @@ export default [{
     {
       path: '/index',
       component: index,
+      meta: {
+        requireAuth: true
+      },
       children: [
         {
           path: '/home',
@@ -87,19 +90,31 @@ export default [{
     },
     {
       path: '/initiateActivities',
-      component: initiateActivities
+      component: initiateActivities,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/editActivities',
-      component: editActivities
+      component: editActivities,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/eventDetails',
-      component: eventDetails
+      component: eventDetails,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/signActivities',
-      component: signActivities
+      component: signActivities,
+      meta: {
+        requireAuth: true
+      }
     }
   ]
 },

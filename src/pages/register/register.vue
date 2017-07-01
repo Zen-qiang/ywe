@@ -26,6 +26,7 @@
 </template>
 <script>
   import { Toast } from 'mint-ui'
+  //  import {mapMutations} from 'vuex'
   export default {
     data () {
       return {
@@ -77,7 +78,7 @@
                 Toast('注册成功！')
                 console.log(res)
 //                Object.assign(this.$data, this.$options.data())
-                this.$router.push({'path': '/index'})
+                this.$router.push({'path': '/login'})
               }
             }
           ).catch(error => {
