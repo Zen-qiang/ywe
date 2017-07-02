@@ -63,7 +63,7 @@ export default {
         } else {
           Toast('登录成功！')
           data = Object.assign(data, res.data.result)
-          this.$store.commit(types.LOGIN, JSON.stringify(data))
+          this.$store.commit(types.LOGIN, data)
           this.$router.push({'path': '/index'})
         }
       }

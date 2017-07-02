@@ -27,8 +27,10 @@ Vue.use(mint)
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.axios = axios
 
+console.log(JSON.stringify(window.localStorage.getItem('token')))
 // 页面刷新时，重新赋值token
 if (window.localStorage.getItem('token')) {
+  console.log(window.localStorage.getItem('token'))
   store.commit(types.LOGIN, window.localStorage.getItem('token'))
 }
 const router = new VueRouter({
