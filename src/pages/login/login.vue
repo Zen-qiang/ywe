@@ -63,7 +63,7 @@ export default {
           Toast(res.data.message)
         } else {
           Toast('登录成功！')
-          data = Object.assign(data, res.data.result)
+          // data = Object.assign(data, res.data.result)
           this.$store.commit(types.LOGIN, JSON.stringify(data))
           this.$router.push({'path': '/index'})
         }
