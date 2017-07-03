@@ -78,7 +78,7 @@ export default {
     }
   },
   computed: mapState({
-    userid: state => state.token.userid
+    userid: state => JSON.parse(state.token).userid
   }),
   created () {
     this.getUserInfo()
