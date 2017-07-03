@@ -56,7 +56,8 @@ export default {
         method: 'post',
         url: '/user/login',
         data: data,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        withCredentials: true
       }).then(res => {
         if (res.data.status === 'ERROR') {
           Toast(res.data.message)

@@ -4,15 +4,18 @@
  */
 
 import axios from 'axios'
-import qs from 'qs'
+import qs from 'querystring'
 import store from './store/index'
 import * as types from './store/mutation-types'
 import router from './router/index'
 
 // axios 配置
 axios.defaults.timeout = 5000
+// axios.defaults.baseURL = 'http://192.168.3.11:8081/dinglian/'
 axios.defaults.baseURL = 'http://106.14.2.158/dinglian/'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+// 添加凭证
+axios.defaults.withCredentials = true
 
 // http request 拦截器
 axios.interceptors.request.use(

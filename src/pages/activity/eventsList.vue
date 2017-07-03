@@ -42,20 +42,21 @@
     <!--list start-->
     <div class="dinglian-eventsList-list">
       <ul class="mui-table-view">
-        <li class="mui-table-view-cell mui-media clearfix">
+        <li class="mui-table-view-cell mui-media clearfix" v-for="item in eventsList">
           <a href="javascript:;" class="clearfix">
             <img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" src="../../assets/images/list.png">
+            <!--<img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" :src="item.picture">-->
             <div class="mui-media-body dinglian-eventsList-rightInfo">
-              <h4>赵丽颖邀请你嘿嘿嘿</h4>
-              <p class="dinglian-eventsList-status clearfix"><span>个人组织 2017／4／23发布</span><em>进行中</em></p>
+              <h4>{{item.shortname}}</h4>
+              <p class="dinglian-eventsList-status clearfix"><span>个人组织 {{item.publishtime}}</span><em>{{item.status}}</em></p>
               <p class='mui-ellipsis'>
                 <div class="dinglian-eventsList-tag">
-                  <i>桌游</i>
-                  <strong>报名中3／6人</strong>
-                  <em>25元起</em>
+                  <i>{{item.status.tag.tagname}}</i>
+                  <strong>{{item.numbers.num}}／{{item.numbers.enteringNum}}人</strong>
+                  <em>{{item.charge}}</em>
                 </div>
-                <i>今天 16:00-18:00 星期二</i><br>
-                <em>体育馆 2.5KM</em>
+                <i>{{item.rstime}}</i><br>
+                <em>{{gps}}</em>
               </p>
             </div>
           </a>
@@ -63,13 +64,40 @@
       </ul>
     </div>
     <!--list end-->
-
+    <router-link to="/initiateActivities"><mt-button type="default" size="large">发布活动</mt-button></router-link>
   </div>
 </template>
 <script>
+  import store from '../../store/'
   export default {
     data () {
       return {
+        eventsList: []
+      }
+    },
+    created: function () {
+      this.getEventsList()
+    },
+    methods: {
+      getEventsList () {
+        let data = {
+          userId: store.state.userid
+        }
+        console.log(store.state.username)
+        this.axios({
+          method: 'post',
+          url: '/user/getActivityList',
+          data: data
+        }).then(res => {
+          if (res.data.status === 'ERROR') {
+            console.log(res.data.message)
+          } else {
+            this.eventsList = res.data.result
+            console.log(res)
+          }
+        }).catch(err => {
+          console.log(err)
+        })
       }
     }
   }

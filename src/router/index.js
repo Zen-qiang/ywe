@@ -14,6 +14,8 @@ const initiateActivities = r => require.ensure([], () => r(require('../pages/act
 const editActivities = r => require.ensure([], () => r(require('../pages/activity/editActivities')), 'editActivities')// 编辑活动
 const eventDetails = r => require.ensure([], () => r(require('../pages/activity/eventDetails')), 'eventDetails')// 活动详情
 const signActivities = r => require.ensure([], () => r(require('../pages/activity/signActivities')), 'signActivities')// 活动报名
+const registrationFailed = r => require.ensure([], () => r(require('../pages/activity/registrationFailed')), 'registrationFailed') // 报名失败
+const activityDetails = r => require.ensure([], () => r(require('../pages/activity/activityDetails')), 'activityDetails') // 活动详情
 const forgetPassword = r => require.ensure([], () => r(require('../pages/login/forgetPassword')), 'forgetPassword')// 忘记密码
 const nopage = r => require.ensure([], () => r(require('../pages/nopage')), 'nopage')
 export default [{
@@ -111,10 +113,19 @@ export default [{
     },
     {
       path: '/signActivities',
-      component: signActivities,
-      meta: {
-        requireAuth: true
-      }
+      component: signActivities
+      // ,
+      // meta: {
+      //   requireAuth: true
+      // }
+    },
+    {
+      path: '/registrationFailed',
+      component: registrationFailed
+    },
+    {
+      path: '/activityDetails',
+      component: activityDetails
     }
   ]
 },

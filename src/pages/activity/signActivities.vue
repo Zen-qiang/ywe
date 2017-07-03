@@ -13,16 +13,16 @@
           <a href="javascript:;" class="clearfix">
             <img class="mui-media-object mui-pull-left dinglian-signActivities-leftImg" src="../../assets/images/list.png">
             <div class="mui-media-body dinglian-signActivities-rightInfo">
-              <h4>赵丽颖邀请你嘿嘿嘿</h4>
-              <p class="dinglian-signActivities-status clearfix"><span>个人组织 2017／4／23发布</span><em>进行中</em></p>
+              <h4>{{signInfo.shortname}}</h4>
+              <p class="dinglian-signActivities-status clearfix"><span>个人组织 {{signInfo.publishtime}}发布</span><em>{{signInfo.status}}</em></p>
               <p class='mui-ellipsis'>
               <div class="dinglian-signActivities-tag">
-                <i>桌游</i>
-                <strong>报名中3／6人</strong>
-                <em>25元起</em>
+                <i>{{signInfo.tag.tagname}}</i>
+                <strong>报名中{{signInfo.numbers.num}}／{{signInfo.numbers.enteringNum}}人</strong>
+                <em>{{signInfo.charge}}</em>
               </div>
-              <i>今天 16:00-18:00 星期二</i><br>
-              <em>体育馆 2.5KM</em>
+              <i>{{signInfo.rstime}}</i><br>
+              <em>{{signInfo.gps}}</em>
               </p>
             </div>
           </a>
@@ -39,11 +39,11 @@
       </div>
       <div class="mui-input-row">
         <label>姓名</label>
-        <input type="text" disabled="disabled">
+        <input type="text" placeholder="请输入姓名">
       </div>
       <div class="mui-input-row">
         <label>手机</label>
-        <input type="text" disabled="disabled">
+        <input type="text" placeholder="请输入手机号">
       </div>
       <div class="mui-table-view-cell">
         <a class="mui-navigate-right">
@@ -55,7 +55,7 @@
 
     <div class="dinglian-signActivities-signbfo">
       <div class="mui-input-row">
-        <label>订单金额</label>
+        <label>{{signInfo.charge}}</label>
         <input type="text" disabled="disabled" value="¥10">
       </div>
       <div class="mui-input-row">
@@ -78,7 +78,40 @@
   </div>
 </template>
 <script>
-
+  import { Toast } from 'mint-ui'
+  export default{
+    data () {
+      return {
+        signInfo: []
+      }
+    },
+    created () {
+      this.getActivitySignInfo()
+    },
+    methods: {
+      getActivitySignInfo () {
+        let data = {}
+        this.axios({
+          method: 'post',
+          url: '/user/getActivityInfo',
+          data: data
+        }).then(
+          res => {
+            if (res.data.status === 'ERROR') {
+              Toast(res.data.message)
+            } else {
+              this.signInfo = res.data.result
+            }
+          }
+        ).catch(
+          err => {
+            console.log(err)
+          }
+        )
+      },
+      settlement () {}
+    }
+  }
 </script>
 <style>
   .dinglian-signActivities-head {

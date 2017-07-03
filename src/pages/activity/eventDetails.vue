@@ -13,18 +13,18 @@
         <a href="javascript:;" class="clearfix">
           <img class="mui-media-object  dinglian-eventDetails-topImg" src="../../assets/images/details.png">
           <div class="mui-media-body dinglian-eventDetails-bottomInfo">
-            <h4>赵丽颖邀请你嘿嘿嘿</h4>
-            <p class="dinglian-eventDetails-status clearfix"><span>个人组织 2017／4／23发布</span><em>进行中</em></p>
+            <h4>{{activityInfo.shortname}}</h4>
+            <p class="dinglian-eventDetails-status clearfix"><span>个人组织 {{activityInfo.publishtime}}</span><em>{{activityInfo.status}}</em></p>
             <p class='mui-ellipsis'>
             <div class="dinglian-eventDetails-tag">
-              <i>桌游</i>
-              <strong>报名中3／6人</strong>
-              <em>25元起</em>
+              <i>{{activityInfo.status.tag.tagname}}</i>
+              <strong>{{activityInfo.numbers.num}}／{{activityInfo.numbers.enteringNum}}</strong>
+              <em>{{activityInfo.charge}}</em>
             </div>
-            <i>今天 16:00-18:00 星期二</i><br>
+            <i>{{activityInfo.rstime}}</i><br>
             </p>
             <div class="dinglian-eventDetails-next clearfix">
-            <em>体育馆 2.5KM</em>
+            <em>{{gps}}</em>
               <button type="button" class="mui-btn mui-btn-link">
               确认人员
               <span class="mui-icon mui-icon-forward"></span>
@@ -35,11 +35,41 @@
       </li>
     </ul>
   </div>
-    <button type="button" class="mui-btn mui-btn-success mui-btn-block dinglian-eventDetails-btn">创建聊天</button>
+    <button type="button" class="mui-btn mui-btn-success mui-btn-block dinglian-eventDetails-btn" @click="createChat">创建聊天</button>
   </div>
 </template>
 <script>
-
+  export default{
+    data () {
+      return {
+        activityInfo: []
+      }
+    },
+    created () {
+      let eventId = this.$route.params.id
+      console.log(eventId)
+      this.getActivityInfo(eventId)
+    },
+    methods: {
+//      创建聊天
+      createChat () {
+      },
+//      获取活动信息
+      getActivityInfo (eventId) {
+        this.axios({
+          method: 'post',
+          url: '/user/getActivityList',
+          data: {
+            eventId: eventId
+          }
+        }).then(res => {
+          this.activityInfo = res.data.result
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    }
+  }
 </script>
 <style lang="scss" scoped="" type="text/css">
   @import '../../assets/css/global.css';

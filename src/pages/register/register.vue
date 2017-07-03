@@ -13,7 +13,7 @@
 
       <div class="dinglian-register-num">
         <input type="text" placeholder="请输入验证码" v-model="verifyno">
-        <mt-button type="primary" size="small" class="dinglian-register-send" @click="sendVerifyno">发送验证码</mt-button>
+        <mt-button type="primary" size="small" class="dinglian-register-send" @click="sendVerifyno" :disabled="isDisabled" v-model="btn">{{btn}}</mt-button>
 
       </div>
       <div class="mui-input-row mui-password dinglian-register-psw">
@@ -32,7 +32,9 @@
       return {
         phoneno: '',
         verifyno: '',
-        password: ''
+        password: '',
+        btn: '发送验证码',
+        isDisabled: false
       }
     },
     methods: {
@@ -40,19 +42,34 @@
         if (!this.phoneno) {
           Toast('手机号不能为空')
         } else {
+          let data = {
+            phoneno: this.phoneno,
+            dataType: 'register'
+          }
+          let num = 60
+          let timer = null
           this.axios({
             method: 'get',
             url: '/user/sendCode',
-            params: {
-              phoneno: this.phoneno,
-              dataType: 'register'
-            }
+            params: data
           }).then(res => {
             console.log(res)
             let instance = Toast('验证码发送成功，请及时输入！')
-            setTimeout(() => {
+            timer = setTimeout(() => {
               instance.close()
             }, 2000)
+            /* 验证码倒计时 */
+            this.isDisabled = true
+            setInterval(() => {
+              num--
+              this.btn = num + '秒后发送'
+              if (num === 0) {
+                clearInterval(timer)
+                this.isDisabled = false
+                num = 60
+                this.btn = '发送验证码'
+              }
+            }, 1000)
           }).catch(error => {
             console.log(error)
           })
