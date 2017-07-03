@@ -7,6 +7,10 @@ const circle = r => require.ensure([], () => r(require('../pages/circle/circle')
 const activity = r => require.ensure([], () => r(require('../pages/activity/eventsList')), 'activity')// 活动
 const message = r => require.ensure([], () => r(require('../pages/message/message')), 'message')// 消息
 const account = r => require.ensure([], () => r(require('../pages/account/account')), 'account')// 我的
+const changeSignlog = r => require.ensure([], () => r(require('../pages/account/changeSignlog')), 'changeSignlog')// 修改我的签名
+const changePassword = r => require.ensure([], () => r(require('../pages/account/changePassword')), 'changePassword')// 修改密码
+const changePicture = r => require.ensure([], () => r(require('../pages/account/changePicture')), 'changePicture')// 修改头像
+const setting = r => require.ensure([], () => r(require('../pages/account/setting')), 'setting')// 设置
 const login = r => require.ensure([], () => r(require('../pages/login/login')), 'login')// 登录
 const register = r => require.ensure([], () => r(require('../pages/register/register')), 'register')// 注册
 const eventsList = r => require.ensure([], () => r(require('../pages/activity/eventsList')), 'eventsList')// 活动列表
@@ -112,6 +116,34 @@ export default [{
     {
       path: '/signActivities',
       component: signActivities,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/changeSignlog',
+      component: changeSignlog,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/changePassword',
+      component: changePassword,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/changePicture',
+      component: changePicture,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/setting',
+      component: setting,
       meta: {
         requireAuth: true
       }

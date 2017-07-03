@@ -16,10 +16,11 @@
         <ul class="mui-table-view">
           <li class="mui-table-view-cell dinglian-user-info-cell">
               <a class="mui-navigate-right dinglian-user-info">
-                  <img class="mui-media-object mui-pull-left" src="../../../static/1.jpg">
+                  <img class="mui-media-object mui-pull-left" :src="userInfo.picture" />
                   <div class="mui-media-body">
-                      Richard Gordon
-                      <p class='mui-ellipsis'>UX designer</p>
+                      <span v-if="userInfo.nickname && userInfo.nickname !== null">{{userInfo.nickname}}</span>
+                      <span v-else>{{userInfo.phoneno}}</span>
+                      <p class='mui-ellipsis'>{{userInfo.signLog}}</p>
                   </div>
               </a>
           </li>
@@ -57,48 +58,44 @@
       <!-- 我的列表栏 结束 -->
       <div class="mui-row" style="height:12px;width:100%;background-color:transparent"></div>
         <!-- 我的签名开始 -->
-        <mt-cell title="我的签名" is-link></mt-cell>
+        <mt-cell title="我的签名" is-link to="changeSignlog"></mt-cell>
         <!-- 我的签名结束 -->
         <!-- 收藏 开始 -->
         <mt-cell title="收藏" is-link></mt-cell>
         <!-- 收藏 结束 -->
         <!-- 设置 开始 -->
-        <mt-cell title="设置" is-link></mt-cell>
+        <mt-cell title="设置" is-link to="setting"></mt-cell>
         <!-- 设置 结束 -->
     </div>
   </div>
 </template>
 <script>
-import {mapState} from 'vuex'
 import { Toast } from 'mint-ui'
 export default {
   data () {
     return {
-      userInfo: {}
+      userInfo: {},
+      defaultAvter: 'this.src="' + require('../../../static/tx.jpg') + '"'
     }
   },
-  computed: mapState({
-    userid: state => JSON.parse(state.token).userid
-  }),
   created () {
     this.getUserInfo()
   },
   methods: {
     getUserInfo () {
-      console.log(this.userid)
       this.axios({
         method: 'get',
         url: '/user/getUser',
-        data: {
-          userId: this.userid
-        },
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       }).then(res => {
-        console.log(res)
         if (res.data.status === 'ERROR') {
           Toast(res.data.message)
         } else {
-          console.log(res)
+          this.userInfo = res.data.result
+          console.log(this.userInfo.picture)
+          if (this.userInfo.picture || this.userInfo.picture === null) {
+            this.userInfo.picture = '../../../static/tx.jpg'
+          }
         }
       }).catch(error => {
         console.log(error)
