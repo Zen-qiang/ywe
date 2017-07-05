@@ -16,7 +16,8 @@ const register = r => require.ensure([], () => r(require('../pages/register/regi
 const eventsList = r => require.ensure([], () => r(require('../pages/activity/eventsList')), 'eventsList')// 活动列表
 const initiateActivities = r => require.ensure([], () => r(require('../pages/activity/initiateActivities')), 'initiateActivities')// 发布活动
 const editActivities = r => require.ensure([], () => r(require('../pages/activity/editActivities')), 'editActivities')// 编辑活动
-const eventDetails = r => require.ensure([], () => r(require('../pages/activity/eventDetails')), 'eventDetails')// 活动详情
+const eventDetails = r => require.ensure([], () => r(require('../pages/activity/eventDetails')), 'eventDetails')// 发布活动详情
+const activityDetails = r => require.ensure([], () => r(require('../pages/activity/activityDetails')), 'activityDetails')// 活动详情
 const signActivities = r => require.ensure([], () => r(require('../pages/activity/signActivities')), 'signActivities')// 活动报名
 const forgetPassword = r => require.ensure([], () => r(require('../pages/login/forgetPassword')), 'forgetPassword')// 忘记密码
 const nopage = r => require.ensure([], () => r(require('../pages/nopage')), 'nopage')
@@ -109,6 +110,13 @@ export default [{
     {
       path: '/eventDetails',
       component: eventDetails,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/activityDetails/:id',
+      component: activityDetails,
       meta: {
         requireAuth: true
       }

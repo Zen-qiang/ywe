@@ -37,21 +37,6 @@
         <label>人数</label>
         <input type="text" class="mui-input-clear" placeholder="请输入参加人数" v-model="number">
       </div>
-
-      <!--<div class="mui-card" v-model="charge">
-        <label>费用</label>
-        <form class="mui-input-group dinglian-editActivities-costForm">
-          <div class="mui-input-row mui-radio mui-left dinglian-editActivities-cost">
-            <input name="radio1" type="radio">
-            <label>我请客</label>
-          </div>
-          <div class="mui-input-row mui-radio mui-left dinglian-editActivities-costA">
-
-            <input name="radio1" type="radio" checked>
-            <label>AA制</label>
-          </div>
-        </form>
-      </div>-->
       <div class="dinglian-editActivities-costForm">
         <mt-radio
           title="费用"
@@ -59,8 +44,6 @@
           :options="options">
         </mt-radio>
       </div>
-
-
       <div class="mui-input-row">
         <label>联系方式</label>
         <input type="text" class="mui-input-clear" placeholder="请输入手机号码" v-model="phoneNo">
@@ -86,8 +69,7 @@
     </div>
     <mt-field placeholder="活动备注" type="textarea" rows="4" v-model="description"></mt-field>
 
-
-    <router-link to="/activity"><mt-button type="default" size="large" class="dinglian-editActivities-btn" @click="editActivities">发布</mt-button></router-link>
+    <mt-button type="default" size="large" class="dinglian-editActivities-btn" @click="editActivities">发布</mt-button>
   </div>
 </template>
 <script>
@@ -95,12 +77,17 @@
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
   import { Toast } from 'mint-ui'
+  import {mapState} from 'vuex'
+  import * as types from '../../store/mutation-types'
   export default {
     filters: {
       data (val) {
-        return moment(val).calendar()
+        return moment(val).format('YYYY-MM-DD HH:mm')
       }
     },
+    computed: mapState({
+      eventInfo: state => state.eventInfo
+    }),
     data () {
       return {
         birthday: '',
@@ -119,6 +106,8 @@
         options: [{label: '我请客', value: 'free'}, {label: 'AA制', value: 'dutch'}]
       }
     },
+    created () {
+    },
     methods: {
       openUpload () {
         this.pictures = true
@@ -127,8 +116,6 @@
         this.$refs.picker.open()
       },
       handleConfirm () {
-        console.log(this.retime)
-        console.log(this.retime instanceof Date)
         this.$refs.picker.close()
       },
         // 发布活动
@@ -137,12 +124,13 @@
           typename: '街舞活动',
           isOpen: this.isOpen,
           tags: [1, 2],
-          shortname: this.shortname,
-          retime: 2017 - 10 - 15,
-          number: this.number,
+          name: this.shortname,
+          startTime: this.retime.valueOf(),
+          userCount: this.number,
           charge: this.charge,
-          cost: 0,
+          cost: 1,
           gps: '上海市',
+          address: '上海市',
           description: this.description,
           limiter: this.limiter, // 限定条件
           pictures: '../../assets/images/upload.png',
@@ -154,16 +142,21 @@
         this.axios({
           method: 'post',
           url: '/activity/launchActivity',
-          data: data
+          data: data,
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          timeout: 50000
         }).then(res => {
-//          console.log(res.data)
           if (res.data.status === 'ERROR') {
-//            Toast(res.data.message)
+            Toast(res.data.message)
           } else {
             Toast('发布活动成功！')
-//            this.$router.push({'path': '/eventDetails'})
+            this.$store.commit(types.SETINFO, res.data.result)
+            this.$router.push({'path': '/eventDetails'})
           }
-        }).catch(
+        }).catch(error => {
+          Toast('请求失败！')
+          console.log(error)
+        }
         )
         // 请求end
       }
@@ -171,7 +164,7 @@
   }
 
 </script>
-<style>
+<style scoped>
   .dinglian-editActivities-head {
     background-color: #ffd200 ;
     color: #333333;

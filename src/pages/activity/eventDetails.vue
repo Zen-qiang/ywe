@@ -13,18 +13,18 @@
         <a href="javascript:;" class="clearfix">
           <img class="mui-media-object  dinglian-eventDetails-topImg" src="../../assets/images/details.png">
           <div class="mui-media-body dinglian-eventDetails-bottomInfo">
-            <h4>{{activityInfo.shortname}}</h4>
-            <p class="dinglian-eventDetails-status clearfix"><span>个人组织 {{activityInfo.publishtime}}</span><em>{{activityInfo.status}}</em></p>
+            <h4>{{activityInfo.name}}</h4>
+            <p class="dinglian-eventDetails-status clearfix"><span>个人组织 {{activityInfo.releaseTime | data}}</span><em>{{activityInfo.status}}</em></p>
             <p class='mui-ellipsis'>
             <div class="dinglian-eventDetails-tag">
-              <i>{{activityInfo.status.tag.tagname}}</i>
+              <i>{{activityInfo.tags.tagName}}</i>
               <strong>{{activityInfo.numbers.num}}／{{activityInfo.numbers.enteringNum}}</strong>
               <em>{{activityInfo.charge}}</em>
             </div>
-            <i>{{activityInfo.rstime}}</i><br>
+            <i>{{activityInfo.startTime | data}}</i><br>
             </p>
             <div class="dinglian-eventDetails-next clearfix">
-            <em>{{gps}}</em>
+            <em>{{activityInfo.address}}</em>
               <button type="button" class="mui-btn mui-btn-link">
               确认人员
               <span class="mui-icon mui-icon-forward"></span>
@@ -39,39 +39,39 @@
   </div>
 </template>
 <script>
+  import {mapGetters} from 'vuex'
+  import * as types from '../../store/mutation-types'
+  import moment from 'moment'
+  import 'moment/locale/zh-cn'
+  moment.locale('zh-cn')
   export default{
     data () {
       return {
-        activityInfo: []
       }
     },
+    filters: {
+      data (val) {
+        return moment(val).format('YYYY-MM-DD HH:mm')
+      }
+    },
+    computed: mapGetters({
+      activityInfo: types.GETINFO
+    }),
+    mouted () {
+    },
     created () {
-      let eventId = this.$route.params.id
-      console.log(eventId)
-      this.getActivityInfo(eventId)
+      console.log(this.activityInfo.name)
+      console.log(this.$store.state.user.username)
     },
     methods: {
 //      创建聊天
       createChat () {
-      },
-//      获取活动信息
-      getActivityInfo (eventId) {
-        this.axios({
-          method: 'post',
-          url: '/user/getActivityList',
-          data: {
-            eventId: eventId
-          }
-        }).then(res => {
-          this.activityInfo = res.data.result
-        }).catch(err => {
-          console.log(err)
-        })
+        this.$router.push({'path': '/eventsList'})
       }
     }
   }
 </script>
-<style lang="scss" scoped="" type="text/css">
+<style lang="scss" scoped type="text/css">
   @import '../../assets/css/global.css';
   .dinglian-eventDetails-head {
     background-color: #ffd200 ;

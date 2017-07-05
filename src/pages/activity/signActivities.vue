@@ -7,28 +7,28 @@
       </router-link>
     </mt-header>
 
-    <div class="dinglian-signActivities-list">
-      <ul class="mui-table-view">
-        <li class="mui-table-view-cell mui-media clearfix">
-          <a href="javascript:;" class="clearfix">
-            <img class="mui-media-object mui-pull-left dinglian-signActivities-leftImg" src="../../assets/images/list.png">
-            <div class="mui-media-body dinglian-signActivities-rightInfo">
-              <h4>{{signInfo.shortname}}</h4>
-              <p class="dinglian-signActivities-status clearfix"><span>个人组织 {{signInfo.publishtime}}发布</span><em>{{signInfo.status}}</em></p>
-              <p class='mui-ellipsis'>
-              <div class="dinglian-signActivities-tag">
-                <i>{{signInfo.tag.tagname}}</i>
-                <strong>报名中{{signInfo.numbers.num}}／{{signInfo.numbers.enteringNum}}人</strong>
-                <em>{{signInfo.charge}}</em>
-              </div>
-              <i>{{signInfo.rstime}}</i><br>
-              <em>{{signInfo.gps}}</em>
-              </p>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <!--<div class="dinglian-signActivities-list">-->
+      <!--<ul class="mui-table-view">-->
+        <!--<li class="mui-table-view-cell mui-media clearfix">-->
+          <!--<a href="javascript:;" class="clearfix">-->
+            <!--<img class="mui-media-object mui-pull-left dinglian-signActivities-leftImg" src="../../assets/images/list.png">-->
+            <!--<div class="mui-media-body dinglian-signActivities-rightInfo">-->
+              <!--<h4>{{signInfo.name}}</h4>-->
+              <!--<p class="dinglian-signActivities-status clearfix"><span>个人组织 {{signInfo.publishtime}}发布</span><em>{{signInfo.status}}</em></p>-->
+              <!--<p class='mui-ellipsis'>-->
+              <!--<div class="dinglian-signActivities-tag">-->
+                <!--<i>{{signInfo.tags.tagname}}</i>-->
+                <!--<strong>报名中{{signInfo.numbers.num}}／{{signInfo.numbers.enteringNum}}人</strong>-->
+                <!--<em>{{signInfo.charge}}</em>-->
+              <!--</div>-->
+              <!--<i>{{signInfo.rstime}}</i><br>-->
+              <!--<em>{{signInfo.gps}}</em>-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</a>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
 
     <p class="dinglian-signActivities-signUser">本活动还有3个名额可报名</p>
 

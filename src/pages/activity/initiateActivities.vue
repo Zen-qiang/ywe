@@ -9,8 +9,8 @@
       <ul class="mui-table-view mui-table-view-chevron">
         <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">活动类型</a>
           <ul class="mui-table-view mui-table-view-chevron">
-            <li class="mui-table-view-cell">
-              <a class="mui-navigate-right" href="#" v-for="item in activityType">{{item}}</a>
+            <li class="mui-table-view-cell" v-for="item in activityType">
+              <a class="mui-navigate-right" href="#" @click="getTypeNameId(item.typeNameId)">{{item.typeName}}</a>
             </li>
           </ul>
         </li>
@@ -33,21 +33,47 @@
 
 </template>
 <script>
+  import { Toast } from 'mint-ui'
   export default {
     data () {
       return {
-//        typeName: '',
-        tagList: {},
-        activityType: ['街舞', '游戏']
+        tagList: [],
+        activityType: []
       }
     },
     created () {
+      this.getActivityType()
       this.getTagList()
     },
     methods: {
-      getTagList () {
+      getTypeNameId (e) {
+        console.log(e)
+        this.getTagList(e)
+      },
+      getActivityType () {
+        this.axios({
+          method: 'get',
+          url: '/activity/getActivityType',
+          params: {
+            type: '活动类型'
+          }
+        }).then(
+          res => {
+            if (res.data.status === 'ERROR') {
+              Toast(res.data.message)
+            } else {
+              this.activityType = res.data.result
+            }
+          }
+        ).catch(
+          error => {
+            console.log(error)
+          }
+        )
+      },
+      getTagList (e) {
         let data = {
-          typeName: ''
+          typeNameId: e
         }
         this.axios({
           method: 'post',
@@ -69,11 +95,10 @@
     }
   }
 </script>
-<style>
+<style scoped>
   div{
     width: 100%;
   }
-
   .dinglian-initiateActivities-head {
     background-color: #ffd200 ;
     color: #333333;

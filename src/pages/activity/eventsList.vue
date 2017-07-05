@@ -43,23 +43,23 @@
     <div class="dinglian-eventsList-list">
       <ul class="mui-table-view">
         <li class="mui-table-view-cell mui-media clearfix" v-for="item in eventsList">
-          <a href="javascript:;" class="clearfix">
+            <router-link v-bind='{to:"/activityDetails/"+item.eventId}' class="clearfix">
             <img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" src="../../assets/images/list.png">
             <!--<img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" :src="item.picture">-->
             <div class="mui-media-body dinglian-eventsList-rightInfo">
-              <h4>{{item.shortname}}</h4>
-              <p class="dinglian-eventsList-status clearfix"><span>个人组织 {{item.publishtime}}</span><em>{{item.status}}</em></p>
+              <h4>{{item.name}}</h4>
+              <p class="dinglian-eventsList-status clearfix"><span>个人组织 {{item.releaseTime |data}}</span><em>{{item.status}}</em></p>
               <p class='mui-ellipsis'>
                 <div class="dinglian-eventsList-tag">
-                  <i>{{item.status.tag.tagname}}</i>
+                  <i>{{item.tags.tagname}}</i>
                   <strong>{{item.numbers.num}}／{{item.numbers.enteringNum}}人</strong>
                   <em>{{item.charge}}</em>
                 </div>
-                <i>{{item.rstime}}</i><br>
-                <em>{{gps}}</em>
+                <i>{{item.startTime | data}}</i><br>
+                <em>{{item.address}}</em>
               </p>
             </div>
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -68,6 +68,9 @@
   </div>
 </template>
 <script>
+  import moment from 'moment'
+  import 'moment/locale/zh-cn'
+  moment.locale('zh-cn')
   import store from '../../store/'
   export default {
     data () {
@@ -75,25 +78,25 @@
         eventsList: []
       }
     },
+    filters: {
+      data (val) {
+        return moment(val).format('YYYY-MM-DD HH:mm')
+      }
+    },
     created: function () {
       this.getEventsList()
     },
     methods: {
       getEventsList () {
-        let data = {
-          userId: store.state.userid
-        }
         console.log(store.state.username)
         this.axios({
           method: 'post',
-          url: '/user/getActivityList',
-          data: data
+          url: '/activity/getAllActivity'
         }).then(res => {
           if (res.data.status === 'ERROR') {
             console.log(res.data.message)
           } else {
             this.eventsList = res.data.result
-            console.log(res)
           }
         }).catch(err => {
           console.log(err)
@@ -102,7 +105,7 @@
     }
   }
 </script>
-<style lang="scss" scoped="" type="text/css">
+<style lang="scss" scoped type="text/css">
   @import '../../assets/css/global.css';
   div {
     width:100%;

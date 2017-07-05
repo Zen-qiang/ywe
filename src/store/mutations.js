@@ -8,6 +8,10 @@ const mutations = {
   [types.LOGOUT]: (state) => {
     localStorage.removeItem('token')
     state.token = null
+  },
+  [types.SETINFO]: (state, eventInfo) => {
+    state.eventInfo = eventInfo
+    console.log('保存', state.eventInfo)
   }
 }
 export default mutations
