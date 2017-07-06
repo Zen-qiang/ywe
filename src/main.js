@@ -6,7 +6,7 @@ import routes from './router'
 import axios from './http'
 import store from './store/'
 import * as types from './store/mutation-types'
-import {routerMode} from './config/env'
+import {routerMode} from './configs/env'
 import App from './App'
 // 引入mint-ui 和 css
 import mint from 'mint-ui'
