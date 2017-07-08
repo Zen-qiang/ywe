@@ -1,27 +1,23 @@
 <template>
   <div>
     <mt-header title="编辑内容" class="dinglian-editActivities-head">
-      <router-link to="/" slot="left">
+      <router-link to="/eventsList" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
 
     <div class="mui-input-row dinglian-editActivities-theme">
       <label><img src="../../assets/images/header.png" alt=""></label>
-      <input type="text" placeholder="赵丽颖邀请你嘿嘿嘿" v-model="shortname">
+      <input type="text" placeholder="填写活动标题" v-model="shortname">
     </div>
 
     <div class="dinglian-editActivities-bodyInfo">
-
       <p class="dinglian-editActivities-upload" @click="openUpload">
           <img src="../../assets/images/upload.png" alt="" >
           <mt-actionsheet :actions="actions" v-model="pictures"></mt-actionsheet>
       </p>
-
-
-      <div class="mui-input-row">
+      <div class="mui-input-row dinglian-editActivities-time">
         <label @click="openPicker">时间</label>
-        <!--<input type="text" class="mui-input-clear" @click="openPicker" placeholder="请输入时间" v-model="time">-->
         <time @click="openPicker">{{retime | data}}</time>
         <mt-datetime-picker ref="picker" type="datetime" v-model="retime" @confirm="handleConfirm"></mt-datetime-picker>
       </div>
@@ -77,7 +73,8 @@
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
   import { Toast } from 'mint-ui'
-  import {mapState} from 'vuex'
+//  import {mapState} from 'vuex'
+  import {mapGetters} from 'vuex'
   import * as types from '../../store/mutation-types'
   export default {
     filters: {
@@ -85,8 +82,11 @@
         return moment(val).format('YYYY-MM-DD HH:mm')
       }
     },
-    computed: mapState({
-      eventInfo: state => state.eventInfo
+//    computed: mapState({
+//      eventInfo: state => state.eventInfo
+//    }),
+    computed: mapGetters({
+      mytagsIdList: types.GETTAGS
     }),
     data () {
       return {
@@ -103,10 +103,21 @@
         description: '',
         phoneNo: '',
         friends: [],
-        options: [{label: '我请客', value: 'free'}, {label: 'AA制', value: 'dutch'}]
+        options: [{label: '我请客', value: 'free'}, {label: 'AA制', value: 'dutch'}],
+        yyy: []
       }
     },
     created () {
+      let mt = this.mytagsIdList
+      let l = this.mytagsIdList.length
+      let newMyTags = []
+      for (var i = 0; i < l; i++) {
+        if (typeof (mt[i]) === 'number') {
+          newMyTags.push(mt[i])
+        }
+      }
+      this.mytagsIdList = newMyTags
+      console.log(this.mytagsIdList)
     },
     methods: {
       openUpload () {
@@ -123,7 +134,7 @@
         let data = {
           typename: '街舞活动',
           isOpen: this.isOpen,
-          tags: [1, 2],
+          tags: this.mytagsIdList,
           name: this.shortname,
           startTime: this.retime.valueOf(),
           userCount: this.number,
@@ -170,16 +181,17 @@
     color: #333333;
     margin:0 auto;
     width: 100%;
-    height: 45px;
+    height: 44px;
     position: fixed;
     top: 0;
+    font-size: 17px;
     z-index: 8
   }
   .dinglian-editActivities-theme{
-    margin-top: 45px;
+    margin-top: 44px;
     background-color: #ffffff;
     text-align: left;
-    height: 80px;
+    height: 69px;
 
   }
   .dinglian-editActivities-theme label{
@@ -191,23 +203,26 @@
   }
   .dinglian-editActivities-theme input{
     height: 60px;
-    margin:10px auto;
+    margin-top: 3%;
+    font-size: 17px;
   }
   .dinglian-editActivities-bodyInfo{
     /*border:1px solid red;*/
     background-color: #ffffff;
-    margin:20px auto;
+    margin:10px auto;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
   }
   .dinglian-editActivities-upload{
     width: 100%;
     border-bottom: 1px solid #dddddd;
+    margin-bottom: 0;
   }
   .dinglian-editActivities-upload img {
     height: 110px;
   }
   .dinglian-editActivities-bodyInfo > div{
-    height: 56px;
-
+    height: 50px;
   }
   /*更改底边框颜色*/
   .mui-btn-block,.mui-input-row,.mui-table-view-cell{
@@ -218,21 +233,33 @@
   }
   .mui-table-view-cell a {
     line-height: 34px;
-    height: 56px;
+    height: 50px;
+    color: #999999;
+    font-size: 14px;
   }
-  .mui-input-row label,  .mui-card label{
-    height: 56px;
+  /*时间、人数、联系方式*/
+  .mui-input-row label, .mui-card label{
+    height: 50px;
     line-height: 34px;
+    color: #999999;
+    font-size: 14px;
   }
+  /*时间*/
+  .dinglian-editActivities-time time {
+    position: relative;
+    top: 16px;
+    font-size: 14px;
+    color: #666666;
+  }
+  /*地址*/
+  .mui-table-view-cell:after {
+     height: 0;
+  }
+  /*人数、手机号码*/
   .mui-input-row input{
-    /*人数、手机号码*/
-    height: 56px;
-  }
-  .mui-card{
-    height: 200px;
-    width: 100%;
-    margin: 0;
-
+    height: 50px;
+    color: #999999;
+    font-size: 14px;
   }
   .mui-card label{
     width: 35%;
@@ -241,43 +268,19 @@
     font-family: 'Helvetica Neue',Helvetica,sans-serif;
     font-size: 18px;
   }
-  .mui-input-group{
-
-    height: 56px;
-    float: left;
-    width: 260px;
-  }
   /*费用*/
   .dinglian-editActivities-bodyInfo .dinglian-editActivities-costForm {
     height: 125px;
-
+    border-bottom:1px solid #dddddd;
   }
-  .dinglian-editActivities-costForm .dinglian-editActivities-cost {
-    width: 180px;
-    position: absolute;
+  .dinglian-editActivities-costForm {
+    background-color: #f2f2f2;
+    overflow: hidden;
   }
-  .dinglian-editActivities-costForm .dinglian-editActivities-cost input, .dinglian-editActivities-costForm .dinglian-editActivities-costA input{
-    top:12px;
-  }
-  .mui-radio.mui-left input[type=radio] {
-    left: 0;
-  }
-  .dinglian-editActivities-costForm .dinglian-editActivities-cost label,.dinglian-editActivities-costForm .dinglian-editActivities-costA label{
-    padding-right: 0px;
-    padding-left: 30px;
-    width: 90px;
-
-  }
-  .mui-input-group .dinglian-editActivities-costA {
-    position: absolute;
-    width: 150px;
-    top:0;
-    right: 0;
-  }
-
   .mui-input-row .dinglian-editActivities-switch{
-    margin-left: 120px;
-    padding-left: 76px;
+    margin-left: 30%;
+    padding-left: 16%;
+
 }
   .dinglian-editActivities-btn{
     width: 92%;
@@ -291,6 +294,16 @@
     height: 124px;
     margin-bottom: 10px;
   }
-
-
+  .mint-field {
+    /*background-color: red;*/
+    border-top:1px solid #dddddd;
+    border-bottom:1px solid #dddddd;
+  }
+  .dinglian-editActivities-bodyInfo .mint-radiolist-title {
+    color: red;
+    background-color: red;
+  }
+  .mint-field.is-textarea .mint-cell-value {
+    padding: 0;
+  }
 </style>

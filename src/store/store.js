@@ -1,6 +1,7 @@
 const store = {
   user: {},
   token: null,
-  eventInfo: {}
+  eventInfo: {},
+  tags: []
 }
 export default store

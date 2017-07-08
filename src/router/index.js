@@ -122,7 +122,7 @@ export default [{
       }
     },
     {
-      path: '/signActivities',
+      path: '/signActivities/:id',
       component: signActivities,
       meta: {
         requireAuth: true

@@ -36,13 +36,14 @@
             </ul>
           </li>
         </ul>
+        <span></span>
       </div>
     <!--筛选条件 end-->
 
     <!--list start-->
     <div class="dinglian-eventsList-list">
-      <ul class="mui-table-view">
-        <li class="mui-table-view-cell mui-media clearfix" v-for="item in eventsList">
+      <ul class="mui-table-view dinglian-eventsList-list-ul">
+        <li class="mui-table-view-cell mui-media clearfix dinglian-eventsList-list-li" v-for="item in eventsList">
             <router-link v-bind='{to:"/activityDetails/"+item.eventId}' class="clearfix">
             <img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" src="../../assets/images/list.png">
             <!--<img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" :src="item.picture">-->
@@ -51,11 +52,11 @@
               <p class="dinglian-eventsList-status clearfix"><span>个人组织 {{item.releaseTime |data}}</span><em>{{item.status}}</em></p>
               <p class='mui-ellipsis'>
                 <div class="dinglian-eventsList-tag">
-                  <i>{{item.tags.tagname}}</i>
+                  <i>{{item.tags.tagname}}街舞</i>
                   <strong>{{item.numbers.num}}／{{item.numbers.enteringNum}}人</strong>
                   <em>{{item.charge}}</em>
                 </div>
-                <i>{{item.startTime | data}}</i><br>
+                <i>{{item.startTime | data}}</i>
                 <em>{{item.address}}</em>
               </p>
             </div>
@@ -64,7 +65,7 @@
       </ul>
     </div>
     <!--list end-->
-    <router-link to="/initiateActivities"><mt-button type="default" size="large">发布活动</mt-button></router-link>
+    <router-link to="/initiateActivities"><mt-button type="danger" size="small" class="dinglian-eventsList-releaseActivity">发布活动</mt-button></router-link>
   </div>
 </template>
 <script>
@@ -106,56 +107,94 @@
   }
 </script>
 <style lang="scss" scoped type="text/css">
-  @import '../../assets/css/global.css';
   div {
     width:100%;
   }
   .dinglian-eventsList-search {
-    background-color: #ffd300;
+    background-color: #ffd200;
     width: 100%;
+    height: 44px;
+    position: fixed;
+    top: 0;
+    z-index: 8;
   }
   .dinglian-eventsList-search input{
-    margin:20px 30px 20px 25px;
+    margin:10px 5%;
     width: 90%;
+    height: 24px;
     background-color: #ffffff;
+    border-radius: 40px;
+    font-size: 12px;
   }
+  /*筛选*/
   .dinglian-eventsList-filter{
     background-color: #ffffff;
+    height: 45px;
+    margin-top: 44px;
+    position: fixed;
+    top: 0;
+    z-index: 8;
+    border: 0;
   }
   .mui-collapse {
     font-size: small;
-    width: 130px;
+    width: 25%;
     float: left;
+  }
+  .mui-navigate-right:after, .mui-push-right:after {
+     right: -3px;
   }
   .mui-navigate-right{
     width: 10px;
   }
+  .dinglian-eventsList-filter span {
+    background: url(../../assets/images/map.svg) no-repeat center center;
+    width: 30px;
+    height: 30px;
+    float: right;
+    margin-top: 2.2%;
+    margin-right: 3%;
+
+  }
+  /*活动*/
   .dinglian-eventsList-list{
-    margin: 20px auto;
-
+      margin-top: 99px;
   }
-  .dinglian-eventsList-list a{
-    height: 140px;
+  .dinglian-eventsList-list-ul {
+    background-color: #f2f2f2;
+    margin-bottom: 18%;
   }
-  .dinglian-eventsList-leftImg{
-    height: 120px;
-    min-width: 120px;
-
+  .dinglian-eventsList-list-ul > li {
+    margin: 10px 0;
+    background-color: #ffffff;
   }
-  .dinglian-eventsList-rightInfo{
-    width: 220px;
+  .dinglian-eventsList-list .dinglian-eventsList-leftImg{
+    width: 30%;
+    max-width: none;
+    height:  38%;
+  }
+  .dinglian-eventsList-list .dinglian-eventsList-rightInfo{
+    width: 66%;
   }
   .dinglian-eventsList-rightInfo h4{
     font-weight: 400;
+    font-size: 15px;
+    color: #333333;
+    margin-top: 0;
   }
   .dinglian-eventsList-status span{
     float: left;
+    font-size: 12px;
+    color: #999999;
   }
   .dinglian-eventsList-status em{
     float: right;
+    font-size: 11px;
+    color: #999999;
+    font-style: normal;
   }
   .dinglian-eventsList-tag{
-    margin:5px;
+    margin-top: 9px;
   }
   .dinglian-eventsList-tag i {
     background-color: #999999;
@@ -164,6 +203,7 @@
     border-radius: 5px;
     font-style: normal;
     padding: 1px;
+    font-size: 11px;
   }
   .dinglian-eventsList-tag strong {
     border: 1px solid red;
@@ -171,19 +211,32 @@
     color: red;
     padding: 1px;
     font-weight: 100;
+    font-size: 11px;
+    margin: 0 1px;
   }
   .dinglian-eventsList-tag em{
     color: red;
     font-weight: 100;
+    font-size: 11px;
+    font-style: normal;
   }
   .dinglian-eventsList-rightInfo > i{
     font-weight: 100;
     font-style: normal;
     color: #333333;
+    font-size: 14px;
   }
   .dinglian-eventsList-rightInfo > em{
     font-weight: 100;
     font-style: normal;
-    color: #b0b0b0;
+    color: #999999;
+    font-size: 12px;
+    display: block;
+  }
+  .dinglian-eventsList-releaseActivity {
+    position: fixed;
+    z-index: 8;
+    bottom: 55px;
+    right: 0;
   }
 </style>

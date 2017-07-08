@@ -7,7 +7,7 @@
         </router-link>
       </mt-header>
       <div class="mui-input-row dinglian-register-tel">
-        <input v-model="phoneno" id="phoneno" type="tel" placeholder="请输入手机号" >
+        <input v-model="phoneno" id="phoneno" type="number" placeholder="请输入手机号" @blur="judgmentTel" >
       </div>
 
 
@@ -17,7 +17,7 @@
 
       </div>
       <div class="mui-input-row mui-password dinglian-register-psw">
-        <input id="passw1" type="password" class="mui-input-password" placeholder="请输入密码" v-model="password">
+        <input id="passw1" type="password" class="mui-input-password" placeholder="请输入密码" v-model="password" @blur="judgmentpsw">
       </div>
 
       <mt-button type="primary" size="large" class="dinglian-register-btn dinglian-register-head" @click="isRegister">立即注册</mt-button>
@@ -38,41 +38,82 @@
       }
     },
     methods: {
+      judgmentTel (tel) {
+        if (tel === '') {
+          Toast({
+            message: '手机号不能为空',
+            duration: 500
+          })
+        } else if (tel.length !== 11) {
+          Toast({
+            message: '手机号不正确',
+            duration: 500
+          })
+        }
+      },
+      judgmentpsw (psw) {
+        let badword = ';|<>`&!*(~^)#?:"/$=\\' + "'"
+        let i = 0
+        if (psw === '') {
+//        Toast({
+//          message: '密码不能为空',
+//          duration: 500
+//        })
+          console.log('密码不能为空')
+        } else if (psw.length < 6 || psw.length > 13) {
+          Toast({
+            message: '密码不能少于6位或者多于13位',
+            duration: 500
+          })
+        } else {
+          for (; i < psw.length; i++) {
+            var char = psw.charAt(i)
+            if (badword.indexOf(char) >= 0) {
+              Toast({
+                message: '密码错误，不能包含字符：' + char,
+                duration: 1000
+              })
+            }
+          }
+        }
+      },
       sendVerifyno () {
         if (!this.phoneno) {
           Toast('手机号不能为空')
         } else {
-          let data = {
-            phoneno: this.phoneno,
-            dataType: 'register'
+          if (this.judgmentTel(this.phoneno)) {
+            let data = {
+              phoneno: this.phoneno,
+              dataType: 'register'
+            }
+            let num = 60
+            let timer = null
+            this.axios({
+              method: 'get',
+              url: '/user/sendCode',
+              params: data
+            }).then(res => {
+              console.log(res)
+              let instance = Toast('验证码发送成功，请及时输入！')
+              setTimeout(() => {
+                instance.close()
+              }, 2000)
+              /* 验证码倒计时 */
+              this.isDisabled = true
+              timer = setInterval(() => {
+                num--
+                this.btn = num + '秒后发送'
+                if (num === 0 || this.phoneno === '') {
+                  clearInterval(timer)
+                  this.isDisabled = false
+                  num = 60
+                  this.btn = '发送验证码'
+                }
+              }, 1000)
+            }).catch(error => {
+              console.log(error)
+            })
           }
-          let num = 60
-          let timer = null
-          this.axios({
-            method: 'get',
-            url: '/user/sendCode',
-            params: data
-          }).then(res => {
-            console.log(res)
-            let instance = Toast('验证码发送成功，请及时输入！')
-            timer = setTimeout(() => {
-              instance.close()
-            }, 2000)
-            /* 验证码倒计时 */
-            this.isDisabled = true
-            setInterval(() => {
-              num--
-              this.btn = num + '秒后发送'
-              if (num === 0) {
-                clearInterval(timer)
-                this.isDisabled = false
-                num = 60
-                this.btn = '发送验证码'
-              }
-            }, 1000)
-          }).catch(error => {
-            console.log(error)
-          })
         }
       },
       isRegister () {
@@ -116,11 +157,22 @@
     margin-top: 18px;
     border-top:1px solid #f3f5f6;
     border-bottom:1px solid #f3f5f6;
+    background-color: #ffffff;
   }
   .dinglian-register-num{
     background-color: #ffffff;
   }
+  .dinglian-register-tel input {
+    background: url(../../assets/images/people.svg) no-repeat 10px center;
+    background-size: 20px 20px;
+  }
+  .dinglian-register-psw input {
+    background: url(../../assets/images/key.svg) no-repeat 10px center;
+    background-size: 20px 20px;
+  }
   .dinglian-register-num input{
+    background: url(../../assets/images/people.svg) no-repeat 10px center;
+    background-size: 20px 20px;
     width: 70%;
   }
   .dinglian-register-send{
@@ -133,19 +185,25 @@
   .dinglian-register-psw{
     border-top:1px solid #f3f5f6;
     border-bottom:1px solid #f3f5f6;
+    background-color: #ffffff;
   }
   .dinglian-register-tel input,.dinglian-register-psw input,.dinglian-register-num input{
     border:0;
-    height: 45px;
-    line-height: 45px;
+    height: 44px;
+    line-height: 44px;
     margin-bottom: 0;
+    font-size: 14px;
+    padding-left: 10%;
   }
   .dinglian-register-btn{
     width: 92%;
-    margin-top: 22px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333333;
   }
   .dinglian-register-term{
     margin-top: 20px;
-
+    text-align: center;
+    font-size: 14px;
   }
 </style>
