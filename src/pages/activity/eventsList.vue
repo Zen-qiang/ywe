@@ -118,6 +118,12 @@
   div {
     width:100%;
   }
+  .mui-table-view-cell.mui-collapse .mui-table-view .mui-table-view-cell {
+     padding-left: 15px;
+  }
+  .mui-table-view-cell:after {
+     height: 0;
+  }
   .dinglian-eventsList-search {
     background-color: #ffd200;
     width: 100%;

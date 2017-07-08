@@ -20,7 +20,8 @@
       <h4>添加标签</h4>
       <ul class="clearfix">
         <li v-for="myItem in tagList" >
-          <span :class="{'dinglian-initiateActivities-tags':myItem.show,'dinglian-initiateActivities-changetags':!myItem.show}" @click="getMyTag(myItem)">{{myItem.tagName}}</span>
+          <!--<span class= 'dinglian-initiateActivities-tags' @click="getMyTag(myItem)">{{myItem.tagName}}</span>-->
+          <span :class="[myItem.show?'dinglian-initiateActivities-tags':'dinglian-initiateActivities-changetags']" @click="getMyTag(myItem)">{{myItem.tagName}}</span>
         </li>
       </ul>
     </div>
@@ -41,9 +42,7 @@
       return {
         tagList: [],
         activityType: [],
-        myTags: [],
-        styles: 'dinglian-initiateActivities-tags',
-        changestyles: 'dinglian-initiateActivities-changetags'
+        myTags: []
       }
     },
     created () {
@@ -83,19 +82,19 @@
       getMyTag (tag) {
         tag.show = !tag.show
         console.log(tag.show)
-        let myTagsList = this.myTags
-        let i = myTagsList.length
-        if (i === 0) {
-          myTagsList.push(tag.tagId)
-        } else {
-          while (i--) {
-            if (myTagsList[i] === tag.tagId) {
-              return
-            }
-          }
-          myTagsList.push(tag.tagId)
-        }
-        console.log(this.myTags)
+//        let myTagsList = this.myTags
+//        let i = myTagsList.length
+//        if (i === 0) {
+//          myTagsList.push(tag.tagId)
+//        } else {
+//          while (i--) {
+//            if (myTagsList[i] === tag.tagId) {
+//              return
+//            }
+//          }
+//          myTagsList.push(tag.tagId)
+//        }
+//        console.log(this.myTags)
       },
       getTagList (e) {
         let data = {
