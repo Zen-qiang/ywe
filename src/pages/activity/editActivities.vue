@@ -1,7 +1,7 @@
 <template>
   <div>
     <mt-header title="编辑内容" class="dinglian-editActivities-head">
-      <router-link to="/eventsList" slot="left">
+      <router-link to="/initiateActivities" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
@@ -33,11 +33,9 @@
         <label>人数</label>
         <input type="text" class="mui-input-clear" placeholder="请输入参加人数" v-model="number">
       </div>
-      <div class="dinglian-editActivities-costForm">
-        <mt-radio
-          title="费用"
-          v-model="charge"
-          :options="options">
+      <div class="dinglian-editActivities-costForm clearfix">
+        <span class="dinglian-editActivities-costFormTitle">费用</span>
+        <mt-radio v-model="charge" :options="options" class="dinglian-editActivities-costFormRadio">
         </mt-radio>
       </div>
       <div class="mui-input-row">
@@ -55,7 +53,7 @@
       </div>
 
 
-      <div class="dinglian-editActivities-limiter">
+      <div class="dinglian-editActivities-limiter clearfix">
         <mt-radio
           title="限定条件"
           v-model="limiter"
@@ -160,12 +158,18 @@
           if (res.data.status === 'ERROR') {
             Toast(res.data.message)
           } else {
-            Toast('发布活动成功！')
+            Toast({
+              message: '发布活动成功！',
+              duration: 500
+            })
             this.$store.commit(types.SETINFO, res.data.result)
             this.$router.push({'path': '/eventDetails'})
           }
         }).catch(error => {
-          Toast('请求失败！')
+          Toast({
+            message: '请求失败！',
+            duration: 500
+          })
           console.log(error)
         }
         )
@@ -176,6 +180,7 @@
 
 </script>
 <style scoped>
+  @import '../../assets/css/common.css';
   .dinglian-editActivities-head {
     background-color: #ffd200 ;
     color: #333333;
@@ -270,8 +275,17 @@
   }
   /*费用*/
   .dinglian-editActivities-bodyInfo .dinglian-editActivities-costForm {
-    height: 125px;
+    height: 122px;
     border-bottom:1px solid #dddddd;
+  }
+  .dinglian-editActivities-costFormTitle {
+    background-color: #f2f2f2;
+    padding-left: 15px;
+    color: #999999;
+    font-size: 14px;
+  }
+  .dinglian-editActivities-costFormRadio {
+    color: #999999;
   }
   .dinglian-editActivities-costForm {
     background-color: #f2f2f2;
@@ -291,8 +305,8 @@
     margin-bottom: 86px;
   }
   .dinglian-editActivities-bodyInfo .dinglian-editActivities-limiter {
-    height: 124px;
-    margin-bottom: 10px;
+    height: 115px;
+    border: 0;
   }
   .mint-field {
     /*background-color: red;*/

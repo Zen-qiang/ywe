@@ -2,7 +2,7 @@
   <div>
     <!--<h2>活动列表</h2>-->
       <div class="mui-input-row mui-search dinglian-eventsList-search">
-        <input type="search" class="mui-input-clear" placeholder="请输入附近关键字">
+        <input type="search" class="mui-input-clear" placeholder="请输入附近关键字" v-model="keyword" @keyup="searchKeyWord">
       </div>
     <!--筛选条件 start-->
       <div class="dinglian-eventsList-filter clearfix">
@@ -53,7 +53,7 @@
               <p class='mui-ellipsis'>
                 <div class="dinglian-eventsList-tag">
                   <i>{{item.tags.tagname}}街舞</i>
-                  <strong>{{item.numbers.num}}／{{item.numbers.enteringNum}}人</strong>
+                  <strong>{{item.numbers.enteringNum}}／{{item.numbers.num}}人</strong>
                   <em>{{item.charge}}</em>
                 </div>
                 <i>{{item.startTime | data}}</i>
@@ -76,7 +76,8 @@
   export default {
     data () {
       return {
-        eventsList: []
+        eventsList: [],
+        keyword: ''
       }
     },
     filters: {
@@ -88,11 +89,15 @@
       this.getEventsList()
     },
     methods: {
-      getEventsList () {
+      getEventsList (keyname) {
         console.log(store.state.username)
+        let data = {
+          keyword: keyname
+        }
         this.axios({
           method: 'post',
-          url: '/activity/getAllActivity'
+          url: '/activity/getAllActivity',
+          data: data
         }).then(res => {
           if (res.data.status === 'ERROR') {
             console.log(res.data.message)
@@ -102,6 +107,9 @@
         }).catch(err => {
           console.log(err)
         })
+      },
+      searchKeyWord () {
+        this.getEventsList(this.keyword)
       }
     }
   }

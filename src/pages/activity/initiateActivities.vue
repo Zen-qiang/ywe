@@ -1,7 +1,7 @@
 <template>
   <div>
     <mt-header title="发起活动" class="dinglian-initiateActivities-head">
-      <router-link to="/" slot="left">
+      <router-link to="/eventsList" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
@@ -20,7 +20,7 @@
       <h4>添加标签</h4>
       <ul class="clearfix">
         <li v-for="myItem in tagList" >
-          <span :class="[myItem.show ? 'dinglian-initiateActivities-tags' : 'dinglian-initiateActivities-changetags']" @click="getMyTag(myItem)">{{myItem.tagName}}</span>
+          <span :class="{'dinglian-initiateActivities-tags':myItem.show,'dinglian-initiateActivities-changetags':!myItem.show}" @click="getMyTag(myItem)">{{myItem.tagName}}</span>
         </li>
       </ul>
     </div>
@@ -82,6 +82,7 @@
 //      获取选中tags的id
       getMyTag (tag) {
         tag.show = !tag.show
+        console.log(tag.show)
         let myTagsList = this.myTags
         let i = myTagsList.length
         if (i === 0) {

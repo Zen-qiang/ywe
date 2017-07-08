@@ -85,7 +85,10 @@ export default {
     },
     isLogin () {
       if (!this.phoneno || !this.password) {
-        Toast('请检查账号和密码是否正确！')
+        Toast({
+          message: '请检查账号和密码是否正确！',
+          duration: 500
+        })
       }
       let data = {
         phoneno: this.phoneno,
@@ -102,7 +105,10 @@ export default {
         if (res.data.status === 'ERROR') {
           Toast(res.data.message)
         } else {
-          Toast('登录成功！')
+          Toast({
+            message: '登录成功！',
+            duration: 500
+          })
           // data = Object.assign(data, res.data.result)
           this.$store.commit(types.LOGIN, JSON.stringify(data))
           this.$router.push({'path': '/index'})

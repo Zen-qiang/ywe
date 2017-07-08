@@ -20,7 +20,7 @@
             <p class='mui-ellipsis'>
             <div class="dinglian-eventDetails-tag">
               <i>{{activityInfo.tags.tagName}}街舞</i>
-              <strong>{{activityInfo.numbers.num}}／{{activityInfo.numbers.enteringNum}}</strong>
+              <strong>{{activityInfo.numbers.enteringNum}}／{{activityInfo.numbers.num}}</strong>
               <em>{{activityInfo.charge}}</em>
             </div>
             <i>{{activityInfo.startTime | data}}</i><br>
@@ -41,6 +41,7 @@
   </div>
 </template>
 <script>
+  import { Toast } from 'mint-ui'
   import {mapGetters} from 'vuex'
   import * as types from '../../store/mutation-types'
   import moment from 'moment'
@@ -70,6 +71,10 @@
 //      创建聊天
       createChat () {
         this.$router.push({'path': '/eventsList'})
+        Toast({
+          message: '创建聊天成功！',
+          duration: 500
+        })
       }
     }
   }
