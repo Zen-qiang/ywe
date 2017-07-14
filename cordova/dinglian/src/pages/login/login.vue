@@ -1,7 +1,7 @@
 <template>
 <div class="dinglian-login-height">
   <mt-header title="登录" class="dinglian-login-head">
-    <router-link to="/" slot="left">
+    <router-link to="/index" slot="left">
       <mt-button icon="back"></mt-button>
     </router-link>
   </mt-header>
@@ -10,10 +10,10 @@
     </div>
     <p class="dinglian-login-title">欢迎加入出趣浪</p>
   <div class="mui-input-row dinglian-login-tel">
-    <input type="number" placeholder="请输入手机号" v-model="phoneno" @blur="judgmentTel(phoneno)">
+    <input type="number" placeholder="请输入手机号" v-model="phoneno"/>
   </div>
     <div class="mui-input-row mui-password dinglian-login-psw">
-      <input type="password" class="mui-input-password" placeholder="请输入密码" v-model="password" @blur="judgmentpsw(password)">
+      <input type="password" class="mui-input-password" placeholder="请输入密码" v-model="password">
     </div>
   <mt-button type="primary" size="large" class="dinglian-login-btn" @click="isLogin">登录</mt-button>
 
@@ -21,21 +21,23 @@
     <router-link to="/forgetPassword" class="dinglian-login-bottom-left">忘记密码</router-link>
     <router-link to="/register" class="dinglian-login-bottom-right">新用户</router-link>
   </div>
-    <ul class="dinglian-login-line clearfix">
-      <li class="dinglian-login-line-left"></li>
-      <li class="dinglian-login-line-middle">其他登录方式</li>
-      <li class="dinglian-login-line-right"></li>
-    </ul>
-
-  <div class="dinglian-login-loginWay clearfix">
-    <router-link to="#" class="dinglian-login-loginWay-left"><img src="../../assets/images/weixin.svg" alt="微信" /></router-link>
-    <router-link to="#" class="dinglian-login-loginWay-right"><img src="../../assets/images/qq.svg" alt="QQ"></router-link>
+  <div>
+      <ul class="dinglian-login-line clearfix">
+        <li class="dinglian-login-line-left"></li>
+        <li class="dinglian-login-line-middle">其他登录方式</li>
+        <li class="dinglian-login-line-right"></li>
+      </ul>
+    <div class="dinglian-login-loginWay clearfix">
+      <router-link to="#" class="dinglian-login-loginWay-left"><img src="../../assets/images/weixin.svg" alt="微信" /></router-link>
+      <router-link to="#" class="dinglian-login-loginWay-right"><img src="../../assets/images/qq.svg" alt="QQ"></router-link>
+    </div>
   </div>
 </div>
 </template>
 <script>
 import { Toast } from 'mint-ui'
 import * as types from '../../store/mutation-types'
+import {judgmentTel, judgmentpsw} from '../../assets/js/tool'
 export default {
   data () {
     return {
@@ -44,107 +46,70 @@ export default {
     }
   },
   methods: {
-    judgmentTel (tel) {
-      if (tel === '') {
-        Toast({
-          message: '手机号不能为空',
-          duration: 500
-        })
-      } else if (tel.length !== 11) {
-        Toast({
-          message: '手机号不正确',
-          duration: 500
-        })
-      }
-    },
-    judgmentpsw (psw) {
-      let badword = ';|<>`&!*(~^)#?:"/$=\\' + "'"
-      let i = 0
-      if (psw === '') {
-//        Toast({
-//          message: '密码不能为空',
-//          duration: 500
-//        })
-        console.log('密码不能为空')
-      } else if (psw.length < 6 || psw.length > 13) {
-        Toast({
-          message: '密码不能少于6位或者多于13位',
-          duration: 500
-        })
-      } else {
-        for (; i < psw.length; i++) {
-          var char = psw.charAt(i)
-          if (badword.indexOf(char) >= 0) {
-            Toast({
-              message: '密码错误，不能包含字符：' + char,
-              duration: 1000
-            })
-          }
-        }
-      }
-    },
     isLogin () {
-      if (!this.phoneno || !this.password) {
-        Toast({
-          message: '请检查账号和密码是否正确！',
-          duration: 500
-        })
-      }
       let data = {
         phoneno: this.phoneno,
         password: this.password,
         type: 'username'
       }
-      this.axios({
-        method: 'post',
-        url: '/user/login',
-        data: data,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        withCredentials: true
-      }).then(res => {
-        if (res.data.status === 'ERROR') {
-          Toast(res.data.message)
-          this.$store.commit(types.LOGIN, JSON.stringify(data))
-          this.$router.push({'path': '/index'})
-        } else {
-          Toast({
-            message: '登录成功！',
-            duration: 500
-          })
-          // data = Object.assign(data, res.data.result)
-          this.$store.commit(types.LOGIN, JSON.stringify(data))
-          this.$router.push({'path': '/index'})
+      if (judgmentTel(this.phoneno) && judgmentpsw(this.password)) {
+        this.axios({
+          method: 'post',
+          url: '/user/login',
+          data: data,
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          withCredentials: true
+        }).then(res => {
+          if (res.data.status === 'ERROR') {
+            Toast(res.data.message)
+//          this.$store.commit(types.LOGIN, JSON.stringify(data))
+//          this.$router.push({'path': '/index'})
+          } else {
+            Toast({
+              message: '登录成功！',
+              duration: 500
+            })
+            // data = Object.assign(data, res.data.result)
+            this.$store.commit(types.LOGIN, JSON.stringify(data))
+            this.$router.push({'path': '/index'})
+          }
         }
+        ).catch(error => {
+          console.log(error)
+        })
       }
-      ).catch(error => {
-        console.log(error)
-      })
     }
   }
 }
 </script>
 <style scoped>
+  div {
+    margin-top: 0;
+  }
   .dinglian-login-height {
     background-color: #ffffff;
+    width: 100%;
+    height: 100%;
   }
   .dinglian-login-head {
     width: 100%;
     background-color: #ffd200 ;
     color: #333333;
     margin:0 auto;
-    height: 45px;
-    line-height: 45px;
-    font-size: 17px;
+    /*height: 45px;*/
+    height: 4rem;
+    line-height: 4rem;
+    font-size: 1.7rem;
     position: fixed;
     top: 0;
     z-index: 8;
   }
   .dinglian-login-logo {
     width: 100%;
-    margin-top: 45px;
+    margin-top: 4rem;
     text-align: center;
-    padding-top: 29px;
-    padding-bottom: 10px;
+    padding-top: 2.9rem;
+    padding-bottom: 1rem;
   }
   .dinglian-login-logo > img {
     width: 69px;
@@ -152,7 +117,7 @@ export default {
   }
   .dinglian-login-title {
     text-align: center;
-    padding-bottom: 58px;
+    padding-bottom: 3rem;
     font-size: 14px;
     color: #333333;
     margin-bottom: 0;
@@ -164,33 +129,33 @@ export default {
   }
   .dinglian-login-tel input,.dinglian-login-psw input{
     border:0;
-    height: 44px;
-    line-height: 44px;
+    height: 4.4rem;
+    line-height: 4.4rem;
     margin-bottom: 0;
-    font-size: 14px;
-    padding-left: 45px;
+    font-size: 1.4rem;
+    padding-left: 4.5rem;
   }
   .dinglian-login-tel input {
     background: url(../../assets/images/people.svg) no-repeat 10px center;
-    background-size: 20px 20px;
+    background-size: 2rem 2rem;
   }
   .dinglian-login-psw input {
     background: url(../../assets/images/key.svg) no-repeat 10px center;
-    background-size: 20px 20px;
+    background-size: 2rem 2rem;
   }
   .dinglian-login-psw {
     border-bottom:1px solid #f3f5f6;
   }
   .dinglian-login-btn{
     width: 92%;
-    margin-top: 20px;
+    margin-top: 2rem;
     margin-left: 4%;
     background-color: #ffd200;
     color: #333333;
   }
   .dinglian-login-bottom{
     font-size: 13px;
-    padding-top: 15px;
+    padding-top: 1.5rem;
   }
   .dinglian-login-bottom-left {
     float: left;
@@ -213,44 +178,47 @@ export default {
     float: left;
   }
    .dinglian-login-line-left{
-     padding-top: 115px;
+     padding-top: 9rem;
      width: 20%;
      border-bottom: 1px solid #f9f9f9;
   }
   .dinglian-login-line-middle{
     color: #999999;
     font-size: 14px;
-    padding-top: 105px;
+    padding-top: 8rem;
     margin:0 20px;
     width: 30%;
+    min-width: 7rem;
   }
   .dinglian-login-line-right{
-    padding-top: 115px;
+    padding-top: 9rem;
     width: 20%;
     border-bottom: 1px solid #f9f9f9;
   }
   .dinglian-login-loginWay{
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 2rem;
   }
   .dinglian-login-loginWay-left{
     float: left;
-    margin-left: 35px;
-    padding-top: 20px;
+    margin-left: 3rem;
+    padding-top: 1rem;
 
   }
   .dinglian-login-loginWay-left > img {
     width: 55px;
     height: 44px;
-    /*margin-top: 20px;*/
   }
   .dinglian-login-loginWay-right{
     float: right;
-    margin-right: 35px;
-    padding-top: 20px;
+    margin-right: 3rem;
+    padding-top: 1rem;
   }
   .dinglian-login-loginWay-right > img {
     width: 44px;
     height: 41px;
-    /*margin-top: 20px;*/
     margin-bottom: 40px;
   }
 

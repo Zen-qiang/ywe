@@ -20,6 +20,7 @@ const EditActivities = r => require.ensure([], () => r(require('@/pages/activity
 const EventDetails = r => require.ensure([], () => r(require('@/pages/activity/eventDetails')), 'eventDetails')// 发布活动详情
 const ActivityDetails = r => require.ensure([], () => r(require('@/pages/activity/activityDetails')), 'activityDetails')// 活动详情
 const SignActivities = r => require.ensure([], () => r(require('@/pages/activity/signActivities')), 'signActivities')// 活动报名
+const ActivityInfo = r => require.ensure([], () => r(require('@/pages/activity/activityInfo')), 'activityInfo')// 活动info
 const nopage = r => require.ensure([], () => r(require('@/pages/nopage')), 'nopage')
 // import Hello from '@/components/Hello'
 // import Home from '@/components/Home'
@@ -38,9 +39,9 @@ export default new Router({
       path: '/index',
       name: 'Index',
       component: Index,
-      meta: {
-        requireAuth: true
-      },
+      // meta: {
+      //   requireAuth: true
+      // },
       children: [
         {
           path: '',
@@ -75,10 +76,7 @@ export default new Router({
         {
           path: 'eventsList',
           name: 'EventsList',
-          component: EventsList,
-          meta: {
-            requireAuth: true
-          }
+          component: EventsList
         },
         {
           path: 'message',
@@ -181,6 +179,14 @@ export default new Router({
       path: '/signActivities/:id',
       name: 'SignActivities',
       component: SignActivities,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/activityInfo/',
+      name: 'ActivityInfo',
+      component: ActivityInfo,
       meta: {
         requireAuth: true
       }

@@ -1,5 +1,5 @@
 <template>
-<!--活动报名-->
+  <!--活动报名-->
   <div class="dinglian-signActivities-body">
     <mt-header title="活动报名" class="dinglian-signActivities-head">
       <router-link v-bind='{to:"/activityDetails/"+eventId}' slot="left">
@@ -70,7 +70,7 @@
         </li>
       </ul>
     </div>
-      <p class="dinglian-signActivities-agree">我已同意协议</p>
+    <p class="dinglian-signActivities-agree">我已同意协议</p>
     <div class="mui-input-row dinglian-signActivities-checkout">
       <div><span>¥{{signInfo.charge}}</span><em>请在10分钟内完成操作</em></div>
       <button type="button" class="mui-btn mui-btn-primary" @click="settlement">去结算<span class="mui-badge mui-badge-primary">1</span></button>
@@ -123,7 +123,7 @@
       },
       settlement () {
         Toast('成功报名')
-        this.$router.push({'path': '/eventsList'})
+        this.$router.push({'path': '/index/eventsList'})
       }
     }
   }

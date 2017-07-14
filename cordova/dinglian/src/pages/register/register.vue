@@ -7,7 +7,7 @@
         </router-link>
       </mt-header>
       <div class="mui-input-row dinglian-register-tel">
-        <input v-model="phoneno" id="phoneno" type="number" placeholder="请输入手机号" @blur="judgmentTel" >
+        <input v-model="phoneno" id="phoneno" type="tel" placeholder="请输入手机号">
       </div>
 
 
@@ -17,7 +17,7 @@
 
       </div>
       <div class="mui-input-row mui-password dinglian-register-psw">
-        <input id="passw1" type="password" class="mui-input-password" placeholder="请输入密码" v-model="password" @blur="judgmentpsw">
+        <input id="passw1" type="password" class="mui-input-password" placeholder="请输入密码" v-model="password">
       </div>
 
       <mt-button type="primary" size="large" class="dinglian-register-btn dinglian-register-head" @click="isRegister">立即注册</mt-button>
@@ -27,6 +27,8 @@
 <script>
   import { Toast } from 'mint-ui'
   //  import {mapMutations} from 'vuex'
+  import * as types from '../../store/mutation-types'
+  import {judgmentTel, judgmentpsw} from '../../assets/js/tool'
   export default {
     data () {
       return {
@@ -38,50 +40,12 @@
       }
     },
     methods: {
-      judgmentTel (tel) {
-        if (tel === '') {
-          Toast({
-            message: '手机号不能为空',
-            duration: 500
-          })
-        } else if (tel.length !== 11) {
-          Toast({
-            message: '手机号不正确',
-            duration: 500
-          })
-        }
-      },
-      judgmentpsw (psw) {
-        let badword = ';|<>`&!*(~^)#?:"/$=\\' + "'"
-        let i = 0
-        if (psw === '') {
-//        Toast({
-//          message: '密码不能为空',
-//          duration: 500
-//        })
-          console.log('密码不能为空')
-        } else if (psw.length < 6 || psw.length > 13) {
-          Toast({
-            message: '密码不能少于6位或者多于13位',
-            duration: 500
-          })
-        } else {
-          for (; i < psw.length; i++) {
-            var char = psw.charAt(i)
-            if (badword.indexOf(char) >= 0) {
-              Toast({
-                message: '密码错误，不能包含字符：' + char,
-                duration: 1000
-              })
-            }
-          }
-        }
-      },
+//        发送验证码
       sendVerifyno () {
         if (!this.phoneno) {
           Toast('手机号不能为空')
         } else {
-          if (this.judgmentTel(this.phoneno)) {
+          if (judgmentTel(this.phoneno)) {
             let data = {
               phoneno: this.phoneno,
               dataType: 'register'
@@ -116,10 +80,9 @@
           }
         }
       },
+//      注册
       isRegister () {
-        if (!this.phoneno || !this.verifyno || !this.password) {
-          Toast('验证码或者密码为空！')
-        } else {
+        if (judgmentTel(this.phoneno) && judgmentpsw(this.password)) {
           this.axios({
             method: 'post',
             url: '/user/register',
@@ -134,9 +97,32 @@
                 console.log(res)
               } else {
                 Toast('注册成功！')
+                let data = {
+                  phoneno: this.phoneno,
+                  password: this.password,
+                  type: 'username'
+                }
                 console.log(res)
-//                Object.assign(this.$data, this.$options.data())
-                this.$router.push({'path': '/login'})
+                this.axios({
+                  method: 'post',
+                  url: '/user/login',
+                  data: data
+                }).then(res => {
+                  if (res.data.status === 'ERROR') {
+                    Toast(res.data.message)
+                  } else {
+                    Toast({
+                      message: '登录成功！',
+                      duration: 500
+                    })
+                    this.$store.commit(types.LOGIN, JSON.stringify(data))
+                    this.$router.push({'path': '/index'})
+                  }
+                }
+                ).catch(error => {
+                  console.log(error)
+                })
+                this.$router.push({'path': '/index'})
               }
             }
           ).catch(error => {
@@ -161,6 +147,8 @@
   }
   .dinglian-register-num{
     background-color: #ffffff;
+    position: relative;
+    height: 44px;
   }
   .dinglian-register-tel input {
     background: url(../../assets/images/people.svg) no-repeat 10px center;
@@ -173,14 +161,20 @@
   .dinglian-register-num input{
     background: url(../../assets/images/people.svg) no-repeat 10px center;
     background-size: 20px 20px;
-    width: 70%;
+    width: 20rem;
+    position: absolute;
+    left: 0;
   }
   .dinglian-register-send{
     width: 88px;
     height: 32px;
-    background-color: #ffd202;
-    color: #947f26;
-    margin:8px auto;
+    background-color: #ffd200;
+    color: #333333;
+    font-size: 13px;
+    position: absolute;
+    z-index: 9;
+    top: 0.5rem;
+    right: 0.5rem;
   }
   .dinglian-register-psw{
     border-top:1px solid #f3f5f6;

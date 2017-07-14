@@ -7,36 +7,36 @@
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
-  <div class="dinglian-eventDetails-list">
-    <ul class="mui-table-view">
-      <li class="mui-table-view-cell mui-media clearfix">
-        <a href="javascript:;" class="clearfix">
-          <div class="dinglian-eventDetails-topImg">
-            <img src="../../assets/images/details.png">
-          </div>
-          <div class="mui-media-body dinglian-eventDetails-bottomInfo">
-            <h4>{{activityInfo.name}}</h4>
-            <p class="dinglian-eventDetails-status clearfix"><span>个人组织 {{activityInfo.releaseTime | data}}</span><em>{{activityInfo.status}}</em></p>
-            <p class='mui-ellipsis'>
-            <div class="dinglian-eventDetails-tag">
-              <i>{{activityInfo.tags.tagName}}街舞</i>
-              <strong>{{activityInfo.numbers.enteringNum}}／{{activityInfo.numbers.num}}</strong>
-              <em>{{activityInfo.charge}}</em>
+    <div class="dinglian-eventDetails-list">
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media clearfix">
+          <a href="javascript:;" class="clearfix">
+            <div class="dinglian-eventDetails-topImg">
+              <img src="../../assets/images/details.png">
             </div>
-            <i>{{activityInfo.startTime | data}}</i><br>
-            </p>
-            <div class="dinglian-eventDetails-next clearfix">
-            <em>{{activityInfo.address}}</em>
-             <!-- <button type="button" class="mui-btn mui-btn-link">
-              确认人员
-              <span class="mui-icon mui-icon-forward"></span>
-            </button>-->
+            <div class="mui-media-body dinglian-eventDetails-bottomInfo">
+              <h4>{{activityInfo.name}}</h4>
+              <p class="dinglian-eventDetails-status clearfix"><span>个人组织 {{activityInfo.releaseTime | data}}</span><em>{{activityInfo.status}}</em></p>
+              <p class='mui-ellipsis'>
+              <div class="dinglian-eventDetails-tag">
+                <i>{{activityInfo.tags.tagName}}街舞</i>
+                <strong>{{activityInfo.numbers.enteringNum}}／{{activityInfo.numbers.num}}</strong>
+                <em>{{activityInfo.charge}}</em>
+              </div>
+              <i>{{activityInfo.startTime | data}}</i><br>
+              </p>
+              <div class="dinglian-eventDetails-next clearfix">
+                <em>{{activityInfo.address}}</em>
+                <!-- <button type="button" class="mui-btn mui-btn-link">
+                 确认人员
+                 <span class="mui-icon mui-icon-forward"></span>
+               </button>-->
+              </div>
             </div>
-          </div>
-        </a>
-      </li>
-    </ul>
-  </div>
+          </a>
+        </li>
+      </ul>
+    </div>
     <button type="button" class="mui-btn mui-btn-success mui-btn-block dinglian-eventDetails-btn" @click="createChat">创建聊天</button>
   </div>
 </template>
@@ -63,14 +63,12 @@
     mouted () {
     },
     created () {
-      console.log(this.activityInfo.name)
-      console.log(this.$store.state.user.username)
       console.log(this.activityInfo)
     },
     methods: {
 //      创建聊天
       createChat () {
-        this.$router.push({'path': '/eventsList'})
+        this.$router.push({'path': '/index/eventsList'})
         Toast({
           message: '创建聊天成功！',
           duration: 500
@@ -81,6 +79,9 @@
 </script>
 <style lang="scss" scoped type="text/css">
   @import '../../assets/css/global.css';
+  div {
+    text-align: left;
+  }
   .dinglian-eventDetails-head {
     background-color: #ffd200 ;
     color: #333333;

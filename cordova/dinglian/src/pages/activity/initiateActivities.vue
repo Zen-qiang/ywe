@@ -1,32 +1,35 @@
 <template>
   <div>
     <mt-header title="发起活动" class="dinglian-initiateActivities-head">
-      <router-link to="/eventsList" slot="left">
+      <router-link to="index/eventsList" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
     <div class="dinglian-initiateActivities-searchTag">
       <ul class="mui-table-view mui-table-view-chevron">
-        <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" href="#">活动类型</a>
-          <ul class="mui-table-view mui-table-view-chevron">
-            <li class="mui-table-view-cell" v-for="item in activityType">
-              <a class="mui-navigate-right" href="#" @click="getTypeNameId(item.typeNameId)">{{item.typeName}}</a>
-            </li>
-          </ul>
+        <li class="mui-table-view-cell"><a class="mui-navigate-right" @click="getActivityShow">{{eventType}}</a>
+            <ul class="mui-table-view mui-table-view-chevron dinglian-initiateActivities-activityShow" v-show="activityShow">
+              <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" @click="getAllActivity">全部</a>
+              </li>
+              <li class="mui-table-view-cell" v-for="item in activityType">
+                <a class="mui-navigate-right" @click="getTypeNameId(item)">{{item.typeName}}</a>
+              </li>
+            </ul>
         </li>
       </ul>
     </div>
     <div class="dinglian-initiateActivities-addTag">
       <h4>添加标签</h4>
       <ul class="clearfix">
-        <li v-for="myItem in tagList" >
-          <span :class="{'dinglian-initiateActivities-tags':myItem.show,'dinglian-initiateActivities-changetags':!myItem.show}" @click="getMyTag(myItem)">{{myItem.tagName}}</span>
+        <li v-for="(myItem,id) in tagList" :class="{'dinglian-initiateActivities-tags':!myItem.show,'dinglian-initiateActivities-changetags':myItem.show}" @click="getMyTag(myItem,id)" >
+          <span>{{myItem.tagName}}</span>
         </li>
       </ul>
     </div>
 
 
-    <mt-button type="default" size="large" class="dinglian-initiateActivities-btn dinglian-initiateActivities-head" @click="initCarry">继续</mt-button>
+    <mt-button type="default" size="large" class="dinglian-initiateActivities-btn" @click="initCarry">继续</mt-button>
 
 
   </div>
@@ -36,14 +39,15 @@
   import { Toast } from 'mint-ui'
   import * as types from '../../store/mutation-types'
   import {mapState} from 'vuex'
+  import Vue from 'vue'
   export default {
     data () {
       return {
         tagList: [],
         activityType: [],
         myTags: [],
-        styles: 'dinglian-initiateActivities-tags',
-        changestyles: 'dinglian-initiateActivities-changetags'
+        activityShow: false,
+        eventType: '活动类型'
       }
     },
     created () {
@@ -54,10 +58,25 @@
       tags: state => state.tags
     }),
     methods: {
-      getTypeNameId (e) {
-        console.log(e)
-        this.getTagList(e)
+//        控制下拉框
+      getActivityShow () {
+        if (this.activityShow === true) {
+          this.activityShow = false
+        } else {
+          this.activityShow = true
+        }
       },
+      getAllActivity () {
+        this.getTagList()
+        this.activityShow = false
+        this.eventType = '全部活动类型'
+      },
+      getTypeNameId (e) {
+        this.getTagList(e.typeNameId)
+        this.activityShow = false
+        this.eventType = e.typeName
+      },
+//      获取活动类型
       getActivityType () {
         this.axios({
           method: 'get',
@@ -80,22 +99,15 @@
         )
       },
 //      获取选中tags的id
-      getMyTag (tag) {
-        tag.show = !tag.show
-        console.log(tag.show)
-        let myTagsList = this.myTags
-        let i = myTagsList.length
-        if (i === 0) {
-          myTagsList.push(tag.tagId)
-        } else {
-          while (i--) {
-            if (myTagsList[i] === tag.tagId) {
-              return
-            }
-          }
-          myTagsList.push(tag.tagId)
+      getMyTag (myItem, id) {
+        for (var item in this.tagList) {
+          Vue.set(this.tagList[item], 'show', false)
         }
-        console.log(this.myTags)
+        if (myItem.show === true) {
+          Vue.set(myItem, 'show', false)
+        } else {
+          Vue.set(myItem, 'show', true)
+        }
       },
       getTagList (e) {
         let data = {
@@ -106,22 +118,32 @@
           url: '/activity/getTagList',
           data: data
         }).then(
-            res => {
-              this.tagList = res.data.result
-              for (var i = 0; i < this.tagList.length; i++) {
-                this.tagList[i].show = true
-              }
-              console.log(this.tagList)
-            }
+          res => {
+            this.tagList = res.data.result
+          }
         ).catch(
-            err => {
-              console.log(err)
-            }
+          err => {
+            console.log(err)
+          }
         )
       },
       initCarry () {
-        this.$store.commit(types.SETTAGS, this.myTags)
-        this.$router.push('/editActivities')
+        let tagList = this.tagList
+        for (var i = 0; i < tagList.length; i++) {
+          if (tagList[i].show === true) {
+            this.myTags.push(tagList[i].tagId)
+          }
+        }
+        console.log(this.myTags)
+        if (this.myTags.length === 0) {
+          Toast({
+            message: '活动类型不能空！',
+            duration: 500
+          })
+        } else {
+          this.$store.commit(types.SETTAGS, this.myTags)
+          this.$router.push('/editActivities')
+        }
       }
     }
   }
@@ -131,10 +153,18 @@
     width: 100%;
   }
   .dinglian-initiateActivities-head {
+    width: 100%;
     background-color: #ffd200 ;
     color: #333333;
-    margin:0 auto;
     height: 44px;
+    position: fixed;
+    top: 0;
+    z-index: 8;
+  }
+  .dinglian-initiateActivities-searchTag .dinglian-initiateActivities-activityShow {
+    margin-top: 11px;
+    width: 100%;
+
   }
   .dinglian-initiateActivities-searchTag {
     position: fixed;
@@ -146,7 +176,7 @@
     font-size: 15px;
   }
   .dinglian-initiateActivities-addTag{
-    margin-top: 55px;
+    margin-top: 8rem;
     background-color: #ffffff;
     padding-bottom: 5px;
   }
@@ -160,11 +190,13 @@
   .dinglian-initiateActivities-changetags {
     background-color: #333333;
     color: #ffffff;
+    border: 1px solid #333333;
     font-size: 12px;
     padding: 5px;
     border-radius: 8px;
   }
   .dinglian-initiateActivities-addTag h4 {
+    text-align: left;
     font-size: 12px;
     padding-top: 15px;
     padding-left: 15px;
@@ -184,7 +216,10 @@
   }
   .dinglian-initiateActivities-btn{
     width: 92%;
+    background-color: #ffd200 ;
+    color: #333333;
     margin-top: 22px;
+    margin-left: 4%;
   }
 
 </style>

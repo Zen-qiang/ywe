@@ -1,13 +1,13 @@
 <template>
   <!--注册-->
-  <div>
+  <div class="dinglian-forgetPassword-all">
     <mt-header title="找回密码" class="dinglian-forgetPassword-head">
       <router-link to="/login" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
     <div class="mui-input-row dinglian-forgetPassword-tel">
-      <input type="number" placeholder="请输入手机号" v-model="phoneno" @blur="judgmentTel" />
+      <input type="tel" placeholder="请输入手机号" v-model="phoneno" @blur="judgmentTel(phoneno)" />
     </div>
 
 
@@ -17,7 +17,7 @@
     </div>
 
     <div class="mui-input-row mui-password dinglian-forgetPassword-psw">
-      <input type="password" class="mui-input-password" @blur="judgmentpsw" placeholder="请输入密码 ( 6-12位密码，字母，符号 )" v-model="newPassword">
+      <input type="password" class="mui-input-password" @blur="judgmentpsw(newPassword)" placeholder="请输入密码 ( 6-12位密码，字母，符号 )" v-model="newPassword">
     </div>
 
     <mt-button type="primary" size="large" class="dinglian-forgetPassword-btn dinglian-forgetPassword-head" @click="isRresetPassword">更改密码</mt-button>
@@ -27,6 +27,7 @@
 </template>
 <script>
   import { Toast } from 'mint-ui'
+  import {judgmentTel, judgmentpsw} from '../../assets/js/tool'
   export default {
     data () {
       return {
@@ -37,87 +38,42 @@
       }
     },
     methods: {
-      judgmentTel (tel) {
-        if (tel === '') {
-          Toast({
-            message: '手机号不能为空',
-            duration: 500
-          })
-        } else if (tel.length !== 11) {
-          Toast({
-            message: '手机号不正确',
-            duration: 500
-          })
-        }
-      },
-      judgmentpsw (psw) {
-        let badword = ';|<>`&!*(~^)#?:"/$=\\' + "'"
-        let i = 0
-        if (psw === '') {
-//        Toast({
-//          message: '密码不能为空',
-//          duration: 500
-//        })
-          console.log('密码不能为空')
-        } else if (psw.length < 6 || psw.length > 13) {
-          Toast({
-            message: '密码不能少于6位或者多于13位',
-            duration: 500
-          })
-        } else {
-          for (; i < psw.length; i++) {
-            var char = psw.charAt(i)
-            if (badword.indexOf(char) >= 0) {
-              Toast({
-                message: '密码错误，不能包含字符：' + char,
-                duration: 1000
-              })
-            }
-          }
-        }
-      },
       sendForgot () {
-        if (!this.phoneno) {
-          Toast('手机号不能为空')
-        } else {
-          if (this.judgmentTel(this.phoneno)) {
-            let num = 60
-            let timer = null
-            this.axios({
-              method: 'get',
-              url: '/user/sendCode',
-              params: {
-                phoneno: this.phoneno,
-                dataType: 'forgot'
-              }
-            }).then(res => {
-              console.log(res)
-              let instance = Toast('验证码发送成功，请及时输入！')
-              setTimeout(() => {
-                instance.close()
-              }, 2000)
+        if (judgmentTel(this.phoneno)) {
+          let num = 60
+          let timer = null
+          this.axios({
+            method: 'get',
+            url: '/user/sendCode',
+            params: {
+              phoneno: this.phoneno,
+              dataType: 'forgot'
+            }
+          }).then(res => {
+            clearInterval(timer)
+            let instance = Toast('验证码发送成功，请及时输入！')
+            setTimeout(() => {
+              instance.close()
+            }, 2000)
             /* 验证码倒计时 */
-              this.isDisabled = true
-              timer = setInterval(() => {
-                num--
-                this.btn = num + '秒后发送'
-                if (num === 0 || this.phoneno === '') {
-                  clearInterval(timer)
-                  this.isDisabled = false
-                  num = 60
-                  this.btn = '发送验证码'
-                }
-              }, 1000)
-            }).catch(error => {
-              console.log(error)
-            })
-          }
+            this.isDisabled = true
+            timer = setInterval(() => {
+              num--
+              this.btn = num + '秒后发送'
+              if (num === 0 || this.phoneno === '') {
+                clearInterval(timer)
+                this.isDisabled = false
+                num = 60
+                this.btn = '发送验证码'
+              }
+            }, 1000)
+          }).catch(error => {
+            console.log(error)
+          })
         }
       },
       isRresetPassword () {
-        if (!this.phoneno || !this.verifyno || !this.newPassword) {
-          Toast('验证码或者密码为空！')
-        } else {
+        if (judgmentTel(this.phoneno) && judgmentpsw(this.newPassword)) {
           this.axios({
             method: 'post',
             url: '/user/resetPassword',
@@ -145,6 +101,11 @@
     }}
 </script>
 <style scoped>
+  .dinglian-forgetPassword-all {
+    width: 100%;
+    position: fixed;
+    z-index: 8;
+  }
   .dinglian-forgetPassword-head {
     background-color: #ffd200 ;
     color: #333333;
@@ -168,19 +129,26 @@
   }
   .dinglian-forgetPassword-num{
     background-color: #ffffff;
+    position: relative;
+    height: 44px;
   }
   .dinglian-forgetPassword-num input{
     background: url(../../assets/images/people.svg) no-repeat 10px center;
     background-size: 20px 20px;
-    width: 70%;
+    width: 20rem;
+    position: absolute;
+    left: 0;
   }
   .dinglian-forgetPassword-send{
     width: 88px;
     height: 32px;
     background-color: #ffd200;
     color: #333333;
-    margin:8px auto;
     font-size: 13px;
+    position: absolute;
+    z-index: 9;
+    top: 0.5rem;
+    right: 0.5rem;
   }
   .dinglian-forgetPassword-psw{
     border-top:1px solid #f3f5f6;

@@ -5,4 +5,7 @@
   clear: both;
   visibility: hidden;
 }
+html {
+  font-size:62.5%
+}
 

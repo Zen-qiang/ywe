@@ -2,23 +2,23 @@
   <div>
     <!--活动详情-->
     <mt-header title="活动详情" class="dinglian-activityDetails-head">
-      <router-link to="/eventsList" slot="left">
+      <router-link to="/index/eventsList" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
     <!--轮播图start-->
-      <div class="dinglian-activityDetails-carousel">
-        <mt-swipe :auto="4000">
-          <mt-swipe-item v-for="(item, index) in detailslList" :key="index">
-            <img :src="item.imageUrl"></img>
-          </mt-swipe-item>
-        </mt-swipe>
-      </div>
+    <div class="dinglian-activityDetails-carousel">
+      <mt-swipe :auto="4000">
+        <mt-swipe-item v-for="(item, index) in detailslList" :key="index">
+          <img :src="item.imageUrl" />
+        </mt-swipe-item>
+      </mt-swipe>
+    </div>
     <!--轮播图end-->
 
-      <div class="dinglian-activityDetails-theme">
-        <input type="text" v-model="shortname" disabled="disabled">
-      </div>
+    <div class="dinglian-activityDetails-theme">
+      <input type="text" v-model="shortname" disabled="disabled">
+    </div>
     <div class="dinglian-activityDetails-topInfo">
       <div class="mui-input-row">
         <label>状态</label>
@@ -57,19 +57,18 @@
     </div>
     <mt-field placeholder="无活动备注" type="textarea" rows="4" v-model="description" disabled="disabled" ></mt-field>
     <!--<router-link v-bind='{to:"/signActivities/"+eventId}'>-->
-      <mt-button type="default" size="large" class="dinglian-activityDetails-btn" @click="signUp">报名参加</mt-button>
+    <mt-button type="default" size="large" class="dinglian-activityDetails-btn" @click="signUp">报名参加</mt-button>
     <!--</router-link>-->
 
   </div>
 </template>
 <script>
   import { Toast } from 'mint-ui'
+  import homeData from '../../mock/home-mock.js'
   export default{
     data () {
       return {
-        detailslList: [
-          {imageUrl: '../../static/carousel0.jpg'}
-        ],
+        detailslList: [],
         shortname: '',
         status: '',
         organizer: '',
@@ -83,6 +82,7 @@
       }
     },
     created () {
+      this.detailslList = homeData.carouselList
       this.eventId = this.$route.params.id
       this.getActivityInfo()
     },
@@ -93,7 +93,7 @@
         }
         this.axios({
           method: 'post',
-          url: '/user/getActivityInfo',
+          url: '/activity/getActivityInfo',
           data: data
         }).then(
           res => {
@@ -117,30 +117,37 @@
         let data = {
           eventId: this.$route.params.id
         }
-        this.axios({
-          method: 'post',
-          url: '/activity/signUp',
-          data: data
-        }).then(res => {
-          if (res.data.status === 'ERROR') {
-            Toast({
-              message: res.data.message,
-              duration: 1000
-            })
-          } else {
-            if (this.charge === 'dutch') {
-              this.$router.push({'path': '/signActivities/' + this.eventId})
+        if (this.charge === 'dutch') {
+          this.$router.push({'path': '/signActivities/' + this.eventId})
+        } else {
+          this.axios({
+            method: 'post',
+            url: '/activity/signUp',
+            data: data
+          }).then(res => {
+            if (res.data.status === 'ERROR') {
+              Toast({
+                message: res.data.message,
+                duration: 1000
+              })
             } else {
-              this.$router.push({'path': '/eventsList/' + this.eventId})
+              this.$router.push({'path': '/index/eventsList/'})
             }
           }
+          ).catch(
+              error => {
+                console.log(error)
+              }
+          )
         }
-        ).catch()
       }
     }
   }
 </script>
 <style scoped>
+  .mui-input-row label[data-v-79221592] {
+    text-align: left;
+  }
   .dinglian-activityDetails-head {
     width: 100%;
     background-color: #ffd200;
@@ -154,6 +161,11 @@
   .dinglian-activityDetails-carousel {
     margin-top: 44px;
     height: 280px;
+    /*background: url(../../assets/images/carousel0.jpg);*/
+  }
+  .dinglian-activityDetails-carousel > img {
+    width: 100rem;
+    border: 1px solid red;
   }
   .dinglian-activityDetails-theme{
     background-color: #ffffff;

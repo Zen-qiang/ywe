@@ -5,33 +5,32 @@
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
-
     <div class="mui-input-row dinglian-editActivities-theme">
       <label><img src="../../assets/images/header.png" alt=""></label>
       <input type="text" placeholder="填写活动标题" v-model="shortname">
     </div>
-
     <div class="dinglian-editActivities-bodyInfo">
       <p class="dinglian-editActivities-upload" @click="openUpload">
-          <img src="../../assets/images/upload.png" alt="" >
-          <mt-actionsheet :actions="actions" v-model="pictures"></mt-actionsheet>
+        <img src="../../assets/images/upload.png" >
+        <mt-actionsheet :actions="actions" v-model="pictures"></mt-actionsheet>
       </p>
       <div class="mui-input-row dinglian-editActivities-time">
         <label @click="openPicker">时间</label>
         <time @click="openPicker">{{retime | data}}</time>
         <mt-datetime-picker ref="picker" type="datetime" v-model="retime" @confirm="handleConfirm"></mt-datetime-picker>
       </div>
-
-      <div class="mui-table-view-cell" v-model="gps">
+      <!--<div class="mui-table-view-cell" v-model="gps">
         <a class="mui-navigate-right">
           地址
         </a>
+      </div>-->
+      <div class="mui-input-row">
+        <label>地址</label>
+        <input type="text" class="mui-input-clear" placeholder="请输入活动地址" v-model="address">
       </div>
-
-
       <div class="mui-input-row">
         <label>人数</label>
-        <input type="text" class="mui-input-clear" placeholder="请输入参加人数" v-model="number">
+        <input type="number" class="mui-input-clear" placeholder="请输入参加人数" v-model="userCount">
       </div>
       <div class="dinglian-editActivities-costForm clearfix">
         <span class="dinglian-editActivities-costFormTitle">费用</span>
@@ -40,7 +39,7 @@
       </div>
       <div class="mui-input-row">
         <label>联系方式</label>
-        <input type="text" class="mui-input-clear" placeholder="请输入手机号码" v-model="phoneNo">
+        <input type="number" class="mui-input-clear" placeholder="请输入手机号码" v-model="phoneNo">
       </div>
       <div class="mui-table-view-cell">
         <a class="mui-navigate-right">
@@ -51,8 +50,6 @@
         <label>公开</label>
         <mt-switch class="dinglian-editActivities-switch" v-model="isOpen"></mt-switch>
       </div>
-
-
       <div class="dinglian-editActivities-limiter clearfix">
         <mt-radio
           title="限定条件"
@@ -62,7 +59,9 @@
       </div>
     </div>
     <mt-field placeholder="活动备注" type="textarea" rows="4" v-model="description"></mt-field>
-
+    <input type="file" value="上传图片">
+    <input type="file" accept="image/*">
+    <input type="file" accept="image/jpeg,image/jpg,image/png" capture="camera">
     <mt-button type="default" size="large" class="dinglian-editActivities-btn" @click="editActivities">发布</mt-button>
   </div>
 </template>
@@ -74,6 +73,7 @@
 //  import {mapState} from 'vuex'
   import {mapGetters} from 'vuex'
   import * as types from '../../store/mutation-types'
+  import {checkActivityInfo} from '../../assets/js/editActivity'
   export default {
     filters: {
       data (val) {
@@ -91,10 +91,14 @@
         birthday: '',
         shortname: '',
         pictures: false,
-        actions: [{name: '拍照'}],
+        actions: [
+          {name: '拍照'},
+          {name: '相册'}
+        ],
         retime: '',
         gps: '',
-        number: '',
+        address: '',
+        userCount: '',
         charge: '',
         isOpen: true,
         limiter: '',
@@ -135,44 +139,55 @@
           tags: this.mytagsIdList,
           name: this.shortname,
           startTime: this.retime.valueOf(),
-          userCount: this.number,
+          userCount: this.userCount,
           charge: this.charge,
           cost: 1,
           gps: '上海市',
-          address: '上海市',
+          address: this.address,
           description: this.description,
           limiter: this.limiter, // 限定条件
           pictures: '../../assets/images/upload.png',
-          friends: [2, 3],
+          friends: [],
           phoneNo: this.phoneNo
         }
-        console.log(data)
         // 请求start
-        this.axios({
-          method: 'post',
-          url: '/activity/launchActivity',
-          data: data,
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          timeout: 50000
-        }).then(res => {
-          if (res.data.status === 'ERROR') {
-            Toast(res.data.message)
-          } else {
+        if (checkActivityInfo(this.shortname, this.userCount, this.charge, this.address, this.phoneNo)) {
+          this.axios({
+            method: 'post',
+            url: '/activity/launchActivity',
+            data: data,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            timeout: 50000
+          }).then(res => {
+            if (res.data.status === 'ERROR') {
+              Toast(res.data.message)
+            } else {
+              Toast({
+                message: '发布活动成功！',
+                duration: 500
+              })
+              let lists = res.data.result
+              if (lists.status === '1') {
+                lists.status = '进行中'
+              } else if (lists.status === '2') {
+                lists.status = '正在报名'
+              } else if (lists.status === '3') {
+                lists.status = '好友参与'
+              } else if (lists.status === '0') {
+                lists.status = '已关闭'
+              }
+              this.$store.commit(types.SETINFO, lists)
+              this.$router.push({'path': '/eventDetails'})
+            }
+          }).catch(error => {
             Toast({
-              message: '发布活动成功！',
+              message: '请求失败！',
               duration: 500
             })
-            this.$store.commit(types.SETINFO, res.data.result)
-            this.$router.push({'path': '/eventDetails'})
+            console.log(error)
           }
-        }).catch(error => {
-          Toast({
-            message: '请求失败！',
-            duration: 500
-          })
-          console.log(error)
+          )
         }
-        )
         // 请求end
       }
     }
@@ -181,6 +196,12 @@
 </script>
 <style scoped>
   @import '../../assets/css/common.css';
+  div {
+    text-align: left;
+  }
+  .mint-actionsheet {
+    text-align: center;
+  }
   .dinglian-editActivities-head {
     background-color: #ffd200 ;
     color: #333333;
@@ -225,6 +246,7 @@
   }
   .dinglian-editActivities-upload img {
     height: 110px;
+    width: 100%;
   }
   .dinglian-editActivities-bodyInfo > div{
     height: 50px;
@@ -258,7 +280,7 @@
   }
   /*地址*/
   .mui-table-view-cell:after {
-     height: 0;
+    height: 0;
   }
   /*人数、手机号码*/
   .mui-input-row input{
@@ -295,7 +317,7 @@
     margin-left: 30%;
     padding-left: 16%;
 
-}
+  }
   .dinglian-editActivities-btn{
     width: 92%;
     background-color: #ffd200 ;
@@ -307,6 +329,7 @@
   .dinglian-editActivities-bodyInfo .dinglian-editActivities-limiter {
     height: 115px;
     border: 0;
+    color: #999999;
   }
   .mint-field {
     /*background-color: red;*/
