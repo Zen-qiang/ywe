@@ -13,7 +13,7 @@
     <input type="number" placeholder="请输入手机号" v-model="phoneno"/>
   </div>
     <div class="mui-input-row mui-password dinglian-login-psw">
-      <input type="password" class="mui-input-password" placeholder="请输入密码" v-model="password">
+      <input type="password" class="mui-input-password" placeholder="请输入密码" v-model="password" />
     </div>
   <mt-button type="primary" size="large" class="dinglian-login-btn" @click="isLogin">登录</mt-button>
 

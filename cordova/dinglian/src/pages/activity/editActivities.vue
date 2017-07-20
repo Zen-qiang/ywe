@@ -59,9 +59,6 @@
       </div>
     </div>
     <mt-field placeholder="活动备注" type="textarea" rows="4" v-model="description"></mt-field>
-    <input type="file" value="上传图片">
-    <input type="file" accept="image/*">
-    <input type="file" accept="image/jpeg,image/jpg,image/png" capture="camera">
     <mt-button type="default" size="large" class="dinglian-editActivities-btn" @click="editActivities">发布</mt-button>
   </div>
 </template>
@@ -105,8 +102,7 @@
         description: '',
         phoneNo: '',
         friends: [],
-        options: [{label: '我请客', value: 'free'}, {label: 'AA制', value: 'dutch'}],
-        yyy: []
+        options: [{label: '我请客', value: 'free'}, {label: 'AA制', value: 'dutch'}]
       }
     },
     created () {

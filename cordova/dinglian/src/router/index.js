@@ -21,6 +21,10 @@ const EventDetails = r => require.ensure([], () => r(require('@/pages/activity/e
 const ActivityDetails = r => require.ensure([], () => r(require('@/pages/activity/activityDetails')), 'activityDetails')// 活动详情
 const SignActivities = r => require.ensure([], () => r(require('@/pages/activity/signActivities')), 'signActivities')// 活动报名
 const ActivityInfo = r => require.ensure([], () => r(require('@/pages/activity/activityInfo')), 'activityInfo')// 活动info
+const EditTopic = r => require.ensure([], () => r(require('@/pages/circle/editTopic')), 'editTopic')// 编辑话题
+const SearchTopic = r => require.ensure([], () => r(require('@/pages/circle/searchTopic')), 'searchTopic')// search话题
+const TopicDetails = r => require.ensure([], () => r(require('@/pages/circle/topicDetails')), 'topicDetails')// 话题详情
+const PreviewDetails = r => require.ensure([], () => r(require('@/pages/circle/previewDetails')), 'previewDetails')// 预览详情
 const nopage = r => require.ensure([], () => r(require('@/pages/nopage')), 'nopage')
 // import Hello from '@/components/Hello'
 // import Home from '@/components/Home'
@@ -187,6 +191,38 @@ export default new Router({
       path: '/activityInfo/',
       name: 'ActivityInfo',
       component: ActivityInfo,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/editTopic/:id',
+      name: 'EditTopic',
+      component: EditTopic,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/searchTopic',
+      name: 'SearchTopic',
+      component: SearchTopic,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/topicDetails/:id',
+      name: 'TopicDetails',
+      component: TopicDetails,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/previewDetails/:id/:uid',
+      name: 'PreviewDetails',
+      component: PreviewDetails,
       meta: {
         requireAuth: true
       }
