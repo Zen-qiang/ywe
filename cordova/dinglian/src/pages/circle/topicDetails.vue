@@ -12,7 +12,7 @@
       <div class="dinglian-topicDetails-join">
         <h4>{{topicName}}</h4>
         <p>已有{{peopleNum}}人参与</p>
-        <mt-button size="normal" @click="joinTopic" v-show="joinButton">加入</mt-button>
+        <mt-button size="normal" @click="joinTopic" v-show="joinButton">{{attention}}</mt-button>
       </div>
     </div>
     <p>{{description}}</p>
@@ -23,7 +23,7 @@
     </mt-navbar>
     <mt-tab-container v-model="selected">
       <mt-tab-container-item id="1">
-        <topic-info :info="topicInfoLists" :circleId="articleId"></topic-info>
+        <topic-info :info="topicInfoLists" :circleId="articleId" v-on:getRefresh="updateData"></topic-info>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
         dddd
@@ -51,7 +51,9 @@
         peopleNum: 0,
         description: '',
         joinButton: true,
-        articleId: this.$route.params.id
+        articleId: this.$route.params.id,
+        attention: '关注',
+        isJoined: ''
       }
     },
     created () {
@@ -59,21 +61,47 @@
       this.getTopicInfo()
     },
     methods: {
+      updateData () {
+        console.log('1')
+        this.getTopicInfo()
+        console.log('2')
+      },
 //      加入圈子
       joinTopic () {
         let data = {
           coterieId: this.articleId
         }
-        this.axios({
-          method: 'post',
-          url: '/discover/joinCoterie',
-          data: data
-        }).then(res => {
-          Toast('成功加入圈子！')
-          this.joinButton = false
-        }).catch(error => {
-          console.log(error)
-        })
+        console.log(this.articleId)
+        if (this.attention === '关注') {
+          this.axios({
+            method: 'post',
+            url: '/discover/joinCoterie',
+            data: data
+          }).then(res => {
+            if (res.data.status === 'ERROR') {
+              Toast(res.data.message)
+            } else {
+              Toast('成功加入圈子！')
+              this.attention = '取消'
+              console.log(this.isJoined)
+            }
+          }).catch(error => {
+            console.log(error)
+          })
+        } else if (this.attention === '取消') {
+          this.axios({
+            method: 'post',
+            url: '/discover/exitCoterie',
+            data: data
+          }).then(res => {
+            if (res.data.status === 'ERROR') {
+              Toast(res.data.message)
+            } else {
+              Toast('成功取消圈子！')
+              this.attention = '关注'
+            }
+          }).catch()
+        }
       },
       goCircle () {
         this.$router.push({'path': '/index/circle'})
@@ -83,7 +111,7 @@
       },
       getTopicInfo () {
         let data = {
-          coterieId: 1,
+          coterieId: this.articleId,
           pagesize: '',
           orderby: '',
           start: ''
@@ -101,8 +129,15 @@
             this.topicName = res.data.result.coterieName
 //            this.peopleNum = res.data.result.flowers
             this.description = res.data.result.description
-            console.log('212131')
-            console.log(this.topicInfoLists)
+            console.log('123qwe')
+            console.log(res.data.result.isJoined)
+            this.isJoined = res.data.result.isJoined
+            if (res.data.result.isJoined) {
+              console.log('1')
+              this.attention = '取消'
+            } else {
+              this.attention = '关注'
+            }
           }
         }).catch(error => {
           console.log(error)

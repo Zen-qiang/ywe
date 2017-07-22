@@ -80,5 +80,15 @@
     background-color: #ffffff;
     margin-top: 10px;
   }
+  .mui-input-row label {
+    color: #333333;
+    text-align: left;
+    font-size: 14px;
+    width: 25%;
+  }
+  .mui-input-row label~input {
+    width: 75%;
+    font-size: 14px;
+  }
 
 </style>

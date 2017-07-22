@@ -30,7 +30,7 @@
       <div class="mui-row" style="height:12px;width:100%;background-color:transparent"></div>
       <!-- 我的活动信息 开始 -->
       <div class="mui-row" style="background-color:#fff;height: 40px;dispaly:center; align-items: center;">
-        <div class="mui-col-sm-6 mui-col-xs-6 dianlian-account-activity">
+        <div class="mui-col-sm-6 mui-col-xs-6 dianlian-account-activity" @click="goMyActivity">
             <img src="../../assets/images/account-address.png" width="25px" height="25px"/>
             <span>我发起的活动</span>
         </div>
@@ -100,6 +100,10 @@ export default {
       }).catch(error => {
         console.log(error)
       })
+    },
+    goMyActivity () {
+      console.log('sss')
+      this.$router.push({'path': '/myActivityList'})
     }
   }
 }

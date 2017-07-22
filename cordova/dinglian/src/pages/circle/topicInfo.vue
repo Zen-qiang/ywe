@@ -1,6 +1,5 @@
 <template>
     <ul class="dinglian-topicInfo-ul">
-      {{info}}
       <li v-for="item in info">
         <router-link v-bind='{to:"/previewDetails/"+circleId+"/"+item.topics.topicId}'>
         <div class="dinglian-topicInfo-user clearfix">
@@ -14,15 +13,16 @@
         <div class="dinglian-topicInfo-video">
           tupian以及视频
         </div>
+        </router-link>
         <div class="dinglian-topicInfo-count">
           <span>{{item.topics.commentsCount}}</span>
-          <em>{{item.topics.praisesCount}}</em>
+          <em @click="praiseTopic(item.topics.topicId)">{{item.topics.praisesCount}}</em>
         </div>
-        </router-link>
       </li>
     </ul>
 </template>
 <script>
+  import { Toast } from 'mint-ui'
   export default {
     name: 'TopicInfo',
     props: ['info', 'circleId'],
@@ -31,10 +31,27 @@
       }
     },
     created () {
-      console.log('sssss')
-      console.log(this.info)
     },
     methods: {
+      praiseTopic (topicId) {
+        this.$emit('getRefresh')
+        console.log('www')
+        console.log(topicId)
+        console.log(typeof topicId)
+        this.axios({
+          method: 'post',
+          url: '/discover/praiseTopic',
+          data: {
+            topicId: topicId
+          }
+        }).then(res => {
+          if (res.data.status === 'ERROR') {
+            Toast(res.data.message)
+          } else {
+            Toast('点赞成功！')
+          }
+        }).catch()
+      }
     }
   }
 </script>

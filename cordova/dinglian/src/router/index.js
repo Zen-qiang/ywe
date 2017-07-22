@@ -20,6 +20,7 @@ const EditActivities = r => require.ensure([], () => r(require('@/pages/activity
 const EventDetails = r => require.ensure([], () => r(require('@/pages/activity/eventDetails')), 'eventDetails')// 发布活动详情
 const ActivityDetails = r => require.ensure([], () => r(require('@/pages/activity/activityDetails')), 'activityDetails')// 活动详情
 const SignActivities = r => require.ensure([], () => r(require('@/pages/activity/signActivities')), 'signActivities')// 活动报名
+const MyActivityList = r => require.ensure([], () => r(require('@/pages/activity/myActivityList')), 'myActivityList')// 我的活动列表
 const ActivityInfo = r => require.ensure([], () => r(require('@/pages/activity/activityInfo')), 'activityInfo')// 活动info
 const EditTopic = r => require.ensure([], () => r(require('@/pages/circle/editTopic')), 'editTopic')// 编辑话题
 const SearchTopic = r => require.ensure([], () => r(require('@/pages/circle/searchTopic')), 'searchTopic')// search话题
@@ -223,6 +224,14 @@ export default new Router({
       path: '/previewDetails/:id/:uid',
       name: 'PreviewDetails',
       component: PreviewDetails,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/myActivityList',
+      name: 'MyActivityList',
+      component: MyActivityList,
       meta: {
         requireAuth: true
       }

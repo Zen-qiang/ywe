@@ -8,7 +8,6 @@
           <em>成员&nbsp;{{item.fllowers}}</em><em>话题</em><em>活动</em>
           <p>{{item.description}}</p>
         </div>
-        bbbbb
       </router-link>
     </li>
   </ul>
