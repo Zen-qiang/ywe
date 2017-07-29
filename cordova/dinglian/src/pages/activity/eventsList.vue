@@ -154,6 +154,7 @@
           this.cate = true
         }
       },
+      // 根据活动类型进行筛选
       changeCate (value) {
         if (this.cate === true) {
           this.cate = false
@@ -161,7 +162,10 @@
           this.cate = true
         }
         this.orderByCate = value
+        this.eventsList = []
         this.getEventsList()
+        console.log('======')
+        console.log(this.eventsList)
       },
       changeAllEventStatus () {
         if (this.eventStatus === true) {

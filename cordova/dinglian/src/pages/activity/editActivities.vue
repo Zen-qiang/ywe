@@ -123,25 +123,24 @@
     },
     methods: {
       getFromData (e) {
-        console.log('wodayingchulai')
-        console.log(e)
         let formData = new FormData()
         formData.append('file', e)
         return formData
       },
-      openUpload () {
-        this.pictures = true
-      },
+//      openUpload () {
+//        this.pictures = true
+//      },
+      // 日期选择组件
       openPicker () {
         this.$refs.picker.open()
       },
+      // 日期选择组件
       handleConfirm () {
         this.$refs.picker.close()
       },
         // 发布活动
       editActivities () {
         let data = {
-          typename: '街舞活动',
           isOpen: this.isOpen,
           tags: this.mytagsIdList,
           name: this.shortname,

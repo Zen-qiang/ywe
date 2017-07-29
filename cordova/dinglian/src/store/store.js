@@ -1,6 +1,7 @@
 const store = {
   user: {},
   token: null,
+  tags: {},
   eventInfo: {},
   // index页面处的圈子跳转携带信息
   circleInfo: {},

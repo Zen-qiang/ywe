@@ -68,6 +68,7 @@
         this.activityShow = false
         this.eventType = '全部活动类型'
       },
+      // 获取活动类型
       getTypeNameId (e) {
         this.getTagList(e.typeNameId)
         this.activityShow = false
@@ -124,6 +125,7 @@
           }
         )
       },
+      // 继续按钮的点击事件
       initCarry () {
         let tagList = this.tagList
         for (var i = 0; i < tagList.length; i++) {

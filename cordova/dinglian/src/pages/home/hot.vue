@@ -57,7 +57,7 @@ export default {
     return {
       carouselList: [],
       nearbyActivity: [],
-      activityMessage: '活动马上开始啦!!!!',
+      activityMessage: '111',
       baseImgUrl: ''
     }
   },
@@ -66,6 +66,17 @@ export default {
     this.intersetList = homeData.intersetList
     this.friendstList = homeData.friendstList
     this.getNearbyActivity()
+  },
+  mounted () {
+    console.log('time')
+    let time = setInterval(function () {
+      console.log('zzzz')
+      console.log(this.activityMessage)
+      this.activityMessage = this.activityMessage + '1'
+      console.log(this.activityMessage)
+    }, 1000)
+    clearInterval(time)
+    console.log(time)
   },
   methods: {
       // 跳转到圈子列表界面

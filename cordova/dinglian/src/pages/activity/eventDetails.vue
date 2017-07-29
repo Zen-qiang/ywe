@@ -12,7 +12,7 @@
         <li class="mui-table-view-cell mui-media clearfix">
           <a href="javascript:;" class="clearfix">
             <div class="dinglian-eventDetails-topImg">
-              <img src="../../assets/images/details.png">
+              <img :src="baseImgUrl + activityInfo.picture">
             </div>
             <div class="mui-media-body dinglian-eventDetails-bottomInfo">
               <h4>{{activityInfo.name}}</h4>
@@ -50,6 +50,7 @@
   export default{
     data () {
       return {
+        baseImgUrl: ''
       }
     },
     filters: {
@@ -64,6 +65,7 @@
     },
     created () {
       console.log(this.activityInfo)
+      this.baseImgUrl = this.globalUrl.imgUrl
     },
     methods: {
 //      创建聊天
