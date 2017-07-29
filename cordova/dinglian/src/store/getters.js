@@ -8,6 +8,10 @@ const getters = {
   [types.GETTAGS]: (state) => {
     console.log('获取', state.tags)
     return state.tags
+  },
+  [types.GETCIRCLEINFO]: (state) => {
+    console.log('获取', state.circleInfo)
+    return state.circleInfo
   }
 }
 export default getters

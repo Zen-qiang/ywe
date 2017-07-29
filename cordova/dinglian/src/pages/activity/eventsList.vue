@@ -31,13 +31,13 @@
     <!--筛选条件 end-->
 
     <!--list start-->
-    <div class="dinglian-eventsList-list">
+    <!--<div class="dinglian-eventsList-list">
       <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <ul class="mui-table-view dinglian-eventsList-list-ul">
           <li class="mui-table-view-cell mui-media clearfix dinglian-eventsList-list-li" v-for="item in eventsList">
             <router-link v-bind='{to:"/activityDetails/"+item.eventId}' class="clearfix">
               <img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" src="../../assets/images/list.png">
-              <!--<img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" :src="item.picture">-->
+              &lt;!&ndash;<img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" :src="item.picture">&ndash;&gt;
               <div class="mui-media-body dinglian-eventsList-rightInfo">
                 <h4>{{item.name}}</h4>
                 <p class="dinglian-eventsList-status clearfix"><span>个人组织 {{item.releaseTime |data}}</span><em>{{item.status}}</em></p>
@@ -55,7 +55,8 @@
           </li>
         </ul>
       </mt-loadmore>
-    </div>
+    </div>-->
+    <activity-info :eventsList="eventsList"></activity-info>
     <!--list end-->
     <router-link to="/initiateActivities"><mt-button type="danger" size="small" class="dinglian-eventsList-releaseActivity">发布活动</mt-button></router-link>
   </div>
@@ -65,7 +66,9 @@
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
   import { Toast } from 'mint-ui'
+  import activityInfo from './activityInfo.vue'
   export default {
+    components: {activityInfo},
     data () {
       return {
         total: '',

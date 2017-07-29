@@ -7,6 +7,10 @@ const actions = {
   [types.SETTAGS]: (state, tags) => {
     console.log('获取', state.tags)
     this.$store.commit(types.SETINFO, tags)
+  },
+  [types.SETCIRCLEINFO]: (state, circleInfo) => {
+    console.log('获取', state.circleInfo)
+    this.$store.commit(types.SETCIRCLEINFO, circleInfo)
   }
 }
 export default actions

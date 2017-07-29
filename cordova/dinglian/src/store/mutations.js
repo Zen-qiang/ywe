@@ -16,6 +16,10 @@ const mutations = {
   [types.SETTAGS]: (state, tags) => {
     state.tags = tags
     console.log('保存', state.tags)
+  },
+  [types.SETCIRCLEINFO]: (state, circleInfo) => {
+    state.circleInfo = circleInfo
+    console.log('保存', state.circleInfo)
   }
 }
 export default mutations

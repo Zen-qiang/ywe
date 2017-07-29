@@ -7,13 +7,14 @@
       </router-link>
     </mt-header>
     <!--轮播图start-->
-    <div class="dinglian-activityDetails-carousel">
+    <!--<div class="dinglian-activityDetails-carousel">
       <mt-swipe :auto="4000">
         <mt-swipe-item v-for="(item, index) in detailslList" :key="index">
           <img :src="item.imageUrl" />
         </mt-swipe-item>
       </mt-swipe>
-    </div>
+    </div>-->
+    <carousel :carouselList="detailslList" class="dinglian-activityDetails-carousel"></carousel>
     <!--轮播图end-->
 
     <div class="dinglian-activityDetails-theme">
@@ -65,7 +66,9 @@
 <script>
   import { Toast } from 'mint-ui'
   import homeData from '../../mock/home-mock.js'
+  import carousel from '../../components/common/carousel.vue'
   export default{
+    components: {carousel},
     data () {
       return {
         detailslList: [],
@@ -160,13 +163,10 @@
   }
   .dinglian-activityDetails-carousel {
     margin-top: 44px;
-    height: 280px;
+    /*height: 280px;*/
     /*background: url(../../assets/images/carousel0.jpg);*/
   }
-  .dinglian-activityDetails-carousel > img {
-    width: 100rem;
-    border: 1px solid red;
-  }
+
   .dinglian-activityDetails-theme{
     background-color: #ffffff;
     text-align: left;

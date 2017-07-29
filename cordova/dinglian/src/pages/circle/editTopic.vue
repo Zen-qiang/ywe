@@ -6,8 +6,9 @@
       </router-link>
       <mt-button slot="right" @click="editDiscover">发布</mt-button>
     </mt-header>
+
     <div class="dinglian-editTopic-upload">
-      从相册中选取照片
+      <Upload></Upload>
     </div>
     <mt-field placeholder="自我介绍" type="textarea" rows="4" class="dinglian-editTopic-introduction" v-model="description"></mt-field>
     <div class="mui-input-row dinglian-editTopic-position">
@@ -18,12 +19,16 @@
 </template>
 <script>
   import { Toast } from 'mint-ui'
+  import Upload from '../../components/common/upload.vue'
   export default{
     data () {
       return {
         description: '',
         detailsId: this.$route.params.id
       }
+    },
+    components: {
+      Upload
     },
     created () {
       console.log(this.detailsId)

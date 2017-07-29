@@ -4,17 +4,17 @@
     <div class="dinglian-home-carousel">
       <mt-swipe :auto="4000">
         <mt-swipe-item v-for="(item, index) in carouselList" :key="index" @click="">
-          <img :src="item.imageUrl"></img>
+          <img :src="item.imageUrl" >
         </mt-swipe-item>
       </mt-swipe>
     </div>
       <!-- 轮播图结束 -->
       <!-- 我的兴趣开始 -->
     <div class="mui-content dinglian-home-grid">
-      <mt-cell title="我的兴趣" to="//github.com" is-link value="更多"></mt-cell>
+      <mt-cell title="热门圈子" to="/index/circle" is-link value="更多"></mt-cell>
       <div class="mui-row">
        <div class="mui-col-sm-3 mui-col-xs-3 h-xs-2" v-for="(item, index) in intersetList" :key="index">
-          <div class="gird-content">
+          <div class="gird-content" @click="goToCircle(item.tip)">
             <div class="grid-image">
               <img :src="item.imageUrl"></img>
             </div>
@@ -26,21 +26,21 @@
      </div>
     </div>
       <!-- 我的兴趣结束 -->
-    <mt-cell title="活动马上开始啦！" style="margin-top: 8px;">
+    <mt-cell :title="activityMessage" style="margin-top: 8px;">
       <span style="height:5px; width:5px;border-radius:50%;background-color:red;"></span>
       <img slot="icon" src="../../assets/images/circle.png" width="25px" height="25px"></img>
     </mt-cell>
     <!-- 好友动态开始-->
     <div class="mui-content">
-      <mt-cell title="好友动态" to="//github.com"></mt-cell>
+      <mt-cell title="附近动态" to="/index/eventsList"></mt-cell>
       <div class="mui-row">
-       <div class="mui-col-sm-6 mui-col-xs-6 h-xs-6" v-for="(item, index) in friendstList" :key="index">
-          <div class="gird-content">
+       <div class="mui-col-sm-6 mui-col-xs-6 h-xs-6" v-for="(item, index) in nearbyActivity" :key="index">
+          <div class="gird-content" @click="goToNearbyActivity(item.eventId)">
             <div class="grid-image friend-grid-image">
-              <img :src="item.imageUrl"></img>
+              <img :src="baseImgUrl + item.picture"></img>
             </div>
             <div class="grid-tip">
-              {{item.tip}}
+              {{item.name}}
             </div>
           </div>
        </div>
@@ -51,21 +51,63 @@
 </template>
 <script>
 import homeData from '../../mock/home-mock.js'
+import * as types from '../../store/mutation-types'
 export default {
   data () {
     return {
-      carouselList: []
+      carouselList: [],
+      nearbyActivity: [],
+      activityMessage: '活动马上开始啦!!!!',
+      baseImgUrl: ''
     }
   },
   created () {
     this.carouselList = homeData.carouselList
     this.intersetList = homeData.intersetList
     this.friendstList = homeData.friendstList
+    this.getNearbyActivity()
+  },
+  methods: {
+      // 跳转到圈子列表界面
+    goToCircle (e) {
+      this.$store.commit(types.SETCIRCLEINFO, e)
+      this.$router.push({'path': '/index/circle'})
+      console.log('woxuyao' + this.$route.path)
+    },
+    // 获取到附近的4个活动
+    getNearbyActivity () {
+      let data = {
+        pagesize: 4,
+        start: 0,
+        status: '1',
+        isOwnList: false
+      }
+      this.axios({
+        method: 'post',
+        url: '/activity/getActivityList',
+        data: data
+      }).then(res => {
+        if (res.data.status === 'ERROR') {
+          console.log(res.data.message)
+        } else {
+          this.baseImgUrl = this.globalUrl.imgUrl
+          this.nearbyActivity = res.data.result.lists
+          console.log(this.nearbyActivity)
+        }
+      }).catch()
+    },
+    // 跳转到活动详情界面
+    goToNearbyActivity (id) {
+      this.$router.push({'path': '/activityDetails/' + id})
+    }
   }
 }
 </script>
 <style lang="scss" scoped="" type="text/css">
 @import '../../assets/css/hgrid.scss';
+ div {
+   text-align: left;
+ }
 .dinglian-home-carousel {
   width: 100%;
   height: 150px;
@@ -87,6 +129,7 @@ export default {
   position:absolute;
   width: 100%;
   height: 100%;
+  background-color: #ffffff;
 }
 .gird-content > .grid-image{
   position:relative;
@@ -104,7 +147,7 @@ export default {
 .gird-content > .grid-tip{
   position:relative;
   width: 100%;
-  height: 40%;
+  /*height: 40%;*/
   display: flex;
   align-items: center;
   justify-content: center;

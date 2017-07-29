@@ -1,37 +1,32 @@
 const carouselList = [
   {
-    imageUrl: require('../assets/images/carousel0.jpg'),
+    imageUrl: 'http://106.14.2.158/chuqulang-resource/assets/images/carousel0.jpg',
     targetUrl: ''
   },
   {
-    imageUrl: require('../assets/images/carousel1.jpg'),
+    imageUrl: 'http://106.14.2.158/chuqulang-resource/assets/images/carousel1.jpg',
     targetUrl: ''
   },
   {
-    imageUrl: require('../assets/images/carousel2.jpg'),
+    imageUrl: 'http://106.14.2.158/chuqulang-resource/assets/images/carousel1.jpg',
     targetUrl: ''
   }
 ]
 const intersetList = [
-  {
-    imageUrl: require('../assets/images/table.png'),
-    targetUrl: '',
-    tip: '桌游'
-  },
   {
     imageUrl: require('../assets/images/dancing.png'),
     targetUrl: '',
     tip: '街舞'
   },
   {
-    imageUrl: require('../assets/images/basketball.png'),
+    imageUrl: require('../assets/images/table.png'),
     targetUrl: '',
-    tip: '篮球'
+    tip: '桌游'
   },
   {
-    imageUrl: require('../assets/images/pingpang.png'),
+    imageUrl: require('../assets/images/basketball.png'),
     targetUrl: '',
-    tip: '乒乓'
+    tip: '其他'
   }
 ]
 const intersetList1 = [

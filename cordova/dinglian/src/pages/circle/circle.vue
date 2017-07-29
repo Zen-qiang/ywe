@@ -58,6 +58,8 @@
   import { Toast } from 'mint-ui'
   import Vue from 'vue'
   import circleInfo from './circleInfo.vue'
+  import * as types from '../../store/mutation-types'
+  import {mapGetters} from 'vuex'
   export default {
     components: {circleInfo},
     watch: {
@@ -87,7 +89,18 @@
         start: 0
       }
     },
+    computed: mapGetters({
+      circleTagsInfo: types.GETCIRCLEINFO
+    }),
     created () {
+      switch (this.circleTagsInfo) {
+        case '街舞': this.selected = '1'
+          break
+        case '桌游': this.selected = '2'
+          break
+        case '其他': this.selected = '3'
+          break
+      }
       this.circleCarousel = homeData.carouselList
       this.getCoterieList()
       this.getTagList()
@@ -162,6 +175,19 @@
 <style scoped>
   div {
     width: 100%;
+  }
+  .dinglian-circle-carousel {
+    width: 100%;
+    height: 170px;
+  }
+  .dinglian-circle-carousel > .mint-swipe >.mint-swipe-items-wrap > .mint-swipe-item{
+    width: 100%;
+    height: 170px;
+  }
+  .dinglian-circle-carousel > .mint-swipe >.mint-swipe-items-wrap > .mint-swipe-item > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .mint-header {
     background-color: #ffd200;

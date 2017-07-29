@@ -24,8 +24,8 @@ axios.interceptors.request.use(
     // if (store.state.token) {
     //   config.headers.Authorization = `token ${store.state.token}`
     // }
-    // 修改了axios的post调用方法，将post参数转化成键值对
-    if (config.method === 'post') {
+    // 修改了axios的post调用方法，将post参数转化成键值对 将formdata类型排除
+    if (config.method === 'post' && !(config.data instanceof FormData)) {
       config.data = qs.stringify(config.data)
     }
     return config

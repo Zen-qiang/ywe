@@ -23,7 +23,7 @@
     </div>
   </div>
   <!-- 推荐活动 开始 -->
-  <div class="dinglian-home-recommend">
+  <!--<div class="dinglian-home-recommend">
     <mt-cell title="推荐活动"></mt-cell>
     <ul>
       <li v-for="(item,index) in recommendList" :key="index">
@@ -34,7 +34,7 @@
         </div>
       </li>
     </ul>
-  </div>
+  </div>-->
   <!-- 推荐活动 结束 -->
   </div>
 </template>
@@ -52,10 +52,34 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped="" type="text/css">
-@import '../../assets/css/hgrid.scss';
-.dinglian-home-grid {
-  background-color: #ffffff;
+<style lang="scss" scoped type="text/css">
+  .h-xs-1 {
+    padding-bottom: 8.33333333%;
+  }
+  .h-xs-2 {
+    padding-bottom: 30.33333333%;
+    padding-right: 30.33333333%;
+    /*border: 1px solid red;*/
+    margin-left: 7px;
+    margin-top: 5px;
+    background-color: #ffffff;
+    border-radius: 5px;
+  }
+  .h-xs-3{
+    padding-bottom: 25%;
+  }
+  .h-xs-4{
+    padding-bottom: 33.33333333%;
+  }
+  .h-xs-6{
+    padding-bottom: 50%;
+  }
+  .h-xs-12{
+    padding-bottom: 100%;
+  }
+
+  .dinglian-home-grid {
+  /*background-color: #ffffff;*/
   padding-bottom: 8px;
 }
 .gird-content {

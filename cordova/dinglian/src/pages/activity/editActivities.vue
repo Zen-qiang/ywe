@@ -10,20 +10,16 @@
       <input type="text" placeholder="填写活动标题" v-model="shortname">
     </div>
     <div class="dinglian-editActivities-bodyInfo">
-      <p class="dinglian-editActivities-upload" @click="openUpload">
+      <!--<p class="dinglian-editActivities-upload" @click="openUpload">
         <img src="../../assets/images/upload.png" >
         <mt-actionsheet :actions="actions" v-model="pictures"></mt-actionsheet>
-      </p>
+      </p>-->
+      <upload v-on:files="getFromData"></upload>
       <div class="mui-input-row dinglian-editActivities-time">
         <label @click="openPicker">时间</label>
         <time @click="openPicker">{{retime | data}}</time>
         <mt-datetime-picker ref="picker" type="datetime" v-model="retime" @confirm="handleConfirm"></mt-datetime-picker>
       </div>
-      <!--<div class="mui-table-view-cell" v-model="gps">
-        <a class="mui-navigate-right">
-          地址
-        </a>
-      </div>-->
       <div class="mui-input-row">
         <label>地址</label>
         <input type="text" class="mui-input-clear" placeholder="请输入活动地址" v-model="address">
@@ -59,19 +55,26 @@
       </div>
     </div>
     <mt-field placeholder="活动备注" type="textarea" rows="4" v-model="description"></mt-field>
+
     <mt-button type="default" size="large" class="dinglian-editActivities-btn" @click="editActivities">发布</mt-button>
+
+
   </div>
 </template>
 <script>
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
+  import Upload from '../../components/common/upload.vue'
   import { Toast } from 'mint-ui'
 //  import {mapState} from 'vuex'
   import {mapGetters} from 'vuex'
   import * as types from '../../store/mutation-types'
   import {checkActivityInfo} from '../../assets/js/editActivity'
   export default {
+    components: {
+      Upload
+    },
     filters: {
       data (val) {
         return moment(val).format('YYYY-MM-DD HH:mm')
@@ -107,17 +110,25 @@
     },
     created () {
       let mt = this.mytagsIdList
-      let l = this.mytagsIdList.length
-      let newMyTags = []
-      for (var i = 0; i < l; i++) {
-        if (typeof (mt[i]) === 'number') {
-          newMyTags.push(mt[i])
+      if (typeof mt !== 'undefined') {
+        let l = this.mytagsIdList.length
+        let newMyTags = []
+        for (var i = 0; i < l; i++) {
+          if (typeof (mt[i]) === 'number') {
+            newMyTags.push(mt[i])
+          }
         }
+        this.mytagsIdList = newMyTags
       }
-      this.mytagsIdList = newMyTags
-      console.log(this.mytagsIdList)
     },
     methods: {
+      getFromData (e) {
+        console.log('wodayingchulai')
+        console.log(e)
+        let formData = new FormData()
+        formData.append('file', e)
+        return formData
+      },
       openUpload () {
         this.pictures = true
       },
@@ -142,7 +153,7 @@
           address: this.address,
           description: this.description,
           limiter: this.limiter, // 限定条件
-          pictures: '../../assets/images/upload.png',
+          pictures: this.getFromData(),
           friends: [],
           phoneNo: this.phoneNo
         }

@@ -47,6 +47,13 @@ export default {
     selected: function (val, oldVal) {
       // 这里就可以通过 val 的值变更来确定当前选中的tab
       this.$router.push({'path': val})
+      if (val === '/index/circle') {
+        this.$store.state.circleInfo = null
+      }
+    },
+    '$route': function (val, oldVal) {
+      // 监测路由变化，根据路由的变化来修改selected值
+      this.selected = val.path
     }
   },
   created () {

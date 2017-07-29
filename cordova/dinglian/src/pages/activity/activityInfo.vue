@@ -3,7 +3,7 @@
     <ul class="mui-table-view dinglian-eventsList-list-ul">
       <li class="mui-table-view-cell mui-media clearfix dinglian-eventsList-list-li" v-for="item in eventsList">
         <router-link v-bind='{to:"/activityDetails/"+item.eventId}' class="clearfix">
-          <img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" src="../../assets/images/list.png">
+          <img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" :src="baseImgUrl + item.picture">
           <!--<img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" :src="item.picture">-->
           <div class="mui-media-body dinglian-eventsList-rightInfo clearfix">
             <h4>{{item.name}}</h4>
@@ -19,7 +19,7 @@
             </p>
           </div>
         </router-link>
-        <div class="dinglian-activityInfo-copy clearfix">
+        <div class="dinglian-activityInfo-copy clearfix" v-if="status">
           <span>已报名</span>
           <mt-button plain class="dinglian-activityInfo-copyButton">重新下单</mt-button>
         </div>
@@ -32,7 +32,7 @@
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
   export default{
-    props: ['isOwnList'],
+    props: ['eventsList', 'status'],
     filters: {
       data (val) {
         return moment(val).format('YYYY-MM-DD HH:mm')
@@ -40,44 +40,11 @@
     },
     data () {
       return {
-        eventsList: []
+        baseImgUrl: ''
       }
     },
     created () {
-      this.getEventsList()
-    },
-    methods: {
-      getEventsList () {
-        console.log(this.isOwnList)
-        let data = {
-          isOwnList: this.isOwnList
-        }
-        this.axios({
-          method: 'post',
-          url: '/activity/getActivityList',
-          data: data
-        }).then(res => {
-          if (res.data.status === 'ERROR') {
-            console.log(res.data.message)
-          } else {
-            let lists = res.data.result.lists
-            for (var item in lists) {
-              if (lists[item].status === '1') {
-                lists[item].status = '进行中'
-              } else if (lists[item].status === '2') {
-                lists[item].status = '正在报名'
-              } else if (lists[item].status === '3') {
-                lists[item].status = '好友参与'
-              } else if (lists[item].status === '0') {
-                lists[item].status = '已关闭'
-              }
-              this.eventsList.push(lists[item])
-            }
-          }
-        }).catch(err => {
-          console.log(err)
-        })
-      }
+      this.baseImgUrl = this.globalUrl.imgUrl
     }
   }
 </script>

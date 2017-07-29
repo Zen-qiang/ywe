@@ -148,6 +148,21 @@
 
 </script>
 <style>
+  /*轮播图 start*/
+  .dinglian-topicDetails-carousel {
+    width: 100%;
+    height: 170px;
+  }
+  .dinglian-topicDetails-carousel > .mint-swipe >.mint-swipe-items-wrap > .mint-swipe-item{
+    width: 100%;
+    height: 170px;
+  }
+  .dinglian-topicDetails-carousel > .mint-swipe >.mint-swipe-items-wrap > .mint-swipe-item > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /*轮播图 end*/
   .dinglian-topicDetails-leftArrow {
     background: url(../../assets/images/leftArrow.svg) no-repeat center left;
     width: 30px;

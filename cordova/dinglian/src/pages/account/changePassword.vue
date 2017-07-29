@@ -13,6 +13,7 @@
 <script>
 import { Toast } from 'mint-ui'
 import DianlianHeaderBar from '../../components/common/dianlianHeaderBar'
+import {judgmentpsw} from '../../assets/js/tool'
 export default {
   components: { DianlianHeaderBar },
   data () {
@@ -25,22 +26,28 @@ export default {
   },
   methods: {
     changePassword () {
-      this.axios({
-        method: 'post',
-        url: '/user/changeSignLog',
-        data: {
-          signLog: this.signLog
-        },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-      }).then(res => {
-        if (res.data.status === 'ERROR') {
-          Toast(res.data.message)
+      if (judgmentpsw(this.newPassword)) {
+        if (this.newPassword === this.comfirePassword) {
+          this.axios({
+            method: 'get',
+            url: '/user/changePassword',
+            data: {
+              newPassword: this.newPassword
+            },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+          }).then(res => {
+            if (res.data.status === 'ERROR') {
+              Toast(res.data.message)
+            } else {
+              Toast('修改密码成功！')
+            }
+          }).catch(error => {
+            console.log(error)
+          })
         } else {
-          Toast('签名添加成功！')
+          Toast('确认密码需要跟新密码保持一致！')
         }
-      }).catch(error => {
-        console.log(error)
-      })
+      }
     }
   }
 }

@@ -2,7 +2,7 @@
   <ul class="dinglian-circle-topic">
     <li v-for="item in lists">
       <router-link v-bind='{to:"/topicDetails/"+item.coterieId}' class="clearfix">
-        <img src="../../assets/images/list.png" class="dinglian-circle-topicImg" />
+        <img :src="baseImgUrl + item.picture" class="dinglian-circle-topicImg" />
         <div class="dinglian-circle-topicDiv">
           <h4>{{item.name}}</h4>
           <em>成员&nbsp;{{item.fllowers}}</em><em>话题</em><em>活动</em>
@@ -16,9 +16,12 @@
   export default {
     props: ['lists'],
     data () {
-      return {}
+      return {
+        baseImgUrl: ''
+      }
     },
     created () {
+      this.baseImgUrl = this.globalUrl.imgUrl
     }
   }
 </script>

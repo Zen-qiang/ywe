@@ -27,11 +27,7 @@
         </li>
       </ul>
     </div>
-
-
     <mt-button type="default" size="large" class="dinglian-initiateActivities-btn" @click="initCarry">继续</mt-button>
-
-
   </div>
 
 </template>
@@ -47,7 +43,8 @@
         activityType: [],
         myTags: [],
         activityShow: false,
-        eventType: '活动类型'
+        eventType: '活动类型',
+        image: ''
       }
     },
     created () {
@@ -164,7 +161,6 @@
   .dinglian-initiateActivities-searchTag .dinglian-initiateActivities-activityShow {
     margin-top: 11px;
     width: 100%;
-
   }
   .dinglian-initiateActivities-searchTag {
     position: fixed;
@@ -221,5 +217,4 @@
     margin-top: 22px;
     margin-left: 4%;
   }
-
 </style>
