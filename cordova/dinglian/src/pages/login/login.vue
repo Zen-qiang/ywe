@@ -10,7 +10,7 @@
     </div>
     <p class="dinglian-login-title">欢迎加入出趣浪</p>
   <div class="mui-input-row dinglian-login-tel">
-    <input type="number" placeholder="请输入手机号" v-model="phoneno"/>
+    <input type="tel" placeholder="请输入手机号" v-model="phoneno" autofocus />
   </div>
     <div class="mui-input-row mui-password dinglian-login-psw">
       <input type="password" class="mui-input-password" placeholder="请输入密码" v-model="password" />
@@ -97,12 +97,13 @@ export default {
     color: #333333;
     margin:0 auto;
     /*height: 45px;*/
-    height: 4rem;
-    line-height: 4rem;
+    height: 64px;
+    line-height: 44px;
     font-size: 1.7rem;
     position: fixed;
     top: 0;
     z-index: 8;
+    padding-top: 20px;
   }
   .dinglian-login-logo {
     width: 100%;

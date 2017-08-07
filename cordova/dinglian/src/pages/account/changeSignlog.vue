@@ -52,4 +52,7 @@ $backgroundColor: #ffd300;
   position: relative;
   top: 100px;
 }
+.mint-field.is-textarea {
+  margin-top: 64px;
+}
 </style>

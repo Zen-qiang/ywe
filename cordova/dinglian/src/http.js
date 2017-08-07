@@ -13,7 +13,7 @@ import { Toast } from 'mint-ui'
 // axios 配置
 axios.defaults.timeout = 5000
 // axios.defaults.baseURL = 'http://192.168.3.11:8081/dinglian/'
-axios.defaults.baseURL = 'http://106.14.2.158/dinglian/'
+axios.defaults.baseURL = 'http://106.14.2.158/'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 // 添加凭证
 axios.defaults.withCredentials = true

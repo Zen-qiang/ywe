@@ -12,7 +12,7 @@
         <li class="mui-table-view-cell mui-media clearfix">
           <a href="javascript:;" class="clearfix">
             <div class="dinglian-eventDetails-topImg">
-              <img :src="baseImgUrl + activityInfo.picture">
+              <img :src="picturesUrl">
             </div>
             <div class="mui-media-body dinglian-eventDetails-bottomInfo">
               <h4>{{activityInfo.name}}</h4>
@@ -27,10 +27,6 @@
               </p>
               <div class="dinglian-eventDetails-next clearfix">
                 <em>{{activityInfo.address}}</em>
-                <!-- <button type="button" class="mui-btn mui-btn-link">
-                 确认人员
-                 <span class="mui-icon mui-icon-forward"></span>
-               </button>-->
               </div>
             </div>
           </a>
@@ -42,15 +38,15 @@
 </template>
 <script>
   import { Toast } from 'mint-ui'
-  import {mapGetters} from 'vuex'
-  import * as types from '../../store/mutation-types'
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
   export default{
     data () {
       return {
-        baseImgUrl: ''
+        baseImgUrl: '',
+        picturesUrl: '',
+        activityInfo: []
       }
     },
     filters: {
@@ -58,14 +54,13 @@
         return moment(val).format('YYYY-MM-DD HH:mm')
       }
     },
-    computed: mapGetters({
-      activityInfo: types.GETINFO
-    }),
     mouted () {
     },
     created () {
-      console.log(this.activityInfo)
       this.baseImgUrl = this.globalUrl.imgUrl
+      this.activityInfo = this.$store.state.eventInfo
+      this.picturesUrl = this.baseImgUrl + this.activityInfo.pictures[0]
+      console.log(this.activityInfo.pictures)
     },
     methods: {
 //      创建聊天
@@ -88,8 +83,9 @@
     background-color: #ffd200 ;
     color: #333333;
     margin:0 auto;
-    height: 44px;
+    height: 64px;
     font-size: 17px;
+    padding-top: 20px;
   }
   .dinglian-eventDetails-list{
     border-radius: 10px;

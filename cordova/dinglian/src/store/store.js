@@ -4,7 +4,9 @@ const store = {
   tags: {},
   eventInfo: {},
   // index页面处的圈子跳转携带信息
-  circleInfo: {},
+  interestInfo: '',
+  circleName: '', // 创建圈子时，携带圈子名称
+  circleTags: [], // 创建圈子时，携带tags
   // 正在加载中
   isLoading: true,
   // 操作是否是刷新页面，刷新初始没有nim实例，会导致时序问题

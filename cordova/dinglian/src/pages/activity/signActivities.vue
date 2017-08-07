@@ -72,7 +72,7 @@
     </div>
     <p class="dinglian-signActivities-agree">我已同意协议</p>
     <div class="mui-input-row dinglian-signActivities-checkout">
-      <div><span>¥{{signInfo.charge}}</span><em>请在10分钟内完成操作</em></div>
+      <div><span>¥{{signInfo.charge}}</span><em class="dinglian-signActivities-remarks">请在10分钟内完成操作</em></div>
       <button type="button" class="mui-btn mui-btn-primary" @click="settlement">去结算<span class="mui-badge mui-badge-primary">1</span></button>
     </div>
   </div>
@@ -287,5 +287,11 @@
   .mui-input-row .mui-btn {
     width: 24%;
   }
-
+  .dinglian-signActivities-remarks {
+    width: 200px;
+    position: absolute;
+    left: 30px;
+    top: 0;
+    font-size: 14px;
+  }
 </style>

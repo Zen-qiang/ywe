@@ -26,6 +26,11 @@ const EditTopic = r => require.ensure([], () => r(require('@/pages/circle/editTo
 const SearchTopic = r => require.ensure([], () => r(require('@/pages/circle/searchTopic')), 'searchTopic')// search话题
 const TopicDetails = r => require.ensure([], () => r(require('@/pages/circle/topicDetails')), 'topicDetails')// 话题详情
 const PreviewDetails = r => require.ensure([], () => r(require('@/pages/circle/previewDetails')), 'previewDetails')// 预览详情
+const UserInfo = r => require.ensure([], () => r(require('@/pages/account/userInfo')), 'userInfo')// 我的详细信息
+const MyCircle = r => require.ensure([], () => r(require('@/pages/circle/myCircle')), 'myCircle')// 我的圈子
+const CreateCircleName = r => require.ensure([], () => r(require('@/pages/circle/createCircleName')), 'createCircleName')// 创建圈子名称
+const CreateCircleClassification = r => require.ensure([], () => r(require('@/pages/circle/createCircleClassification')), 'createCircleClassification')// 创建圈子分类
+const CreateCirclePhoto = r => require.ensure([], () => r(require('@/pages/circle/createCirclePhoto')), 'createCirclePhoto')// 创建圈子照片
 const nopage = r => require.ensure([], () => r(require('@/pages/nopage')), 'nopage')
 // import Hello from '@/components/Hello'
 // import Home from '@/components/Home'
@@ -55,28 +60,19 @@ export default new Router({
             {
               path: '',
               name: 'Hot',
-              component: Hot,
-              meta: {
-                requireAuth: true
-              }
+              component: Hot
             },
             {
               path: 'home/interest',
               name: 'Interest',
-              component: Interest,
-              meta: {
-                requireAuth: true
-              }
+              component: Interest
             }
           ]
         },
         {
           path: 'circle',
           name: 'Circle',
-          component: Circle,
-          meta: {
-            requireAuth: true
-          }
+          component: Circle
         },
         {
           path: 'eventsList',
@@ -232,6 +228,46 @@ export default new Router({
       path: '/myActivityList',
       name: 'MyActivityList',
       component: MyActivityList,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/userInfo',
+      name: 'UserInfo',
+      component: UserInfo,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/myCircle',
+      name: 'MyCircle',
+      component: MyCircle,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/createCircleName',
+      name: 'CreateCircleName',
+      component: CreateCircleName,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/createCircleClassification',
+      name: 'CreateCircleClassification',
+      component: CreateCircleClassification,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/createCirclePhoto',
+      name: 'CreateCirclePhoto',
+      component: CreateCirclePhoto,
       meta: {
         requireAuth: true
       }

@@ -27,6 +27,7 @@
 </script>
 <style scoped>
   .dinglian-circle-topic {
+    margin-top: 0;
     text-align: left;
     padding-left: 0;
     background-color: #ffffff;

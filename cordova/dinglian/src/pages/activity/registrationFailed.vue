@@ -7,7 +7,7 @@
       </router-link>
     </mt-header>
     <div>
-
+      支付背景图
     </div>
     <!--底部按钮start-->
     <div class="dinglian-registrationFailed-bottom">

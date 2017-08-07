@@ -15,7 +15,7 @@
       <div class="mui-row">
        <div class="mui-col-sm-3 mui-col-xs-3 h-xs-2" v-for="(item, index) in intersetList" :key="index">
           <div class="gird-content" @click="goToCircle(item.tip)">
-            <div class="grid-image">
+            <div class="grid-image dinglian-hot-interest">
               <img :src="item.imageUrl"></img>
             </div>
             <div class="grid-tip">
@@ -26,15 +26,17 @@
      </div>
     </div>
       <!-- 我的兴趣结束 -->
-    <mt-cell :title="activityMessage" style="margin-top: 8px;">
+    <!--消息轮播 start-->
+    <mt-cell :title="activityMessage" style="margin-top: 8px;" class="dinglian-hot-message">
       <span style="height:5px; width:5px;border-radius:50%;background-color:red;"></span>
       <img slot="icon" src="../../assets/images/circle.png" width="25px" height="25px"></img>
     </mt-cell>
-    <!-- 好友动态开始-->
+    <!--消息轮播 end-->
+    <!-- 附近动态开始-->
     <div class="mui-content">
-      <mt-cell title="附近动态" to="/index/eventsList"></mt-cell>
-      <div class="mui-row">
-       <div class="mui-col-sm-6 mui-col-xs-6 h-xs-6" v-for="(item, index) in nearbyActivity" :key="index">
+      <mt-cell title="附近动态" to="/index/eventsList" class="dinglian-hot-nearDynamic"></mt-cell>
+      <div class="mui-row dinglian-hot-row">
+       <div class="mui-col-sm-6 mui-col-xs-6 h-xs-6 dinglian-hot-activityList" v-for="(item, index) in nearbyActivity" :key="index">
           <div class="gird-content" @click="goToNearbyActivity(item.eventId)">
             <div class="grid-image friend-grid-image">
               <img :src="baseImgUrl + item.picture"></img>
@@ -57,7 +59,7 @@ export default {
     return {
       carouselList: [],
       nearbyActivity: [],
-      activityMessage: '111',
+      activityMessage: '街舞活动快开始了！！！',
       baseImgUrl: ''
     }
   },
@@ -70,20 +72,15 @@ export default {
   mounted () {
     console.log('time')
     let time = setInterval(function () {
-      console.log('zzzz')
-      console.log(this.activityMessage)
       this.activityMessage = this.activityMessage + '1'
-      console.log(this.activityMessage)
     }, 1000)
     clearInterval(time)
-    console.log(time)
   },
   methods: {
       // 跳转到圈子列表界面
-    goToCircle (e) {
-      this.$store.commit(types.SETCIRCLEINFO, e)
+    goToCircle (tip) {
+      this.$store.commit(types.SETINTERESTINFO, tip)
       this.$router.push({'path': '/index/circle'})
-      console.log('woxuyao' + this.$route.path)
     },
     // 获取到附近的4个活动
     getNearbyActivity () {
@@ -103,6 +100,7 @@ export default {
         } else {
           this.baseImgUrl = this.globalUrl.imgUrl
           this.nearbyActivity = res.data.result.lists
+          console.log('111')
           console.log(this.nearbyActivity)
         }
       }).catch()
@@ -121,11 +119,11 @@ export default {
  }
 .dinglian-home-carousel {
   width: 100%;
-  height: 150px;
+  height: 170px;
 }
 .dinglian-home-carousel > .mint-swipe >.mint-swipe-items-wrap > .mint-swipe-item{
   width: 100%;
-  height: 150px;
+  height: 170px;
 }
 .dinglian-home-carousel > .mint-swipe >.mint-swipe-items-wrap > .mint-swipe-item > img{
   width: 100%;
@@ -145,20 +143,23 @@ export default {
 .gird-content > .grid-image{
   position:relative;
   width: 100%;
-  height: 70%;
+  height: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.gird-content .dinglian-hot-interest > img {
+  height: 70%;
+}
 .grid-image > img{
   width: 100%;
-  height: 60%;
+  height: 100%;
   object-fit: contain;
 }
 .gird-content > .grid-tip{
   position:relative;
   width: 100%;
-  /*height: 40%;*/
+  height: 20%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -167,4 +168,26 @@ export default {
 .friend-grid-image > img{
   object-fit: cover;
 }
+/*消息轮播 start*/
+  .dinglian-hot-message {
+    min-height: 44px;
+  }
+  /*附近动态 start */
+  .dinglian-hot-nearDynamic {
+    min-height: 44px;
+    background-color: #f2f2f2;
+  }
+  .mint-cell-text {
+    font-size: 14px;
+  }
+  .dinglian-hot-row {
+    background-color: #f2f2f2;
+  }
+  .dinglian-hot-activityList {
+    margin-left: 4%;
+    margin-bottom: 4%;
+  }
+  .mui-col-xs-6 {
+    width: 44%;
+  }
 </style>

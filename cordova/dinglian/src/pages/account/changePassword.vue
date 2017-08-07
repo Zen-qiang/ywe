@@ -2,11 +2,13 @@
   <div style="width: 100%;">
     <div class="mui-content">
       <dianlian-header-bar :title="headerTitle"></dianlian-header-bar>
-      <div class="mui-row" style="height:12px;width:100%;background-color:transparent"></div>
-      <mt-field class= "dianlian-changepassword" label="原始密码" placeholder="请输入密码" type="password" v-model="originPassword"></mt-field>
-      <mt-field class= "dianlian-changepassword" label="新密码" placeholder="请输入密码" type="password" v-model="newPassword"></mt-field>
-      <mt-field class= "dianlian-changepassword" label="确认密码" placeholder="请输入密码" type="password" v-model="comfirePassword"></mt-field>
-      <mt-button type="default" size="large" class="dianlian-signLog-button" @click="changePassword">确认</mt-button>
+      <div class="dianlian-signLog-main">
+        <div class="mui-row" style="height:12px;width:100%;background-color:transparent"></div>
+        <mt-field class= "dianlian-changepassword" label="原始密码" placeholder="请输入密码" type="password" v-model="originPassword"></mt-field>
+        <mt-field class= "dianlian-changepassword" label="新密码" placeholder="请输入密码" type="password" v-model="newPassword"></mt-field>
+        <mt-field class= "dianlian-changepassword" label="确认密码" placeholder="请输入密码" type="password" v-model="comfirePassword"></mt-field>
+        <mt-button type="default" size="large" class="dianlian-signLog-button" @click="changePassword">确认</mt-button>
+      </div>
     </div>
   </div>
 </template>
@@ -63,4 +65,7 @@ $backgroundColor: #ffd300;
 .dianlian-changepassword input {
   margin-bottom: 8px !important;
 }
+  .dianlian-signLog-main {
+    margin-top: 64px;
+  }
 </style>

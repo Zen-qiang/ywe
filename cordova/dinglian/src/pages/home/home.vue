@@ -14,8 +14,8 @@
           </div>
         </div>
         <div class="mui-col-sm-8 mui-col-xs-8 dinglian-header-tab">
-          <mt-button :class="{ 'dinglian-header-tab-active':  activeTab === '/index'}" size = "small" @click.native="changeTab('/index')">热门</mt-button>
-          <mt-button :class="{ 'dinglian-header-tab-active':  activeTab === '/index/home/interest'}" size = "small" @click.native="changeTab('/index/home/interest')">话题</mt-button>
+          <mt-button :class="{ 'dinglian-header-tab-active':  activeTab === '/index', 'dinglian-header-leftButton': leftButton}" size = "small" @click.native="changeTab('/index')">热门</mt-button>
+          <mt-button :class="{ 'dinglian-header-tab-active':  activeTab === '/index/home/interest', 'dinglian-header-rightButton': rightButton}" size = "small" @click.native="changeTab('/index/home/interest')">话题</mt-button>
         </div>
         <div class="mui-col-sm-2 mui-col-xs-2 dinglian-header-search">
           <div class="mui-icon mui-icon-search"></div>
@@ -31,7 +31,9 @@
 export default {
   data () {
     return {
-      activeTab: '/index'
+      activeTab: '/index',
+      leftButton: true,
+      rightButton: true
     }
   },
   created () {

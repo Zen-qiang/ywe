@@ -26,7 +26,7 @@
       </div>
       <div class="mui-input-row">
         <label>人数</label>
-        <input type="number" class="mui-input-clear" placeholder="请输入参加人数" v-model="userCount">
+        <input type="number" class="mui-input-clear" min="0" placeholder="请输入参加人数" v-model="userCount">
       </div>
       <div class="dinglian-editActivities-costForm clearfix">
         <span class="dinglian-editActivities-costFormTitle">费用</span>
@@ -55,10 +55,7 @@
       </div>
     </div>
     <mt-field placeholder="活动备注" type="textarea" rows="4" v-model="description"></mt-field>
-
     <mt-button type="default" size="large" class="dinglian-editActivities-btn" @click="editActivities">发布</mt-button>
-
-
   </div>
 </template>
 <script>
@@ -90,7 +87,7 @@
       return {
         birthday: '',
         shortname: '',
-        pictures: false,
+        pictures: [],
         actions: [
           {name: '拍照'},
           {name: '相册'}
@@ -123,9 +120,7 @@
     },
     methods: {
       getFromData (e) {
-        let formData = new FormData()
-        formData.append('file', e)
-        return formData
+        this.pictures = e
       },
 //      openUpload () {
 //        this.pictures = true
@@ -152,7 +147,7 @@
           address: this.address,
           description: this.description,
           limiter: this.limiter, // 限定条件
-          pictures: this.getFromData(),
+          pictures: this.pictures,
           friends: [],
           phoneNo: this.phoneNo
         }
@@ -162,6 +157,7 @@
             method: 'post',
             url: '/activity/launchActivity',
             data: data,
+            test: 'www',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             timeout: 50000
           }).then(res => {
@@ -213,14 +209,15 @@
     color: #333333;
     margin:0 auto;
     width: 100%;
-    height: 44px;
+    height: 64px;
     position: fixed;
     top: 0;
     font-size: 17px;
-    z-index: 8
+    z-index: 8;
+    padding-top: 20px;
   }
   .dinglian-editActivities-theme{
-    margin-top: 44px;
+    margin-top: 64px;
     background-color: #ffffff;
     text-align: left;
     height: 69px;

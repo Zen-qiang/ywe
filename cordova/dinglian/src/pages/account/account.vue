@@ -15,14 +15,14 @@
         <!-- 我的信息 开始 -->
         <ul class="mui-table-view">
           <li class="mui-table-view-cell dinglian-user-info-cell">
-              <a class="mui-navigate-right dinglian-user-info">
+              <router-link to="/userInfo" class="mui-navigate-right dinglian-user-info">
                   <img class="mui-media-object mui-pull-left" :src="userInfo.picture" />
                   <div class="mui-media-body">
                       <span v-if="userInfo.nickname && userInfo.nickname !== null">{{userInfo.nickname}}</span>
                       <span v-else>{{userInfo.phoneno}}</span>
                       <p class='mui-ellipsis'>{{userInfo.signLog}}</p>
                   </div>
-              </a>
+              </router-link>
           </li>
         </ul>
       </div>
@@ -34,7 +34,7 @@
             <img src="../../assets/images/account-address.png" width="25px" height="25px"/>
             <span>我发起的活动</span>
         </div>
-        <div class="mui-col-sm-6 mui-col-xs-6 dianlian-account-activity">
+        <div class="mui-col-sm-6 mui-col-xs-6 dianlian-account-activity" @click="goMyCircle">
           <img src="../../assets/images/redFlag.png" width="25px" height="25px"/>
           <span>我参与的活动</span>
         </div>
@@ -101,13 +101,18 @@ export default {
         console.log(error)
       })
     },
+    // 跳转到我的活动列表
     goMyActivity () {
       console.log('sss')
       this.$router.push({'path': '/myActivityList'})
+    },
+    // 跳转到我的圈子
+    goMyCircle () {
+      this.$router.push({'path': '/myCircle'})
     }
   }
 }
 </script>
-<style lang="scss" scoped="" type="text/css">
+<style lang="scss" scoped type="text/css">
 @import '../../assets/css/account.scss'
 </style>

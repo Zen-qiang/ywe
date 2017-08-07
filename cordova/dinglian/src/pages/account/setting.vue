@@ -2,11 +2,13 @@
   <div style="width: 100%;">
     <div class="mui-content">
       <dianlian-header-bar :title="headerTitle"></dianlian-header-bar>
-      <!-- 修改头像 -->
-      <mt-cell title="修改头像" is-link to="changePicture"></mt-cell>
-      <!-- 修改密码 -->
-      <mt-cell title="修改密码" is-link to="changePassword"></mt-cell>
-      <mt-button type="default" size="large" class="dianlian-logout-button" @click="logout">退出</mt-button>
+      <div class="dianlian-logout-main">
+        <!-- 修改头像 -->
+        <mt-cell title="修改头像" is-link to="changePicture"></mt-cell>
+        <!-- 修改密码 -->
+        <mt-cell title="修改密码" is-link to="changePassword"></mt-cell>
+        <mt-button type="default" size="large" class="dianlian-logout-button" @click="logout">退出</mt-button>
+      </div>
     </div>
   </div>
 </template>
@@ -49,4 +51,7 @@ $backgroundColor: #ffd300;
   position: relative;
   top: 100px;
 }
+  .dianlian-logout-main {
+    margin-top: 64px;
+  }
 </style>

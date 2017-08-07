@@ -9,7 +9,7 @@
         </mt-swipe-item>
       </mt-swipe>
     </div>
-    <mt-navbar v-model="selected">
+    <mt-navbar v-model="selected" class="dinglian-circle-navbar">
       <mt-tab-item id="0">全部</mt-tab-item>
       <mt-tab-item id="1">街舞</mt-tab-item>
       <mt-tab-item id="2">桌游</mt-tab-item>
@@ -58,8 +58,6 @@
   import { Toast } from 'mint-ui'
   import Vue from 'vue'
   import circleInfo from './circleInfo.vue'
-  import * as types from '../../store/mutation-types'
-  import {mapGetters} from 'vuex'
   export default {
     components: {circleInfo},
     watch: {
@@ -89,10 +87,10 @@
         start: 0
       }
     },
-    computed: mapGetters({
-      circleTagsInfo: types.GETCIRCLEINFO
-    }),
+    computed () {
+    },
     created () {
+      this.circleTagsInfo = this.$store.state.interestInfo
       switch (this.circleTagsInfo) {
         case '街舞': this.selected = '1'
           break
@@ -126,6 +124,7 @@
           this.getCoterieList(typename, myItem.tagId)
         }
       },
+      // 获取小标签集合
       getTagList (e) {
         let data = {
           typeNameId: e
@@ -161,6 +160,7 @@
           console.log(res)
           if (res.data.status === 'ERROR') {
             Toast(res.data.message)
+            console.log(res.data.message)
           } else {
             this.coterieList = res.data.result.lists
           }
@@ -192,10 +192,11 @@
   .mint-header {
     background-color: #ffd200;
     color: #333333;
-    height: 44px;
+    height: 64px;
+    padding-top: 20px;
   }
   .dinglian-circle-carousel {
-    margin-top: 44px;
+    margin-top: 64px;
     width: 100%;
     height: 170px;
   }
@@ -203,17 +204,28 @@
     position: fixed;
     z-index: 2;
     right: 2rem;
-    top: 1.2rem;
+    top: 2.7rem;
     background: url(../../assets/images/search.svg) no-repeat center center;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
+  }
+  .mint-navbar .mint-tab-item.is-selected {
+    border-bottom: 3px solid #ffd200;
+    color: #333333;
+  }
+  a {
+    color: #333333;
   }
   .dinglian-circle-tagList {
-    padding-left: 0;
+    padding-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
   }
   .dinglian-circle-tagList > li {
     list-style: none;
     float: left;
+    margin-left: 10px;
+    margin-bottom: 5px;
   }
   .dinglian-circle-tags {
     color: #999999;
@@ -223,9 +235,9 @@
     border-radius: 8px;
   }
   .dinglian-circle-changetags {
-    background-color: #333333;
-    color: #ffffff;
-    border: 1px solid #333333;
+    background-color: #ffd200;
+    color: #999999;
+    border: 1px solid #ffd200;
     font-size: 12px;
     padding: 5px;
     border-radius: 8px;

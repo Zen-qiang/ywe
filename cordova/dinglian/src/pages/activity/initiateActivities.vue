@@ -36,7 +36,9 @@
   import * as types from '../../store/mutation-types'
   import {mapState} from 'vuex'
   import Vue from 'vue'
+  import DianlianHeaderBar from '../../components/common/dianlianHeaderBar.vue'
   export default {
+    components: { DianlianHeaderBar },
     data () {
       return {
         tagList: [],
@@ -155,10 +157,11 @@
     width: 100%;
     background-color: #ffd200 ;
     color: #333333;
-    height: 44px;
+    height: 64px;
     position: fixed;
     top: 0;
     z-index: 8;
+    padding-top: 20px;
   }
   .dinglian-initiateActivities-searchTag .dinglian-initiateActivities-activityShow {
     margin-top: 11px;
@@ -166,7 +169,7 @@
   }
   .dinglian-initiateActivities-searchTag {
     position: fixed;
-    top: 44px;
+    top: 64px;
     z-index: 8;
     height: 45px;
   }

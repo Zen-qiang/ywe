@@ -1,30 +1,30 @@
 <template>
   <div class="dinglian-eventsList-list">
-    <ul class="mui-table-view dinglian-eventsList-list-ul">
-      <li class="mui-table-view-cell mui-media clearfix dinglian-eventsList-list-li" v-for="item in eventsList">
-        <router-link v-bind='{to:"/activityDetails/"+item.eventId}' class="clearfix">
-          <img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" :src="baseImgUrl + item.picture">
-          <!--<img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" :src="item.picture">-->
-          <div class="mui-media-body dinglian-eventsList-rightInfo clearfix">
-            <h4>{{item.name}}</h4>
-            <p class="dinglian-eventsList-status clearfix"><span>个人组织 {{item.releaseTime |data}}</span><em>{{item.status}}</em></p>
-            <p class='mui-ellipsis'>
-            <div class="dinglian-eventsList-tag">
-              <i v-for="key in item.tags">{{key.tagName}}</i>
-              <strong>{{item.numbers.enteringNum}}／{{item.numbers.num}}人</strong>
-              <em>{{item.charge}}</em>
+      <ul class="mui-table-view dinglian-eventsList-list-ul">
+        <li class="mui-table-view-cell mui-media clearfix dinglian-eventsList-list-li" v-for="item in eventsList">
+          <router-link v-bind='{to:"/activityDetails/"+item.eventId}' class="clearfix">
+            <img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" :src="baseImgUrl + item.pictures[0]">
+            <!--<img class="mui-media-object mui-pull-left dinglian-eventsList-leftImg" :src="item.picture">-->
+            <div class="mui-media-body dinglian-eventsList-rightInfo clearfix">
+              <h4>{{item.name}}</h4>
+              <p class="dinglian-eventsList-status clearfix"><span>个人组织 {{item.releaseTime |data}}</span><em>{{item.status}}</em></p>
+              <p class='mui-ellipsis'>
+              <div class="dinglian-eventsList-tag">
+                <i v-for="key in item.tags">{{key.tagName}}</i>
+                <strong>{{item.numbers.enteringNum}}／{{item.numbers.num}}人</strong>
+                <em>{{item.charge}}</em>
+              </div>
+              <i>{{item.startTime | data}}</i>
+              <em>{{item.address}}</em>
+              </p>
             </div>
-            <i>{{item.startTime | data}}</i>
-            <em>{{item.address}}</em>
-            </p>
+          </router-link>
+          <div class="dinglian-activityInfo-copy clearfix" v-if="status">
+            <span>已报名</span>
+            <mt-button plain class="dinglian-activityInfo-copyButton">重新下单</mt-button>
           </div>
-        </router-link>
-        <div class="dinglian-activityInfo-copy clearfix" v-if="status">
-          <span>已报名</span>
-          <mt-button plain class="dinglian-activityInfo-copyButton">重新下单</mt-button>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
   </div>
 </template>
 <script>
@@ -45,6 +45,7 @@
     },
     created () {
       this.baseImgUrl = this.globalUrl.imgUrl
+      console.log(this.eventsList)
     }
   }
 </script>
@@ -81,6 +82,7 @@
     width: 30%;
     max-width: none;
     height:  38%;
+    min-height: 110px;
   }
   .dinglian-eventsList-list .dinglian-eventsList-rightInfo{
     width: 66%;

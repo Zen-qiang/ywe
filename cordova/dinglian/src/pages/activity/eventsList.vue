@@ -56,7 +56,11 @@
         </ul>
       </mt-loadmore>
     </div>-->
-    <activity-info :eventsList="eventsList"></activity-info>
+    <div class="dinglian-eventsList-main">
+    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="topDistance" :bottomDistance="bottomDistance">
+      <activity-info :eventsList="eventsList"></activity-info>
+    </mt-loadmore>
+    </div>
     <!--list end-->
     <router-link to="/initiateActivities"><mt-button type="danger" size="small" class="dinglian-eventsList-releaseActivity">发布活动</mt-button></router-link>
   </div>
@@ -97,7 +101,9 @@
           {name: '已关闭', value: '0'}
         ],
         start: 0,
-        pagesize: 5
+        pagesize: 5,
+        topDistance: 50,
+        bottomDistance: 70
       }
     },
     filters: {
@@ -110,6 +116,7 @@
       this.getCategory()
     },
     methods: {
+      // 上拉刷新
       loadTop () {
         this.eventsList = []
         this.page = 1
@@ -117,7 +124,9 @@
         this.allLoaded = false
         this.getEventsList()
         this.$refs.loadmore.onTopLoaded()
+        console.log(this.topDistance)
       },
+      // 下拉加载
       loadBottom () {
         this.page ++
         this.start = (this.page - 1) * this.pagesize
@@ -131,6 +140,7 @@
         }
         this.$refs.loadmore.onBottomLoaded()
       },
+      // 智能排序
       changeAllSorting () {
         if (this.sorting === true) {
           this.sorting = false
@@ -138,6 +148,7 @@
           this.sorting = true
         }
       },
+      // 智能排序内标签的搜索
       changeSorting (value) {
         if (this.sorting === true) {
           this.sorting = false
@@ -147,6 +158,7 @@
         this.orderBySort = value
         this.getEventsList()
       },
+      // 全部分类
       changeAllCate () {
         if (this.cate === true) {
           this.cate = false
@@ -164,9 +176,8 @@
         this.orderByCate = value
         this.eventsList = []
         this.getEventsList()
-        console.log('======')
-        console.log(this.eventsList)
       },
+      // 活动状态
       changeAllEventStatus () {
         if (this.eventStatus === true) {
           this.eventStatus = false
@@ -174,6 +185,7 @@
           this.eventStatus = true
         }
       },
+      // 根据活动状态进行筛选
       changeEventStatus (value) {
         if (this.eventStatus === true) {
           this.eventStatus = false
@@ -181,8 +193,10 @@
           this.eventStatus = true
         }
         this.orderByStatus = value
+        this.eventsList = []
         this.getEventsList()
       },
+      // 获取活动列表
       getEventsList (keyword, start) {
         let data = {
           orderby: this.orderBySort,
@@ -199,7 +213,7 @@
           data: data
         }).then(res => {
           if (res.data.status === 'ERROR') {
-            console.log(res.data.message)
+            Toast(res.data.message)
           } else {
             let lists = res.data.result.lists
             for (var item in lists) {
@@ -220,9 +234,12 @@
           console.log(err)
         })
       },
+      // 搜素框搜索
       searchKeyWord () {
-        this.getEventsList(this.keyword)
+        console.log('1')
+//        this.getEventsList(this.keyword)
       },
+      // 获取活动类型
       getCategory () {
         this.axios({
           method: 'get',
@@ -261,10 +278,11 @@
   .dinglian-eventsList-search {
     background-color: #ffd200;
     width: 100%;
-    height: 44px;
+    height: 64px;
     position: fixed;
     top: 0;
     z-index: 8;
+    padding-top: 20px;
   }
   .dinglian-eventsList-search input{
     margin:10px 5%;
@@ -278,7 +296,7 @@
   .dinglian-eventsList-filter{
     background-color: #ffffff;
     height: 45px;
-    margin-top: 44px;
+    margin-top: 64px;
     position: fixed;
     top: 0;
     z-index: 8;
@@ -306,90 +324,13 @@
     float: right;
     margin-top: 2.2%;
     margin-right: 3%;
-
   }
-  /*活动*/
-  .dinglian-eventsList-list{
-    margin-top: 98px;
-  }
-  .dinglian-eventsList-list-ul {
-    background-color: #f2f2f2;
-    margin-bottom: 18%;
-    /*height: 280px;*/
-  }
-  .dinglian-eventsList-list-ul > li {
-    margin: 10px 0;
-    background-color: #ffffff;
-  }
-  .dinglian-eventsList-list .dinglian-eventsList-leftImg{
-    width: 30%;
-    max-width: none;
-    height:  38%;
-  }
-  .dinglian-eventsList-list .dinglian-eventsList-rightInfo{
-    width: 66%;
-  }
-  .dinglian-eventsList-rightInfo h4{
-    font-weight: 400;
-    font-size: 15px;
-    color: #333333;
-    margin-top: 0;
-  }
-  .dinglian-eventsList-status span{
-    float: left;
-    font-size: 12px;
-    color: #999999;
-  }
-  .dinglian-eventsList-status em{
-    float: right;
-    font-size: 11px;
-    color: #999999;
-    font-style: normal;
-  }
-  .dinglian-eventsList-tag{
-    margin-top: 9px;
-  }
-  .dinglian-eventsList-tag i {
-    background-color: #999999;
-    color: #ffffff;
-    border: 1px solid #999999;
-    border-radius: 5px;
-    font-style: normal;
-    padding: 1px;
-    font-size: 11px;
-  }
-  .dinglian-eventsList-tag strong {
-    border: 1px solid red;
-    border-radius: 5px;
-    color: red;
-    padding: 1px;
-    font-weight: 100;
-    font-size: 11px;
-    margin: 0 1px;
-  }
-  .dinglian-eventsList-tag em{
-    color: red;
-    font-weight: 100;
-    font-size: 11px;
-    font-style: normal;
-  }
-  .dinglian-eventsList-rightInfo > i{
-    font-weight: 100;
-    font-style: normal;
-    color: #333333;
-    font-size: 14px;
-  }
-  .dinglian-eventsList-rightInfo > em{
-    font-weight: 100;
-    font-style: normal;
-    color: #999999;
-    font-size: 12px;
-    display: block;
+  .dinglian-eventsList-main {
+    margin-top: 110px;
   }
   .dinglian-eventsList-releaseActivity {
     position: fixed;
-    z-index: 8;
-    bottom: 55px;
-    right: 0;
+    bottom: 70px;
+    right: 10px;
   }
 </style>

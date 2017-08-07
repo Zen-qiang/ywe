@@ -20,7 +20,7 @@
         <input id="passw1" type="password" class="mui-input-password" placeholder="请输入密码" v-model="password">
       </div>
 
-      <mt-button type="primary" size="large" class="dinglian-register-btn dinglian-register-head" @click="isRegister">立即注册</mt-button>
+      <mt-button type="primary" size="large" class="dinglian-register-btn" @click="isRegister">立即注册</mt-button>
       <p class="dinglian-register-term">注册即同意<router-link to="#">《出趣浪服务条款》</router-link></p>
   </div>
 </template>
@@ -137,7 +137,8 @@
     background-color: #ffd200 ;
     color: #333333;
     margin:0 auto;
-    height: 45px;
+    height: 64px;
+    padding-top: 20px;
   }
   .dinglian-register-tel{
     margin-top: 18px;
@@ -194,6 +195,8 @@
     margin-top: 20px;
     font-size: 16px;
     color: #333333;
+    background-color: #ffd200 ;
+    margin-left: 4%;
   }
   .dinglian-register-term{
     margin-top: 20px;

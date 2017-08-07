@@ -1,10 +1,11 @@
 <template>
   <div>
-    <mt-header fixed title="我的活动">
+   <!-- <mt-header fixed title="我的活动">
       <router-link to="/index/account" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
-    </mt-header>
+    </mt-header>-->
+    <dianlian-header-bar :title="headerTitle"></dianlian-header-bar>
     <div class="dinglian-myActivityList-filter">
       <mt-navbar v-model="selected">
         <mt-tab-item id="0">全部活动</mt-tab-item>
@@ -38,12 +39,14 @@
 <script>
   import activityInfo from './activityInfo.vue'
   import {Toast} from 'mint-ui'
+  import DianlianHeaderBar from '../../components/common/dianlianHeaderBar.vue'
   export default {
-    components: {activityInfo},
+    components: { activityInfo, DianlianHeaderBar },
     data () {
       return {
         selected: '1',
-        userActivityList: []
+        userActivityList: [],
+        headerTitle: '我的活动'
       }
     },
     created () {
@@ -94,20 +97,15 @@
   }
 </script>
 <style scoped>
-  .mint-header {
-    background-color: #ffd200;
-    color: #333333;
-    font-size: 16px;
-    height: 44px;
-  }
   .dinglian-myActivityList-mainBody {
-    margin-top: 90px;
+    margin-top: 110px;
   }
   .dinglian-myActivityList-filter {
     width: 100%;
     position: fixed;
     z-index: 8;
-    top: 44px;
+    top: 64px;
+    height: 46px;
   }
   .dinglian-myActivityList-button {
     width: 100%;
@@ -116,6 +114,13 @@
     z-index: 8;
     bottom: 0;
     left: 0;
+  }
+  a {
+    color: #333333;
+  }
+  .mint-navbar .mint-tab-item.is-selected {
+    border-bottom: 3px solid #ffd200;
+    color: #333333;
   }
 
 </style>

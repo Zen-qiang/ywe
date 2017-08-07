@@ -58,7 +58,7 @@ $fontColor: #333333;
 .dinglian-header-bar {
   background-color: $backgroundColor;
   width: 100%;
-  height: 66px;
+  height: 64px;
   display: flex;
   align-items: center;
   position: fixed;
@@ -66,6 +66,7 @@ $fontColor: #333333;
   z-index: 8;
   text-align: center;
   color: $fontColor;
+  padding-top: 20px;
 }
 .dinglian-message-header-contacts {
   font-size: 16px;

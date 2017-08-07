@@ -1,14 +1,14 @@
 const carouselList = [
   {
-    imageUrl: 'http://106.14.2.158/chuqulang-resource/assets/images/carousel0.jpg',
+    imageUrl: 'http://106.14.2.158:5080/chuqulang-resource/assets/images/carousel0.jpg',
     targetUrl: ''
   },
   {
-    imageUrl: 'http://106.14.2.158/chuqulang-resource/assets/images/carousel1.jpg',
+    imageUrl: 'http://106.14.2.158:5080/chuqulang-resource/assets/images/carousel1.jpg',
     targetUrl: ''
   },
   {
-    imageUrl: 'http://106.14.2.158/chuqulang-resource/assets/images/carousel1.jpg',
+    imageUrl: 'http://106.14.2.158:5080/chuqulang-resource/assets/images/carousel1.jpg',
     targetUrl: ''
   }
 ]

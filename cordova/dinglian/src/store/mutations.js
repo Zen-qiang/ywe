@@ -17,9 +17,17 @@ const mutations = {
     state.tags = tags
     console.log('保存', state.tags)
   },
-  [types.SETCIRCLEINFO]: (state, circleInfo) => {
-    state.circleInfo = circleInfo
-    console.log('保存', state.circleInfo)
+  [types.SETINTERESTINFO]: (state, interestInfo) => {
+    state.interestInfo = interestInfo
+    console.log('保存', state.interestInfo)
+  },
+  [types.SETCIRCLENAME]: (state, circleName) => {
+    state.circleName = circleName
+    console.log('保存', state.circleName)
+  },
+  [types.SETCIRCLETAGS]: (state, circleTags) => {
+    state.circleTags = circleTags
+    console.log('保存', state.circleTags)
   }
 }
 export default mutations

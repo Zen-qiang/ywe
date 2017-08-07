@@ -20,7 +20,7 @@
       <input type="password" class="mui-input-password" @blur="judgmentpsw(newPassword)" placeholder="请输入密码 ( 6-12位密码，字母，符号 )" v-model="newPassword">
     </div>
 
-    <mt-button type="primary" size="large" class="dinglian-forgetPassword-btn dinglian-forgetPassword-head" @click="isRresetPassword">更改密码</mt-button>
+    <mt-button type="primary" size="large" class="dinglian-forgetPassword-btn" @click="isRresetPassword">更改密码</mt-button>
 
 
   </div>
@@ -110,8 +110,9 @@
     background-color: #ffd200 ;
     color: #333333;
     margin:0 auto;
-    height: 44px;
+    height: 64px;
     font-size: 17px;
+    padding-top: 20px;
   }
   .dinglian-forgetPassword-tel{
     margin-top: 15px;
@@ -168,5 +169,7 @@
     margin-top: 20px;
     font-size: 16px;
     color: #333333;
+    background-color: #ffd200 ;
+    margin-left: 4%;
   }
 </style>
