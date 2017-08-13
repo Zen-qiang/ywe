@@ -28,7 +28,7 @@
                         <p class='mui-ellipsis'>{{item.lastMsg.text}}</p>
                     </div>
                 </a>
-                <span class="mui-badge" style="background-color: #ffd200; color: #ffffff;">{{item.unread}}</span>
+                <span class="mui-badge" style="background-color: #ffd200; color: #ffffff;" v-if="item.unread !== 0">{{item.unread}}</span>
             </li>
           </ul>
         </mt-tab-container-item>
@@ -36,7 +36,17 @@
           <mt-cell v-for="(n, index) in activityMessage" :key="index" :title="'测试 ' + n" />
         </mt-tab-container-item>
         <mt-tab-container-item id="system">
-          <mt-cell v-for="(n, index) in systemMessage" :key="index" :title="'选项 ' + n" />
+          <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-media" v-for="(item, index) in systemMessage" :key="index" style="text-align: left;">
+                <a href="javascript:;">
+                    <div class="mui-media-body">
+                        {{item.to}}
+                        <p class='mui-ellipsis'>{{item.lastMsg.text}}</p>
+                    </div>
+                </a>
+                <span class="mui-badge" style="background-color: #ffd200; color: #ffffff;" v-if="item.unread !== 0">{{item.unread}}</span>
+            </li>
+          </ul>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
@@ -74,12 +84,14 @@ export default {
             this.$store.dispatch(types.GETUSERINFO, res.data.result)
             this.$store.dispatch(types.INITNIMSDK, res.data.result)
             this.allMessage = this.$store.state.sessionList
+            this.systemMessage = this.$store.state.sysMsgs
           }
         }).catch(error => {
           console.log(error)
         })
       } else {
         this.allMessage = this.$store.state.sessionList
+        this.systemMessage = this.$store.state.sysMsgs
       }
     },
     enterContacts () {

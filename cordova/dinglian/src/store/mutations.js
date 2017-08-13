@@ -49,6 +49,9 @@ const mutations = {
   },
   [types.UPDATESESSIONLIST]: (state, sessionList) => {
     state.sessionList = sessionList
+  },
+  [types.UPDATESYSTEMMSGS]: (state, sysMsgs) => {
+    state.sysMsgs = sysMsgs
   }
 }
 export default mutations

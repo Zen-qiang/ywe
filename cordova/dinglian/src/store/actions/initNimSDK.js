@@ -68,14 +68,17 @@ const actions = {
         // 更新聊天列表
         commit(types.UPDATESESSIONLIST, res)
       },
-      onupdatesession: function () {
-
+      onupdatesession: function (res) {
+        // 更新聊天列表
+        commit(types.UPDATESESSIONLIST, res)
       },
-      onmsg: function () {
-
+      onmsg: function (res) {
+        // 更新聊天列表
+        commit(types.UPDATESYSTEMMSGS, res)
       },
-      onsysmsg: function () {
-
+      onsysmsg: function (res) {
+        // 更新聊天列表
+        commit(types.UPDATESYSTEMMSGS, res)
       }
     })
   }
