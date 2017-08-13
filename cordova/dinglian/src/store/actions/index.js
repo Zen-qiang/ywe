@@ -1,5 +1,6 @@
 import * as types from '../mutation-types'
 import initNimSdk from './initNimSdk'
+import initChatroomSDK from './initChatroomSDK'
 const actions = {
   [types.SETINFO]: (state, eventInfo) => {
     console.log('获取', state.eventInfo)
@@ -18,6 +19,7 @@ const actions = {
   },
   [types.UPDATECURSESSIONID]: (state, sessionId) => {
     state.commit(types.UPDATECURSESSIONID, sessionId)
-  }
+  },
+  [types.INITCHATROOMSDK]: initChatroomSDK[types.INITCHATROOMSDK]
 }
 export default actions

@@ -72,6 +72,7 @@ const store = {
 
   // 聊天室相关
   // 聊天室sdk实例
+  chatroom: null,
   chatroomInsts: {},
   chatroomInfos: {},
   // 聊天室分房间消息集合

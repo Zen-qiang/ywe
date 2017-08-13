@@ -72,9 +72,12 @@ export default {
           }
         })
       } else if (this.type === 'chatroom') {
-        this.$store.dispatch('sendChatroomMsg', {
-          type: 'text',
-          text: this.msgToSent
+        let chatroom = this.$store.state.chatroom
+        chatroom.sendText({
+          text: this.msgToSent,
+          done: (error, msg) => {
+            console.log('发送聊天室' + msg.type + '消息' + (!error ? '成功' : '失败') + ', id=' + msg.idClient, error, msg)
+          }
         })
       }
       this.msgToSent = ''

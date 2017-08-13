@@ -5,7 +5,7 @@
         <div class="mui-row" style="margin-top: 67px;">
             <div class="mui-col-sm-10">
               <div class="mui-input-row mui-search">
-                  <input type="search" class="mui-input-clear" placeholder="输入需要查找聊天室的账号" v-model="searchChatroomid">
+                  <input type="search" class="mui-input-clear" placeholder="聊天室的账号" v-model="searchChatroomid">
               </div>
             </div>
             <div class="mui-col-sm-2">

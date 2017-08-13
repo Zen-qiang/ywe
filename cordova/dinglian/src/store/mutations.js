@@ -52,6 +52,9 @@ const mutations = {
   },
   [types.UPDATESYSTEMMSGS]: (state, sysMsgs) => {
     state.sysMsgs = sysMsgs
+  },
+  [types.SETCURRCHATROOMMSGS]: (state, chatroomMsgs) => {
+    state.currChatroomMsgs = chatroomMsgs
   }
 }
 export default mutations

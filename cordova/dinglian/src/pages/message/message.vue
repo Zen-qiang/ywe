@@ -33,7 +33,18 @@
           </ul>
         </mt-tab-container-item>
         <mt-tab-container-item id="activity">
-          <mt-cell v-for="(n, index) in activityMessage" :key="index" :title="'测试 ' + n" />
+          <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-media" v-for="(item, index) in chatRoomList" :key="index" style="text-align: left;" @click="enterChatRoom(item.roomid)">
+                <a href="javascript:;">
+                    <img class="mui-media-object mui-pull-left" :src="item.broadcasturl">
+                    <div class="mui-media-body">
+                        {{item.name}}
+                        <p class='mui-ellipsis'>{{item.announcement}}</p>
+                    </div>
+                </a>
+                <span class="mui-badge" style="background-color: #ffd200; color: #ffffff;" v-if="item.unread !== 0">{{item.unread}}</span>
+            </li>
+          </ul>
         </mt-tab-container-item>
         <mt-tab-container-item id="system">
           <ul class="mui-table-view">
@@ -62,12 +73,13 @@ export default {
       searchFriendValue: '',
       selectedTab: 'all',
       allMessage: [],
-      activityMessage: [],
+      chatRoomList: [],
       systemMessage: []
     }
   },
   created () {
     this.getLocalSessions()
+    this.getChatRooms()
   },
   methods: {
     getLocalSessions () {
@@ -102,6 +114,24 @@ export default {
     },
     enterChatList (account) {
       this.$router.push({name: 'ChatList', params: {account: account}})
+    },
+    getChatRooms () {
+      this.axios({
+        method: 'get',
+        url: '/chat/getChatRooms',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      }).then(res => {
+        if (res.data.status === 'ERROR') {
+          Toast(res.data.message)
+        } else {
+          this.chatRoomList = res.data.result
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    enterChatRoom (roomid) {
+      this.$router.push({name: 'ChatroomList', params: {roomid: roomid}})
     }
   }
 }

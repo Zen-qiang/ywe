@@ -14,4 +14,5 @@ export const UPDATECURSESSIONS = 'updateCurSessions' // 更新当前聊天信息
 export const UPDATECURSESSIONID = 'updateCurSessionId' // 更新当前聊天信息
 export const UPDATEFRIENDSLIST = 'updateFriendsList' // 更新好友列表
 export const UPDATESESSIONLIST = 'updateSessionList' // 更新聊天列表
-export const UPDATESYSTEMMSGS = 'uopdateSystemMsgs' // 更新系统信息
+export const UPDATESYSTEMMSGS = 'updateSystemMsgs' // 更新系统信息
+export const SETCURRCHATROOMMSGS = 'setCurrChatroomMsgs' // 更新当前聊天室的信息
