@@ -9,9 +9,6 @@ const actions = {
     if (state.nim) {
       state.nim.disconnect()
     }
-    SDK.NIM.support.db = true
-    // 支持indexDB
-    console.log(SDK.NIM.support.db)
     // 初始化SDK
     window.nim = state.nim = SDK.NIM.getInstance({
       appKey: config.appkey,
@@ -66,6 +63,19 @@ const actions = {
           default:
             break
         }
+      },
+      onsessions: function (res) {
+        // 更新聊天列表
+        commit(types.UPDATESESSIONLIST, res)
+      },
+      onupdatesession: function () {
+
+      },
+      onmsg: function () {
+
+      },
+      onsysmsg: function () {
+
       }
     })
   }

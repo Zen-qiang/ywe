@@ -14,9 +14,9 @@
           <div class="mui-icon mui-icon-plusempty"></div>
         </div>
       </div>
-      <mt-cell title="新朋友" is-link to="newFriends" style="margin-top: 45px"></mt-cell>
-      <mt-cell title="我关注的" is-link to="followFriends"></mt-cell>
-      <mt-cell title="我的粉丝" is-link to="myFans"></mt-cell>
+      <mt-cell class="dinglian-cell-left" title="新朋友" is-link to="newFriends" style="margin-top: 45px"></mt-cell>
+      <mt-cell class="dinglian-cell-left" title="我关注的" is-link to="followFriends"></mt-cell>
+      <mt-cell class="dinglian-cell-left" title="我的粉丝" is-link to="myFans"></mt-cell>
       <div class="mui-row" style="height: 20px;">我的好友</div>
       <div   v-for="(item, index) in friendslist" :key="index">
         <mt-cell-swipe
@@ -29,7 +29,7 @@
           style: { background: 'red', color: '#fff' },
           handler: () => this.$messagebox('delete')
         }
-        ]"></mt-cell-swipe>
+        ]" class="dinglian-cell-left"></mt-cell-swipe>
       </div>
     </div>
   </div>
@@ -111,5 +111,8 @@ $fontColor: #333333;
 }
 .dinglian-message-navbar > .is-selected {
   border-bottom: 2px solid $backgroundColor;
+}
+.dinglian-cell-left {
+  text-align: left;
 }
 </style>

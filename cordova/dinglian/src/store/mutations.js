@@ -46,6 +46,9 @@ const mutations = {
   },
   [types.UPDATEFRIENDSLIST]: (state, friendslist) => {
     state.friendslist = friendslist
+  },
+  [types.UPDATESESSIONLIST]: (state, sessionList) => {
+    state.sessionList = sessionList
   }
 }
 export default mutations

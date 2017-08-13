@@ -19,7 +19,18 @@
       </mt-navbar>
       <mt-tab-container v-model="selectedTab">
         <mt-tab-container-item id="all">
-          <mt-cell v-for="(n, index) in allMessage" :key="index" :title="'内容 ' + n" />
+          <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-media" v-for="(item, index) in allMessage" :key="index" style="text-align: left;" @click="enterChatList(item.to)">
+                <a href="javascript:;">
+                    <img class="mui-media-object mui-pull-left" src="../../assets/images/tx.jpg">
+                    <div class="mui-media-body">
+                        {{item.to}}
+                        <p class='mui-ellipsis'>{{item.lastMsg.text}}</p>
+                    </div>
+                </a>
+                <span class="mui-badge" style="background-color: #ffd200; color: #ffffff;">{{item.unread}}</span>
+            </li>
+          </ul>
         </mt-tab-container-item>
         <mt-tab-container-item id="activity">
           <mt-cell v-for="(n, index) in activityMessage" :key="index" :title="'测试 ' + n" />
@@ -28,7 +39,6 @@
           <mt-cell v-for="(n, index) in systemMessage" :key="index" :title="'选项 ' + n" />
         </mt-tab-container-item>
       </mt-tab-container>
-
     </div>
 
   </div>
@@ -63,30 +73,13 @@ export default {
           } else {
             this.$store.dispatch(types.GETUSERINFO, res.data.result)
             this.$store.dispatch(types.INITNIMSDK, res.data.result)
-            nim = this.$store.state.nim
-            nim.getLocalSessions({
-              limit: 100,
-              done: function (error, obj) {
-                console.log('获取本地会话列表' + (!error ? '成功' : '失败'), error, obj)
-                if (!error) {
-                  console.log(obj.sessions)
-                }
-              }
-            })
+            this.allMessage = this.$store.state.sessionList
           }
         }).catch(error => {
           console.log(error)
         })
       } else {
-        nim.getLocalSessions({
-          limit: 100,
-          done: function (error, obj) {
-            console.log('获取本地会话列表' + (!error ? '成功' : '失败'), error, obj)
-            if (!error) {
-              console.log(obj.sessions)
-            }
-          }
-        })
+        this.allMessage = this.$store.state.sessionList
       }
     },
     enterContacts () {
@@ -94,6 +87,9 @@ export default {
     },
     addChat () {
       console.log('addChat')
+    },
+    enterChatList (account) {
+      this.$router.push({name: 'ChatList', params: {account: account}})
     }
   }
 }
