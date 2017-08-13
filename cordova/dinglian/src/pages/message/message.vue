@@ -98,7 +98,7 @@ export default {
       this.$router.push({name: 'Contacts'})
     },
     addChat () {
-      console.log('addChat')
+      this.$router.push({name: 'AddChatroom'})
     },
     enterChatList (account) {
       this.$router.push({name: 'ChatList', params: {account: account}})

@@ -10,6 +10,7 @@ const FollowFriends = r => require.ensure([], () => r(require('@/pages/message/f
 const MyFans = r => require.ensure([], () => r(require('@/pages/message/myFans')), 'myFans')// 我的粉丝
 const newFriends = r => require.ensure([], () => r(require('@/pages/message/newFriends')), 'newFriends')// 新朋友
 const AddFriend = r => require.ensure([], () => r(require('@/pages/message/addFriend')), 'addFriend')// 添加好友
+const AddChatroom = r => require.ensure([], () => r(require('@/pages/message/addChatroom')), 'addChatroom')// 获取聊天室地址
 const FriendCard = r => require.ensure([], () => r(require('@/pages/message/friendCard')), 'friendCard')// 好友卡片
 const ChatList = r => require.ensure([], () => r(require('@/pages/message/chatList')), 'chatList')// 消息
 const Message = r => require.ensure([], () => r(require('@/pages/message/message')), 'message')// 消息
@@ -267,6 +268,14 @@ export default new Router({
       path: '/addFriend',
       name: 'AddFriend',
       component: AddFriend,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/addChatroom',
+      name: 'AddChatroom',
+      component: AddChatroom,
       meta: {
         requireAuth: true
       }

@@ -57,7 +57,7 @@ export default {
   methods: {
     getFriendsList () {
       let nim = this.$store.state.nim
-      if (!nim) {
+      if (!nim || nim === null) {
         this.axios({
           method: 'get',
           url: '/user/getUser',
@@ -121,6 +121,10 @@ export default {
       })
     },
     addFriend () {
+      if (!this.friendInfo.accid) {
+        Toast('请输入正确的对方账号！')
+        return
+      }
       let data = {
         faccid: this.searchfriend,
         type: 1,

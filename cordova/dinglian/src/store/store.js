@@ -82,6 +82,7 @@ const store = {
   currChatroomMsgs: [],
   currChatroomInfo: {},
   // 聊天室成员列表
-  currChatroomMembers: []
+  currChatroomMembers: [],
+  chatRooms: [] // 聊天室列表
 }
 export default store
