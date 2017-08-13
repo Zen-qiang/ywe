@@ -19,7 +19,7 @@
 </template>
 <script>
   import { Toast } from 'mint-ui'
-  import Upload from '../../components/common/upload.vue'
+  // import Upload from '../../components/common/upload.vue'
   export default{
     data () {
       return {
@@ -27,9 +27,9 @@
         detailsId: this.$route.params.id
       }
     },
-    components: {
-      Upload
-    },
+    // components: {
+    //   Upload
+    // },
     created () {
       console.log(this.detailsId)
     },

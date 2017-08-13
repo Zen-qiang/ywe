@@ -117,7 +117,7 @@ export default {
 }
 </script>
 
-<style type="text/css">
+<style lang="scss" scoped="" type="text/css">
   .m-chat-emoji {
     position: absolute;
     top: -12rem;

@@ -71,6 +71,21 @@ export default {
             })
             // data = Object.assign(data, res.data.result)
             this.$store.commit(types.LOGIN, JSON.stringify(data))
+            // init nim SDK
+            this.axios({
+              method: 'get',
+              url: '/user/getUser',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            }).then(res => {
+              if (res.data.status === 'ERROR') {
+                Toast(res.data.message)
+              } else {
+                this.$store.dispatch(types.GETUSERINFO, res.data.result)
+                this.$store.dispatch(types.INITNIMSDK, res.data.result)
+              }
+            }).catch(error => {
+              console.log(error)
+            })
             this.$router.push({'path': '/index'})
           }
         }
