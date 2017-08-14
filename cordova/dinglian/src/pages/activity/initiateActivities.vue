@@ -1,10 +1,11 @@
 <template>
   <div>
-    <mt-header title="发起活动" class="dinglian-initiateActivities-head">
+    <!--<mt-header title="发起活动" class="dinglian-initiateActivities-head">
       <router-link to="index/eventsList" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
-    </mt-header>
+    </mt-header>-->
+    <dianlian-header-bar :title="tilte" :rollUrl="rollUrl"></dianlian-header-bar>
     <div class="dinglian-initiateActivities-searchTag">
       <ul class="mui-table-view mui-table-view-chevron">
         <li class="mui-table-view-cell"><a class="mui-navigate-right" @click="getActivityShow">{{eventType}}</a>
@@ -46,7 +47,9 @@
         myTags: [],
         activityShow: false,
         eventType: '活动类型',
-        image: ''
+        image: '',
+        tilte: '发起活动',
+        rollUrl: '/index/eventsList'
       }
     },
     created () {

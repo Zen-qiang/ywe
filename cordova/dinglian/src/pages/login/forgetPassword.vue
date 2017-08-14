@@ -1,11 +1,12 @@
 <template>
   <!--注册-->
   <div class="dinglian-forgetPassword-all">
-    <mt-header title="找回密码" class="dinglian-forgetPassword-head">
+    <!--<mt-header title="找回密码" class="dinglian-forgetPassword-head">
       <router-link to="/login" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
-    </mt-header>
+    </mt-header>-->
+    <dianlian-header-bar :title="headerTitle" :rollUrl="rollUrl"></dianlian-header-bar>
     <div class="mui-input-row dinglian-forgetPassword-tel">
       <input type="tel" placeholder="请输入手机号" v-model="phoneno" @blur="judgmentTel(phoneno)" />
     </div>
@@ -28,13 +29,19 @@
 <script>
   import { Toast } from 'mint-ui'
   import {judgmentTel, judgmentpsw} from '../../assets/js/tool'
+  import DianlianHeaderBar from '../../components/common/dianlianHeaderBar.vue'
   export default {
+    components: {
+      DianlianHeaderBar
+    },
     data () {
       return {
         phoneno: '',
         verifyno: '',
         newPassword: '',
-        btn: '发送验证码'
+        btn: '发送验证码',
+        headerTitle: '找回密码',
+        rollUrl: ''
       }
     },
     methods: {
@@ -106,16 +113,8 @@
     position: fixed;
     z-index: 8;
   }
-  .dinglian-forgetPassword-head {
-    background-color: #ffd200 ;
-    color: #333333;
-    margin:0 auto;
-    height: 64px;
-    font-size: 17px;
-    padding-top: 20px;
-  }
   .dinglian-forgetPassword-tel{
-    margin-top: 15px;
+    margin-top: 70px;
     border-top:1px solid #f3f5f6;
     border-bottom:1px solid #f3f5f6;
     background-color: #ffffff;

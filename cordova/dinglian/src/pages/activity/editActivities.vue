@@ -10,10 +10,6 @@
       <input type="text" placeholder="填写活动标题" v-model="shortname">
     </div>
     <div class="dinglian-editActivities-bodyInfo">
-      <!--<p class="dinglian-editActivities-upload" @click="openUpload">
-        <img src="../../assets/images/upload.png" >
-        <mt-actionsheet :actions="actions" v-model="pictures"></mt-actionsheet>
-      </p>-->
       <upload v-on:files="getFromData"></upload>
       <div class="mui-input-row dinglian-editActivities-time">
         <label @click="openPicker">时间</label>
@@ -77,9 +73,6 @@
         return moment(val).format('YYYY-MM-DD HH:mm')
       }
     },
-//    computed: mapState({
-//      eventInfo: state => state.eventInfo
-//    }),
     computed: mapGetters({
       mytagsIdList: types.GETTAGS
     }),
@@ -122,9 +115,6 @@
       getFromData (e) {
         this.pictures = e
       },
-//      openUpload () {
-//        this.pictures = true
-//      },
       // 日期选择组件
       openPicker () {
         this.$refs.picker.open()

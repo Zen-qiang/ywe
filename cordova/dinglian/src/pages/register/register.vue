@@ -1,11 +1,12 @@
 <template>
   <!--注册-->
   <div>
-      <mt-header title="手机注册" class="dinglian-register-head">
+      <!--<mt-header title="手机注册" class="dinglian-register-head">
         <router-link to="/" slot="left">
           <mt-button icon="back"></mt-button>
         </router-link>
-      </mt-header>
+      </mt-header>-->
+      <dianlian-header-bar :title="headerTitle" :rollUrl="rollUrl"></dianlian-header-bar>
       <div class="mui-input-row dinglian-register-tel">
         <input v-model="phoneno" id="phoneno" type="tel" placeholder="请输入手机号">
       </div>
@@ -20,23 +21,33 @@
         <input id="passw1" type="password" class="mui-input-password" placeholder="请输入密码" v-model="password">
       </div>
 
+      <div class="mui-input-row mui-password dinglian-register-psw">
+        <input type="password" class="mui-input-password" placeholder="请再输入一次密码" v-model="morePassword">
+      </div>
+
       <mt-button type="primary" size="large" class="dinglian-register-btn" @click="isRegister">立即注册</mt-button>
       <p class="dinglian-register-term">注册即同意<router-link to="#">《出趣浪服务条款》</router-link></p>
   </div>
 </template>
 <script>
   import { Toast } from 'mint-ui'
-  //  import {mapMutations} from 'vuex'
   import * as types from '../../store/mutation-types'
   import {judgmentTel, judgmentpsw} from '../../assets/js/tool'
+  import DianlianHeaderBar from '../../components/common/dianlianHeaderBar.vue'
   export default {
+    components: {
+      DianlianHeaderBar
+    },
     data () {
       return {
         phoneno: '',
         verifyno: '',
         password: '',
+        morePassword: '',
         btn: '发送验证码',
-        isDisabled: false
+        isDisabled: false,
+        headerTitle: '手机注册',
+        rollUrl: ''
       }
     },
     methods: {
@@ -83,6 +94,13 @@
 //      注册
       isRegister () {
         if (judgmentTel(this.phoneno) && judgmentpsw(this.password)) {
+          if (this.password !== this.morePassword) {
+            Toast({
+              message: '两次输入的密码不一致！',
+              duration: 500
+            })
+            return
+          }
           this.axios({
             method: 'post',
             url: '/user/register',
@@ -102,11 +120,12 @@
                   password: this.password,
                   type: 'username'
                 }
-                console.log(res)
                 this.axios({
                   method: 'post',
                   url: '/user/login',
-                  data: data
+                  data: data,
+                  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                  withCredentials: true
                 }).then(res => {
                   if (res.data.status === 'ERROR') {
                     Toast(res.data.message)
@@ -133,15 +152,8 @@
     }}
 </script>
 <style scoped>
-  .dinglian-register-head {
-    background-color: #ffd200 ;
-    color: #333333;
-    margin:0 auto;
-    height: 64px;
-    padding-top: 20px;
-  }
   .dinglian-register-tel{
-    margin-top: 18px;
+    margin-top: 70px;
     border-top:1px solid #f3f5f6;
     border-bottom:1px solid #f3f5f6;
     background-color: #ffffff;

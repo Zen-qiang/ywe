@@ -3,9 +3,9 @@
       <li v-for="item in info">
         <router-link v-bind='{to:"/previewDetails/"+circleId+"/"+item.topics.topicId}'>
         <div class="dinglian-topicInfo-user clearfix">
-          <img src="../../assets/images/header.png" class="dinglian-topicInfo-img">
+          <img :src="baseImgUrl + item.user.picture" class="dinglian-topicInfo-img">
           <div class="dinglian-topicInfo-name"><h4>{{item.user.nickname}}</h4><em>地址</em></div>
-          <span>{{item.topics.releaseTime}}ssss</span>
+          <span>{{item.topics.releaseTime}}</span>
         </div>
         <p class="dinglian-topicInfo-description">
           {{item.topics.description}}
@@ -31,13 +31,11 @@
       }
     },
     created () {
+      this.baseImgUrl = this.globalUrl.imgUrl
     },
     methods: {
       praiseTopic (topicId) {
         this.$emit('getRefresh')
-        console.log('www')
-        console.log(topicId)
-        console.log(typeof topicId)
         this.axios({
           method: 'post',
           url: '/discover/praiseTopic',
@@ -57,13 +55,14 @@
 </script>
 <style scoped>
   .dinglian-topicInfo-ul {
-    background-color: #ffffff;
-    padding-left: 18px;
+    padding-left: 0;
     text-align: left;
-    padding-right: 18px;
   }
   .dinglian-topicInfo-ul > li {
+    background-color: #ffffff;
     list-style: none;
+    margin-bottom: 10px;
+    padding: 10px;
   }
   .dinglian-topicInfo-img {
     width: 45px;
@@ -76,6 +75,8 @@
   .dinglian-topicInfo-name > h4 {
     font-size: 16px;
     color: #333333;
+    font-weight: 100;
+    height: 14px;
   }
   .dinglian-topicInfo-name > em {
     font-style: normal;

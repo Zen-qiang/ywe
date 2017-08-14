@@ -39,7 +39,7 @@
        <div class="mui-col-sm-6 mui-col-xs-6 h-xs-6 dinglian-hot-activityList" v-for="(item, index) in nearbyActivity" :key="index">
           <div class="gird-content" @click="goToNearbyActivity(item.eventId)">
             <div class="grid-image friend-grid-image">
-              <img :src="baseImgUrl + item.picture"></img>
+              <img :src="baseImgUrl + item.pictures[0]"></img>
             </div>
             <div class="grid-tip">
               {{item.name}}
@@ -70,11 +70,11 @@ export default {
     this.getNearbyActivity()
   },
   mounted () {
-    console.log('time')
-    let time = setInterval(function () {
-      this.activityMessage = this.activityMessage + '1'
-    }, 1000)
-    clearInterval(time)
+//    console.log('time')
+//    let time = setInterval(function () {
+//      this.activityMessage = this.activityMessage + '1'
+//    }, 1000)
+//    clearInterval(time)
   },
   methods: {
       // 跳转到圈子列表界面
@@ -87,7 +87,7 @@ export default {
       let data = {
         pagesize: 4,
         start: 0,
-        status: '1',
+//        status: '2',
         isOwnList: false
       }
       this.axios({
@@ -100,8 +100,6 @@ export default {
         } else {
           this.baseImgUrl = this.globalUrl.imgUrl
           this.nearbyActivity = res.data.result.lists
-          console.log('111')
-          console.log(this.nearbyActivity)
         }
       }).catch()
     },
@@ -119,11 +117,11 @@ export default {
  }
 .dinglian-home-carousel {
   width: 100%;
-  height: 170px;
+  height: 1.7rem;
 }
 .dinglian-home-carousel > .mint-swipe >.mint-swipe-items-wrap > .mint-swipe-item{
   width: 100%;
-  height: 170px;
+  height: 1.7rem;
 }
 .dinglian-home-carousel > .mint-swipe >.mint-swipe-items-wrap > .mint-swipe-item > img{
   width: 100%;
@@ -132,7 +130,7 @@ export default {
 }
 .dinglian-home-grid {
   background-color: #ffffff;
-  padding-bottom: 8px;
+  padding-bottom: 0.08rem;
 }
 .gird-content {
   position:absolute;
@@ -163,22 +161,22 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 0.14rem;
 }
 .friend-grid-image > img{
   object-fit: cover;
 }
 /*消息轮播 start*/
   .dinglian-hot-message {
-    min-height: 44px;
+    min-height: 0.44rem;
   }
   /*附近动态 start */
   .dinglian-hot-nearDynamic {
-    min-height: 44px;
+    min-height: 0.44rem;
     background-color: #f2f2f2;
   }
   .mint-cell-text {
-    font-size: 14px;
+    font-size: 0.14rem;
   }
   .dinglian-hot-row {
     background-color: #f2f2f2;

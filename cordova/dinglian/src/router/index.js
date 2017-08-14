@@ -82,18 +82,12 @@ export default new Router({
         {
           path: 'message',
           name: 'Message',
-          component: Message,
-          meta: {
-            requireAuth: true
-          }
+          component: Message
         },
         {
           path: 'account',
           name: 'Account',
-          component: Account,
-          meta: {
-            requireAuth: true
-          }
+          component: Account
         }
       ]
     },

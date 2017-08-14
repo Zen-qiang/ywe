@@ -1,27 +1,39 @@
 <template>
-  <ul class="dinglian-circle-topic">
-    <li v-for="item in lists">
-      <router-link v-bind='{to:"/topicDetails/"+item.coterieId}' class="clearfix">
-        <img :src="baseImgUrl + item.picture" class="dinglian-circle-topicImg" />
-        <div class="dinglian-circle-topicDiv">
-          <h4>{{item.name}}</h4>
-          <em>成员&nbsp;{{item.fllowers}}</em><em>话题</em><em>活动</em>
-          <p>{{item.description}}</p>
-        </div>
-      </router-link>
-    </li>
-  </ul>
+  <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+    <ul class="dinglian-circle-topic">
+      <li v-for="item in lists">
+        <router-link v-bind='{to:"/topicDetails/"+item.coterieId}' class="clearfix">
+          <img :src="baseImgUrl + item.picture" class="dinglian-circle-topicImg" />
+          <div class="dinglian-circle-topicDiv">
+            <h4>{{item.name}}</h4>
+            <em>成员&nbsp;{{item.fllowers}}</em><em>话题</em><em>活动</em>
+            <p>{{item.description}}</p>
+          </div>
+        </router-link>
+      </li>
+    </ul>
+  </mt-loadmore>
 </template>
 <script>
   export default {
     props: ['lists'],
     data () {
       return {
-        baseImgUrl: ''
+        baseImgUrl: '',
+        allLoaded: false
       }
     },
     created () {
       this.baseImgUrl = this.globalUrl.imgUrl
+    },
+    methods: {
+      loadTop () {
+        this.$refs.loadmore.onTopLoaded()
+      },
+      loadBottom () {
+        console.log('1')
+//        this.$refs.loadmore.onBottomLoaded()
+      }
     }
   }
 </script>

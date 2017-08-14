@@ -2,7 +2,7 @@
   <div>
     <!--<h2>活动列表</h2>-->
     <div class="mui-input-row mui-search dinglian-eventsList-search">
-      <input type="search" class="mui-input-clear" placeholder="请输入附近关键字" v-model="keyword" @keyup="searchKeyWord">
+      <input type="search" class="mui-input-clear" placeholder="请输入附近关键字" v-model="keyword" @input="searchKeyWord">
     </div>
     <!--筛选条件 start-->
     <div class="dinglian-eventsList-filter clearfix">
@@ -124,14 +124,11 @@
         this.allLoaded = false
         this.getEventsList()
         this.$refs.loadmore.onTopLoaded()
-        console.log(this.topDistance)
       },
       // 下拉加载
       loadBottom () {
         this.page ++
         this.start = (this.page - 1) * this.pagesize
-        console.log(this.start)
-        console.log(this.total)
         if (this.start < this.total) {
           this.getEventsList('', this.start)
           if ((this.start + this.pagesize) === this.total) {
@@ -145,6 +142,8 @@
         if (this.sorting === true) {
           this.sorting = false
         } else if (this.sorting === false) {
+          this.eventStatus = false
+          this.cate = false
           this.sorting = true
         }
       },
@@ -163,6 +162,8 @@
         if (this.cate === true) {
           this.cate = false
         } else if (this.cate === false) {
+          this.sorting = false
+          this.eventStatus = false
           this.cate = true
         }
       },
@@ -182,6 +183,8 @@
         if (this.eventStatus === true) {
           this.eventStatus = false
         } else if (this.eventStatus === false) {
+          this.sorting = false
+          this.cate = false
           this.eventStatus = true
         }
       },
@@ -236,8 +239,8 @@
       },
       // 搜素框搜索
       searchKeyWord () {
-        console.log('1')
-//        this.getEventsList(this.keyword)
+        this.eventsList = []
+        this.getEventsList(this.keyword)
       },
       // 获取活动类型
       getCategory () {

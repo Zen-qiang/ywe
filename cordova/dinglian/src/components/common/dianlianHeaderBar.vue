@@ -1,6 +1,6 @@
 <template>
   <mt-header :title="title" class="dinglian-header-bar">
-    <router-link to = "" slot="left">
+    <router-link :to = "rollUrl" slot="left">
       <mt-button icon="back" @click="historyBack"></mt-button>
     </router-link>
     <mt-button slot="right" v-show="rightTitle" @click="goNext">{{rightTitle}}</mt-button>
@@ -15,11 +15,16 @@ export default {
     },
     rightTitle: {
       type: String
+    },
+    rollUrl: {
+      type: String
     }
   },
   methods: {
     historyBack () {
-      this.$router.go(-1)
+      if (!this.rollUrl) {
+        this.$router.go(-1)
+      }
     },
     goNext () {
       this.$parent.goNextPage()
@@ -33,11 +38,11 @@ $backgroundColor: #ffd300;
   background-color: $backgroundColor;
   color: #333333;
   margin:0 auto;
-  height: 64px;
+  height: 0.64rem;
   position: fixed;
   z-index: 8;
   width: 100%;
   top: 0;
-  padding-top: 20px;
+  padding-top: 0.2rem;
 }
 </style>

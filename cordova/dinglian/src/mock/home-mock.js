@@ -1,14 +1,28 @@
 const carouselList = [
   {
-    imageUrl: 'http://106.14.2.158:5080/chuqulang-resource/assets/images/carousel0.jpg',
+    imageUrl: 'http://116.62.57.249:8080/chuqulang-resource/assets/images/carousel0.jpg',
     targetUrl: ''
   },
   {
-    imageUrl: 'http://106.14.2.158:5080/chuqulang-resource/assets/images/carousel1.jpg',
+    imageUrl: 'http://116.62.57.249:8080/chuqulang-resource/assets/images/carousel1.jpg',
     targetUrl: ''
   },
   {
-    imageUrl: 'http://106.14.2.158:5080/chuqulang-resource/assets/images/carousel1.jpg',
+    imageUrl: 'http://116.62.57.249:8080/chuqulang-resource/assets/images/carousel2.jpg',
+    targetUrl: ''
+  }
+]
+const circleList = [
+  {
+    imageUrl: 'http://116.62.57.249:8080/chuqulang-resource/assets/images/carousel3.jpg',
+    targetUrl: ''
+  },
+  {
+    imageUrl: 'http://116.62.57.249:8080/chuqulang-resource/assets/images/carousel4.jpg',
+    targetUrl: ''
+  },
+  {
+    imageUrl: 'http://116.62.57.249:8080/chuqulang-resource/assets/images/carousel5.jpg',
     targetUrl: ''
   }
 ]
@@ -116,6 +130,7 @@ const recommendList = [
 ]
 export default {
   carouselList,
+  circleList,
   intersetList,
   intersetList1,
   friendstList,

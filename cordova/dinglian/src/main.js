@@ -61,6 +61,7 @@ router.beforeEach((to, from, next) => {
         path: '/login',
         query: {redirect: to.fullPath}
       })
+      console.log('full' + to.fullPath)
     }
   } else {
     next()

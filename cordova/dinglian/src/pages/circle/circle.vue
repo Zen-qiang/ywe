@@ -27,7 +27,7 @@
         <circleInfo :lists="coterieList"></circleInfo>
       </mt-tab-container-item>
       <mt-tab-container-item id="1">
-        <ul class="dinglian-circle-tagList clearfix">
+        <ul v-bind:class="[changeTagStyle?'dinglian-circle-tagList':'dinglian-circle-tagListChange',clearfix]">
           <li v-for="(myItem,id) in tagList" :class="{'dinglian-circle-tags':!myItem.show,'dinglian-circle-changetags':myItem.show}" @click="getMyTag(myItem,id,'街舞')" >
             <span>{{myItem.tagName}}</span>
           </li>
@@ -84,7 +84,8 @@
         tagList: [],
         coterieList: [],
         pagesize: 5,
-        start: 0
+        start: 0,
+        changeTagStyle: false
       }
     },
     computed () {
@@ -99,7 +100,7 @@
         case '其他': this.selected = '3'
           break
       }
-      this.circleCarousel = homeData.carouselList
+      this.circleCarousel = homeData.circleList
       this.getCoterieList()
       this.getTagList()
     },
@@ -203,8 +204,8 @@
   .dinglian-circle-headerSearch {
     position: fixed;
     z-index: 2;
-    right: 2rem;
-    top: 2.7rem;
+    right: 0.2rem;
+    top: 0.27rem;
     background: url(../../assets/images/search.svg) no-repeat center center;
     width: 20px;
     height: 20px;
@@ -220,8 +221,21 @@
     padding-left: 5px;
     margin-top: 10px;
     margin-bottom: 5px;
+    height: 35px;
+    overflow: hidden;
+  }
+  .dinglian-circle-tagListChange {
+    padding-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
   }
   .dinglian-circle-tagList > li {
+    list-style: none;
+    float: left;
+    margin-left: 10px;
+    margin-bottom: 5px;
+  }
+  .dinglian-circle-tagListChange > li {
     list-style: none;
     float: left;
     margin-left: 10px;

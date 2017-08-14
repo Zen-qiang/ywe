@@ -6,7 +6,7 @@
         <div class="mui-col-sm-2 mui-col-xs-2">
           <div class="mui-row dinglian-select-addr">
             <div class="mui-col-sm-10 mui-col-xs-10">
-              上海
+              {{address}}
             </div>
             <div class="mui-col-sm-2 mui-col-xs-2">
               <span class="mui-icon mui-icon-arrowdown"></span>
@@ -33,14 +33,39 @@ export default {
     return {
       activeTab: '/index',
       leftButton: true,
-      rightButton: true
+      rightButton: true,
+      positionCoords: '',
+      address: ''
     }
   },
   created () {
     let currentRouter = this.$route.path
     this.activeTab = currentRouter
+    this.getAddress()
   },
   methods: {
+    // 获取地址
+    getAddress () {
+//      navigator.geolocation.getCurrentPosition(function (position) {
+//        console.log('经度：' + position.coords.longitude)
+//        console.log('纬度：' + position.coords.latitude)
+//        this.positionCoords = position.coords.longitude + ',' + position.coords.latitude
+//      })
+      this.positionCoords = 10 + ',' + 10
+      console.log(this.positionCoords)
+      this.axios({
+        method: 'get',
+        url: 'http://api.map.baidu.com/geocoder/v2/',
+        params: {
+          location: this.positionCoords,
+          output: 'json',
+          ak: '1u8uE2G1H8edBF6pDU1FKYR5ICNtAxwf'
+        }
+      }).then(res => {
+        console.log(res.data.result.addressComponent.country)
+        this.address = res.data.result.addressComponent.country
+      }).catch()
+    },
     // 切换headerBar的标签
     changeTab (tab) {
       this.activeTab = tab

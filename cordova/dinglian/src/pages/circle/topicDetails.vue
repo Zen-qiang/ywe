@@ -1,7 +1,9 @@
 <template>
-  <div>
-      <span class="dinglian-topicDetails-leftArrow" @click="goCircle"></span>
-      <span class="dinglian-topicDetails-share"></span>
+  <div class="dinglian-topicDetails-body">
+      <span class="dinglian-topicDetails-leftArrow" @click="goCircle"><img src="../../assets/images/leftArrow.svg"></span>
+      <span class="dinglian-topicDetails-share"><img src="../../assets/images/share.svg"></span>
+
+
 
     <div class="dinglian-topicDetails-carousel">
       <mt-swipe :auto="5000" :show-indicators="false">
@@ -15,7 +17,7 @@
         <mt-button size="normal" @click="joinTopic" v-show="joinButton">{{attention}}</mt-button>
       </div>
     </div>
-    <p>{{description}}</p>
+    <p class="dinglian-topicDetails-message">{{description}}</p>
     <mt-navbar v-model="selected">
       <mt-tab-item id="1">全部</mt-tab-item>
       <mt-tab-item id="2">视频</mt-tab-item>
@@ -23,7 +25,7 @@
     </mt-navbar>
     <mt-tab-container v-model="selected">
       <mt-tab-container-item id="1">
-        <topic-info :info="topicInfoLists" :circleId="articleId" v-on:getRefresh="updateData"></topic-info>
+        <topic-info :info="topicInfoLists" :circleId="articleId" v-on:getRefresh="updateData" class="dinglian-topicDetails-topicInfo"></topic-info>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
         dddd
@@ -147,7 +149,34 @@
   }
 
 </script>
-<style>
+<style scoped>
+  .dinglian-topicDetails-body {
+    position: relative;
+  }
+  .dinglian-topicDetails-leftArrow {
+    /*background: url(../../assets/images/leftArrow.svg) no-repeat center left;*/
+    background-color: #f2f2f2;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 8;
+    /*border: 1px solid red;*/
+    border-radius: 50%;
+  }
+  .dinglian-topicDetails-share {
+    /*background: url(../../assets/images/share.svg) no-repeat center left;*/
+    background-color: #f2f2f2;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 8;
+    /*border: 1px solid red;*/
+    border-radius: 50%;
+  }
   /*轮播图 start*/
   .dinglian-topicDetails-carousel {
     width: 100%;
@@ -163,24 +192,6 @@
     object-fit: cover;
   }
   /*轮播图 end*/
-  .dinglian-topicDetails-leftArrow {
-    background: url(../../assets/images/leftArrow.svg) no-repeat center left;
-    width: 30px;
-    height: 30px;
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 8;
-  }
-  .dinglian-topicDetails-share {
-    background: url(../../assets/images/share.svg) no-repeat center left;
-    width: 30px;
-    height: 30px;
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 8;
-  }
   .dinglian-topicDetails-carousel {
     width: 100%;
     height: 170px;
@@ -202,8 +213,9 @@
   .dinglian-topicDetails-join {
     position: absolute;
     top: 35%;
-    left: 35%;
     z-index: 8;
+    width: 100%;
+    text-align: center;
   }
   .dinglian-topicDetails-join > h4 {
     color: #ffffff;
@@ -213,11 +225,29 @@
     color: #ffffff;
     font-size: 14px;
   }
+  .dinglian-topicDetails-message {
+    text-align: left;
+    margin-bottom: 0;
+    background-color: #ffffff;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding: 10px;
+  }
   .mint-button--normal {
     background: #ffd200;
     border-radius: 3rem;
     height: 3rem;
     width: 5rem;
     font-size: 14px;
+  }
+  a {
+    color: #333333;
+  }
+  .mint-navbar .mint-tab-item.is-selected {
+    border-bottom: 3px solid #ffd200;
+    color: #333333;
+  }
+  .dinglian-topicDetails-topicInfo {
+    margin-bottom: 60px;
   }
 </style>

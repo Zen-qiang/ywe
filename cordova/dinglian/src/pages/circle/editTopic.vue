@@ -1,14 +1,15 @@
 <template>
   <div class="dinglian-editTopic-all">
-    <mt-header title="编辑话题">
+    <!--<mt-header title="编辑话题">
       <router-link v-bind='{to:"/topicDetails/"+detailsId}' slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
       <mt-button slot="right" @click="editDiscover">发布</mt-button>
-    </mt-header>
+    </mt-header>-->
+    <dianlian-header-bar :title="headerTitle" :rightTitle="rightTitle"></dianlian-header-bar>
 
     <div class="dinglian-editTopic-upload">
-      <Upload></Upload>
+      <Upload v-on:files="getPictures"></Upload>
     </div>
     <mt-field placeholder="自我介绍" type="textarea" rows="4" class="dinglian-editTopic-introduction" v-model="description"></mt-field>
     <div class="mui-input-row dinglian-editTopic-position">
@@ -20,24 +21,36 @@
 <script>
   import { Toast } from 'mint-ui'
   import Upload from '../../components/common/upload.vue'
+  import DianlianHeaderBar from '../../components/common/dianlianHeaderBar.vue'
   export default{
     data () {
       return {
         description: '',
-        detailsId: this.$route.params.id
+        detailsId: this.$route.params.id,
+        headerTitle: '编辑话题',
+        rightTitle: '发布',
+        picture: ''
       }
     },
     components: {
-      Upload
+      Upload,
+      DianlianHeaderBar
     },
     created () {
       console.log(this.detailsId)
     },
     methods: {
+      // 从upload组件中获取图片url
+      getPictures (e) {
+        this.picture = e
+      },
+      goNextPage () {
+        this.editDiscover()
+      },
       editDiscover () {
         let data = {
           coterieId: this.detailsId,
-          img: '',
+          img: this.picture,
           description: this.description
         }
         this.axios({
@@ -66,6 +79,7 @@
   .dinglian-editTopic-all {
     width: 100%;
     height: 100%;
+    padding-top: 70px;
   }
   .mint-header {
     background-color: #ffd200;
