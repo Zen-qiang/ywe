@@ -21,9 +21,9 @@
 <script>
 import {Toast} from 'mint-ui'
 // import homeData from '../../mock/home-mock.js'
-import CircleLists from '../../components/common/circleLists.vue'
+// import CircleLists from '../../components/common/circleLists.vue'
 export default {
-  components: { CircleLists },
+  // components: { CircleLists },
   data () {
     return {
       myIntersetList: []

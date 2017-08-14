@@ -5,6 +5,15 @@ const Home = r => require.ensure([], () => r(require('@/pages/home/home')), 'hom
 const Hot = r => require.ensure([], () => r(require('@/pages/home/hot')), 'hot')// 首页热门
 const Interest = r => require.ensure([], () => r(require('@/pages/home/interest')), 'interest')// 首页兴趣
 const Circle = r => require.ensure([], () => r(require('@/pages/circle/circle')), 'circle')// 圈子
+const Contacts = r => require.ensure([], () => r(require('@/pages/message/contacts')), 'contacts')// 联系人
+const FollowFriends = r => require.ensure([], () => r(require('@/pages/message/followFriends')), 'followFriends')// 我关注的
+const MyFans = r => require.ensure([], () => r(require('@/pages/message/myFans')), 'myFans')// 我的粉丝
+const newFriends = r => require.ensure([], () => r(require('@/pages/message/newFriends')), 'newFriends')// 新朋友
+const AddFriend = r => require.ensure([], () => r(require('@/pages/message/addFriend')), 'addFriend')// 添加好友
+const AddChatroom = r => require.ensure([], () => r(require('@/pages/message/addChatroom')), 'addChatroom')// 获取聊天室地址
+const ChatroomList = r => require.ensure([], () => r(require('@/pages/message/chatroomList')), 'chatroomList')// 聊天室信息
+const FriendCard = r => require.ensure([], () => r(require('@/pages/message/friendCard')), 'friendCard')// 好友卡片
+const ChatList = r => require.ensure([], () => r(require('@/pages/message/chatList')), 'chatList')// 消息
 const Message = r => require.ensure([], () => r(require('@/pages/message/message')), 'message')// 消息
 const Account = r => require.ensure([], () => r(require('@/pages/account/account')), 'account')// 我的
 const EventsList = r => require.ensure([], () => r(require('@/pages/activity/eventsList')), 'eventsList')// 活动列表
@@ -26,11 +35,11 @@ const EditTopic = r => require.ensure([], () => r(require('@/pages/circle/editTo
 const SearchTopic = r => require.ensure([], () => r(require('@/pages/circle/searchTopic')), 'searchTopic')// search话题
 const TopicDetails = r => require.ensure([], () => r(require('@/pages/circle/topicDetails')), 'topicDetails')// 话题详情
 const PreviewDetails = r => require.ensure([], () => r(require('@/pages/circle/previewDetails')), 'previewDetails')// 预览详情
-const UserInfo = r => require.ensure([], () => r(require('@/pages/account/userInfo')), 'userInfo')// 我的详细信息
-const MyCircle = r => require.ensure([], () => r(require('@/pages/circle/myCircle')), 'myCircle')// 我的圈子
-const CreateCircleName = r => require.ensure([], () => r(require('@/pages/circle/createCircleName')), 'createCircleName')// 创建圈子名称
-const CreateCircleClassification = r => require.ensure([], () => r(require('@/pages/circle/createCircleClassification')), 'createCircleClassification')// 创建圈子分类
-const CreateCirclePhoto = r => require.ensure([], () => r(require('@/pages/circle/createCirclePhoto')), 'createCirclePhoto')// 创建圈子照片
+// const UserInfo = r => require.ensure([], () => r(require('@/pages/account/userInfo')), 'userInfo')// 我的详细信息
+// const MyCircle = r => require.ensure([], () => r(require('@/pages/circle/myCircle')), 'myCircle')// 我的圈子
+// const CreateCircleName = r => require.ensure([], () => r(require('@/pages/circle/createCircleName')), 'createCircleName')// 创建圈子名称
+// const CreateCircleClassification = r => require.ensure([], () => r(require('@/pages/circle/createCircleClassification')), 'createCircleClassification')// 创建圈子分类
+// const CreateCirclePhoto = r => require.ensure([], () => r(require('@/pages/circle/createCirclePhoto')), 'createCirclePhoto')// 创建圈子照片
 const nopage = r => require.ensure([], () => r(require('@/pages/nopage')), 'nopage')
 // import Hello from '@/components/Hello'
 // import Home from '@/components/Home'
@@ -226,42 +235,114 @@ export default new Router({
         requireAuth: true
       }
     },
+    // {
+    //   path: '/userInfo',
+    //   name: 'UserInfo',
+    //   component: UserInfo,
+    //   meta: {
+    //     requireAuth: true
+    //   }
+    // },
     {
-      path: '/userInfo',
-      name: 'UserInfo',
-      component: UserInfo,
+      path: '/contacts',
+      name: 'Contacts',
+      component: Contacts,
+      meta: {
+        requireAuth: true
+      }
+    },
+    // {
+    //   path: '/myCircle',
+    //   name: 'MyCircle',
+    //   component: MyCircle,
+    //   meta: {
+    //     requireAuth: true
+    //   }
+    // },
+    {
+      path: '/addFriend',
+      name: 'AddFriend',
+      component: AddFriend,
       meta: {
         requireAuth: true
       }
     },
     {
-      path: '/myCircle',
-      name: 'MyCircle',
-      component: MyCircle,
+      path: '/addChatroom',
+      name: 'AddChatroom',
+      component: AddChatroom,
       meta: {
         requireAuth: true
       }
     },
     {
-      path: '/createCircleName',
-      name: 'CreateCircleName',
-      component: CreateCircleName,
+      path: '/chatroomList/:roomid',
+      name: 'ChatroomList',
+      component: ChatroomList,
+      meta: {
+        requireAuth: true
+      }
+    },
+    // {
+    //   path: '/createCircleName',
+    //   name: 'CreateCircleName',
+    //   component: CreateCircleName,
+    //   meta: {
+    //     requireAuth: true
+    //   }
+    // },
+    {
+      path: '/followFriends',
+      name: 'FollowFriends',
+      component: FollowFriends,
+      meta: {
+        requireAuth: true
+      }
+    },
+    // {
+    //   path: '/createCircleClassification',
+    //   name: 'CreateCircleClassification',
+    //   component: CreateCircleClassification,
+    //   meta: {
+    //     requireAuth: true
+    //   }
+    // },
+    {
+      path: '/myFans',
+      name: 'MyFans',
+      component: MyFans,
       meta: {
         requireAuth: true
       }
     },
     {
-      path: '/createCircleClassification',
-      name: 'CreateCircleClassification',
-      component: CreateCircleClassification,
+      path: '/newFriends',
+      name: 'newFriends',
+      component: newFriends,
+      meta: {
+        requireAuth: true
+      }
+    },
+    // {
+    //   path: '/createCirclePhoto',
+    //   name: 'CreateCirclePhoto',
+    //   component: CreateCirclePhoto,
+    //   meta: {
+    //     requireAuth: true
+    //   }
+    // },
+    {
+      path: '/friendCard/:account',
+      name: 'FriendCard',
+      component: FriendCard,
       meta: {
         requireAuth: true
       }
     },
     {
-      path: '/createCirclePhoto',
-      name: 'CreateCirclePhoto',
-      component: CreateCirclePhoto,
+      path: '/chatList/:account',
+      name: 'ChatList',
+      component: ChatList,
       meta: {
         requireAuth: true
       }

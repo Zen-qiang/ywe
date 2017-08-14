@@ -27,7 +27,7 @@ import 'mint-ui/lib/style.css'
 
 // 引入mui 和 css
 import '../static/mui/css/mui.min.css'
-import '../static/mui/js/mui.min.js'
+import mui from '../static/mui/js/mui.min.js'
 
 // 引入自己编写的全局样式，用于覆盖mint-ui和mui中的样式
 import './assets/css/global.css'
@@ -38,14 +38,13 @@ Vue.use(VueRouter)
 Vue.use(mint)
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.axios = axios
-// const router = new VueRouter({
-//   routes // （缩写）相当于 routes: routes
-// })
+// 将mui挂载在prototype上
+Vue.prototype.mui = mui
 
 // 将baseImgUrl挂载到prototype上，在组件中可以直接使用this.globalUrl访问
 // 使用this.globalUrl.imgUrl获取图片url前缀
-import globalUrl from './mock/global-url'
-Vue.prototype.globalUrl = globalUrl
+// import globalUrl from './mock/global-url'
+// Vue.prototype.globalUrl = globalUrl
 
 // 页面刷新时，重新赋值token
 if (window.localStorage.getItem('token')) {

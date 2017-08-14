@@ -28,6 +28,33 @@ const mutations = {
   [types.SETCIRCLETAGS]: (state, circleTags) => {
     state.circleTags = circleTags
     console.log('保存', state.circleTags)
+  },
+  [types.INITNIMSDK]: (state, options) => {
+    state.nim = options.nim
+  },
+  [types.UPDATEUSERINFO]: (state, UserInfo) => {
+    state.userInfo = UserInfo
+  },
+  [types.GETUSERINFO]: (state, UserInfo) => {
+    state.userInfo = UserInfo
+  },
+  [types.UPDATECURSESSIONS]: (state, session) => {
+    state.currSessionMsgs.push(session)
+  },
+  [types.UPDATECURSESSIONID]: (state, sessionId) => {
+    state.currSessionId = sessionId
+  },
+  [types.UPDATEFRIENDSLIST]: (state, friendslist) => {
+    state.friendslist = friendslist
+  },
+  [types.UPDATESESSIONLIST]: (state, sessionList) => {
+    state.sessionList = sessionList
+  },
+  [types.UPDATESYSTEMMSGS]: (state, sysMsgs) => {
+    state.sysMsgs = sysMsgs
+  },
+  [types.SETCURRCHATROOMMSGS]: (state, chatroomMsgs) => {
+    state.currChatroomMsgs = chatroomMsgs
   }
 }
 export default mutations

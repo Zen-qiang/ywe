@@ -58,16 +58,16 @@
   import moment from 'moment'
   import 'moment/locale/zh-cn'
   moment.locale('zh-cn')
-  import Upload from '../../components/common/upload.vue'
+  // import Upload from '../../components/common/upload.vue'
   import { Toast } from 'mint-ui'
 //  import {mapState} from 'vuex'
   import {mapGetters} from 'vuex'
   import * as types from '../../store/mutation-types'
   import {checkActivityInfo} from '../../assets/js/editActivity'
   export default {
-    components: {
-      Upload
-    },
+    // components: {
+    //   Upload
+    // },
     filters: {
       data (val) {
         return moment(val).format('YYYY-MM-DD HH:mm')

@@ -24,6 +24,8 @@ const store = {
   userUID: null,
   // 用户名片
   myInfo: {},
+  // 用户信息
+  userInfo: {},
   // 好友/黑名单/陌生人名片, 数据结构如：{cid: {attr: ...}, ...}
   userInfos: {},
   // 用户订阅的事件同步, 数据结构如：{cid: {typeid: {...}, ...}, ...}
@@ -70,6 +72,7 @@ const store = {
 
   // 聊天室相关
   // 聊天室sdk实例
+  chatroom: null,
   chatroomInsts: {},
   chatroomInfos: {},
   // 聊天室分房间消息集合
@@ -80,6 +83,7 @@ const store = {
   currChatroomMsgs: [],
   currChatroomInfo: {},
   // 聊天室成员列表
-  currChatroomMembers: []
+  currChatroomMembers: [],
+  chatRooms: [] // 聊天室列表
 }
 export default store

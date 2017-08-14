@@ -15,5 +15,7 @@ export default {
   // 我的手机图标
   myPhoneIcon: 'http://yx-web.nos.netease.com/webdoc/h5/im/my-phone.png',
   // 本地消息显示数量，会影响性能
-  localMsglimit: 36
+  localMsglimit: 36,
+  // 图片的前面服务器前缀
+  pictureServer: 'http://106.14.2.158/chuqulang-resource'
 }

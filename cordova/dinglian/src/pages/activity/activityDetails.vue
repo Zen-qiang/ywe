@@ -66,9 +66,9 @@
 <script>
   import { Toast } from 'mint-ui'
   import homeData from '../../mock/home-mock.js'
-  import carousel from '../../components/common/carousel.vue'
+  // import carousel from '../../components/common/carousel.vue'
   export default{
-    components: {carousel},
+    // components: {carousel},
     data () {
       return {
         detailslList: [],

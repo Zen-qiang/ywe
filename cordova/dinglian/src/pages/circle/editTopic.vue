@@ -1,15 +1,14 @@
 <template>
   <div class="dinglian-editTopic-all">
-    <!--<mt-header title="编辑话题">
+    <mt-header title="编辑话题">
       <router-link v-bind='{to:"/topicDetails/"+detailsId}' slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
       <mt-button slot="right" @click="editDiscover">发布</mt-button>
-    </mt-header>-->
-    <dianlian-header-bar :title="headerTitle" :rightTitle="rightTitle"></dianlian-header-bar>
+    </mt-header>
 
     <div class="dinglian-editTopic-upload">
-      <Upload v-on:files="getPictures"></Upload>
+      <Upload></Upload>
     </div>
     <mt-field placeholder="自我介绍" type="textarea" rows="4" class="dinglian-editTopic-introduction" v-model="description"></mt-field>
     <div class="mui-input-row dinglian-editTopic-position">
@@ -20,37 +19,25 @@
 </template>
 <script>
   import { Toast } from 'mint-ui'
-  import Upload from '../../components/common/upload.vue'
-  import DianlianHeaderBar from '../../components/common/dianlianHeaderBar.vue'
+  // import Upload from '../../components/common/upload.vue'
   export default{
     data () {
       return {
         description: '',
-        detailsId: this.$route.params.id,
-        headerTitle: '编辑话题',
-        rightTitle: '发布',
-        picture: ''
+        detailsId: this.$route.params.id
       }
     },
-    components: {
-      Upload,
-      DianlianHeaderBar
-    },
+    // components: {
+    //   Upload
+    // },
     created () {
       console.log(this.detailsId)
     },
     methods: {
-      // 从upload组件中获取图片url
-      getPictures (e) {
-        this.picture = e
-      },
-      goNextPage () {
-        this.editDiscover()
-      },
       editDiscover () {
         let data = {
           coterieId: this.detailsId,
-          img: this.picture,
+          img: '',
           description: this.description
         }
         this.axios({
@@ -79,7 +66,6 @@
   .dinglian-editTopic-all {
     width: 100%;
     height: 100%;
-    padding-top: 70px;
   }
   .mint-header {
     background-color: #ffd200;
