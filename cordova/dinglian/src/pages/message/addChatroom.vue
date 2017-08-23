@@ -1,7 +1,7 @@
 <template>
   <div style="width: 100%;">
     <div class="mui-content dinglian-addFriend">
-      <dianlian-header-bar :title="headerTitle"></dianlian-header-bar>
+      <dianlian-header-bar :title="headerTitle" :rollUrl="none"></dianlian-header-bar>
         <div class="mui-row" style="margin-top: 67px;">
             <div class="mui-col-sm-10">
               <div class="mui-input-row mui-search">
@@ -49,7 +49,8 @@ export default {
       chatRoomInfo: {},
       chatRoomList: [],
       showPopup: false,
-      chatRoomAddr: []
+      chatRoomAddr: [],
+      none: ''
     }
   },
   methods: {

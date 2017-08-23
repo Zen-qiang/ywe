@@ -20,6 +20,7 @@ export default {
       type: String
     }
   },
+  created () {},
   methods: {
     historyBack () {
       if (!this.rollUrl) {

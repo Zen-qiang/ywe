@@ -142,7 +142,7 @@ $fontColor: #333333;
 .dinglian-header-bar {
   background-color: $backgroundColor;
   width: 100%;
-  height: 64px;
+  height: 0.64rem;
   display: flex;
   align-items: center;
   position: fixed;
@@ -150,13 +150,13 @@ $fontColor: #333333;
   z-index: 8;
   text-align: center;
   color: $fontColor;
-  padding-top: 20px;
+  padding-top: 0.2rem;
 }
 .dinglian-message-header-contacts {
-  font-size: 16px;
+  font-size: 0.14rem;
 }
 .dinglian-header-main {
-  font-size: 20px;
+  font-size: 0.16rem;
 }
 .dinglian-header-add  > .mui-icon {
   font-size: 32px;

@@ -40,6 +40,10 @@ const PreviewDetails = r => require.ensure([], () => r(require('@/pages/circle/p
 // const CreateCircleName = r => require.ensure([], () => r(require('@/pages/circle/createCircleName')), 'createCircleName')// 创建圈子名称
 // const CreateCircleClassification = r => require.ensure([], () => r(require('@/pages/circle/createCircleClassification')), 'createCircleClassification')// 创建圈子分类
 // const CreateCirclePhoto = r => require.ensure([], () => r(require('@/pages/circle/createCirclePhoto')), 'createCirclePhoto')// 创建圈子照片
+
+// login相关路由
+const AskSex = r => require.ensure([], () => r(require('@/pages/login/askSex')), 'askSex')// 选择性别
+
 const nopage = r => require.ensure([], () => r(require('@/pages/nopage')), 'nopage')
 // import Hello from '@/components/Hello'
 // import Home from '@/components/Home'
@@ -346,6 +350,12 @@ export default new Router({
       meta: {
         requireAuth: true
       }
+    },
+    // login 相关路由
+    {
+      path: '/askSex',
+      name: 'AskSex',
+      component: AskSex
     },
     {
       path: '*',

@@ -235,9 +235,9 @@
   }
   .mint-button--normal {
     background: #ffd200;
-    border-radius: 3rem;
-    height: 3rem;
-    width: 5rem;
+    border-radius: 0.3rem;
+    height: .3rem;
+    width: .5rem;
     font-size: 14px;
   }
   a {

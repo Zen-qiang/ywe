@@ -1,21 +1,20 @@
 <template>
-  <div>
-    <!-- 我的兴趣开始 -->
-    <circle-lists :circleLists="myIntersetList"></circle-lists>
-  <!-- 推荐活动 开始 -->
-  <!--<div class="dinglian-home-recommend">
-    <mt-cell title="推荐活动"></mt-cell>
-    <ul>
-      <li v-for="(item,index) in recommendList" :key="index">
-        <img v-lazy="item.imageUrl">
-        <div class="dinglian-home-recommend-tip">
-          <div class="dinglian-home-recommend-tip-title">{{item.title}}</div>
-          <div class="dinglian-home-recommend-tip-desc">{{item.desc}}</div>
-        </div>
-      </li>
-    </ul>
-  </div>-->
-  <!-- 推荐活动 结束 -->
+  <div class="dinglian-interest-all">
+    <!--关注页面-->
+    <mt-navbar v-model="selected">
+      <mt-tab-item id="1">我的圈子</mt-tab-item>
+      <mt-tab-item id="2">关注的人</mt-tab-item>
+    </mt-navbar>
+
+    <!-- tab-container -->
+    <mt-tab-container v-model="selected">
+      <mt-tab-container-item id="1">
+        ssss
+      </mt-tab-container-item>
+      <mt-tab-container-item id="2">
+        sss
+      </mt-tab-container-item>
+    </mt-tab-container>
   </div>
 </template>
 <script>
@@ -26,7 +25,8 @@ export default {
   // components: { CircleLists },
   data () {
     return {
-      myIntersetList: []
+      myIntersetList: [],
+      selected: '1'
     }
   },
   created () {
@@ -56,5 +56,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped type="text/css">
+  @import "../../assets/css/interest.scss";
+  /*切换栏*/
+  .mint-navbar .mint-tab-item.is-selected {
+    border-bottom: 3px solid #ffd200;
+    color: #ffd200;
+    margin-bottom: -3px;
+  }
+  a {
+    color: #333333;
+    padding: 0 20px;
+  }
 
 </style>

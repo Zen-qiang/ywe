@@ -9,9 +9,17 @@
       </mt-swipe>
     </div>
       <!-- 轮播图结束 -->
+
+    <!--消息轮播 start-->
+    <mt-cell :title="activityMessage" class="dinglian-hot-message">
+      <span style="height:5px; width:5px;border-radius:50%;background-color:red;"></span>
+      <img slot="icon" src="../../assets/images/circle.png" width="25px" height="25px"></img>
+    </mt-cell>
+    <!--消息轮播 end-->
+
       <!-- 我的兴趣开始 -->
     <div class="mui-content dinglian-home-grid">
-      <mt-cell title="热门圈子" to="/index/circle" is-link value="更多"></mt-cell>
+      <mt-cell title="热门圈子" is-link to="/index/circle" value="全部" class="dinglian-hot-hotCircle"></mt-cell>
       <div class="mui-row">
        <div class="mui-col-sm-3 mui-col-xs-3 h-xs-2" v-for="(item, index) in intersetList" :key="index">
           <div class="gird-content" @click="goToCircle(item.tip)">
@@ -26,35 +34,42 @@
      </div>
     </div>
       <!-- 我的兴趣结束 -->
-    <!--消息轮播 start-->
-    <mt-cell :title="activityMessage" style="margin-top: 8px;" class="dinglian-hot-message">
-      <span style="height:5px; width:5px;border-radius:50%;background-color:red;"></span>
-      <img slot="icon" src="../../assets/images/circle.png" width="25px" height="25px"></img>
-    </mt-cell>
-    <!--消息轮播 end-->
+
     <!-- 附近动态开始-->
-    <div class="mui-content">
-      <mt-cell title="附近动态" to="/index/eventsList" class="dinglian-hot-nearDynamic"></mt-cell>
-      <div class="mui-row dinglian-hot-row">
-       <div class="mui-col-sm-6 mui-col-xs-6 h-xs-6 dinglian-hot-activityList" v-for="(item, index) in nearbyActivity" :key="index">
-          <div class="gird-content" @click="goToNearbyActivity(item.eventId)">
-            <div class="grid-image friend-grid-image">
-              <img :src="baseImgUrl + item.pictures[0]"></img>
-            </div>
-            <div class="grid-tip">
-              {{item.name}}
-            </div>
-          </div>
-       </div>
-     </div>
-    </div>
+    <!--<div class="mui-content">-->
+      <!--<mt-cell title="附近动态" to="/index/eventsList" class="dinglian-hot-nearDynamic"></mt-cell>-->
+      <!--<div class="mui-row dinglian-hot-row">-->
+       <!--<div class="mui-col-sm-6 mui-col-xs-6 h-xs-6 dinglian-hot-activityList" v-for="(item, index) in nearbyActivity" :key="index">-->
+          <!--<div class="gird-content" @click="goToNearbyActivity(item.eventId)">-->
+            <!--<div class="grid-image friend-grid-image">-->
+              <!--<img :src="baseImgUrl + item.pictures[0]"></img>-->
+            <!--</div>-->
+            <!--<div class="grid-tip">-->
+              <!--{{item.name}}-->
+            <!--</div>-->
+          <!--</div>-->
+       <!--</div>-->
+     <!--</div>-->
+    <!--</div>-->
     <!-- 好友动态结束-->
+
+    <!--热门活动 start-->
+
+    <!--热门活动 end-->
+
+    <ActivityInfo style="margin-top: 10px" :isShow="fales"></ActivityInfo>
+
+
   </div>
 </template>
 <script>
 import homeData from '../../mock/home-mock.js'
 import * as types from '../../store/mutation-types'
+import ActivityInfo from '../../components/publicActivity/activityInfo.vue'
 export default {
+  components: {
+    ActivityInfo
+  },
   data () {
     return {
       carouselList: [],
@@ -132,6 +147,16 @@ export default {
   background-color: #ffffff;
   padding-bottom: 0.08rem;
 }
+
+/*消息轮播 start*/
+.dinglian-hot-message {
+  min-height: 0.44rem;
+}
+/*热门圈子*/
+.dinglian-home-grid .dinglian-hot-hotCircle {
+  background: #f2f2f2;
+  height: 0.4rem;
+}
 .gird-content {
   position:absolute;
   width: 100%;
@@ -166,10 +191,6 @@ export default {
 .friend-grid-image > img{
   object-fit: cover;
 }
-/*消息轮播 start*/
-  .dinglian-hot-message {
-    min-height: 0.44rem;
-  }
   /*附近动态 start */
   .dinglian-hot-nearDynamic {
     min-height: 0.44rem;

@@ -9,4 +9,21 @@ html {
   /*font-size:62.5%*/
   /*font-size: 12px;*/
 }
+.dinglian-interest-all .mint-tab-item-label {
+  font-size: 14px;
+}
+.fs_11{
+  font-size:12px;
+  -webkit-transform-origin-x: 0;
+  transform-origin-x: 0;
+  -webkit-transform: scale(0.916);
+  transform: scale(0.916);
+}
+.fs_10{
+  font-size:12px;
+  -webkit-transform-origin-x: 0;
+  transform-origin-x: 0;
+  -webkit-transform: scale(0.83333);
+  transform: scale(0.83333);
+}
 
